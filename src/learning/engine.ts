@@ -5,7 +5,8 @@ import { lex, LEXICON, type Lexeme } from '../content/lexicon';
 import { phrase, type Phrase } from '../content/phrases';
 import { NOTES, type GrammarNote } from '../content/notes';
 import { grade, isDue, mastery, newCard } from './srs';
-import { plainText, renderNative, renderTarget, tilesOf, type RenderOpts } from './text';
+import { plainText, renderNative, renderTarget, romanized, tilesOf, type RenderOpts } from './text';
+import { toSyllables } from '../audio/samples';
 import { speech } from './tts';
 
 /** Learning state for the active native→target pair, plus rendering helpers bound to settings. */
@@ -38,6 +39,9 @@ export const phraseNative = (id: string, itemLex?: string) =>
   renderNative(phrase(id).t[native()] ?? phrase(id).t.en, native(), renderOpts({ item: itemSrc(itemLex, native()) }));
 export const phrasePlain = (id: string, itemLex?: string) =>
   plainText(phrase(id).t[target()], target(), renderOpts({ item: itemSrc(itemLex) }));
+/** Babble syllables for a villager line, following the real line's rhythm and vowels. */
+export const phraseSyllables = (id: string, itemLex?: string) =>
+  toSyllables(romanized(phrase(id).t[target()], target(), renderOpts({ item: itemSrc(itemLex) })));
 export const phraseTiles = (id: string, itemLex?: string) =>
   tilesOf(phrase(id).t[target()], target(), renderOpts({ item: itemSrc(itemLex) }));
 

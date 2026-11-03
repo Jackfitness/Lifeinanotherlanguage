@@ -34,7 +34,7 @@ export function openNotebook(host: NotebookHost, start: Tab = 'quests') {
   let cur: Tab = start;
   const render = () => {
     s.titleEl.textContent = t('tab_' + cur);
-    tabs.replaceChildren(...TABS.map((tb) => button('tab' + (tb.id === cur ? '.on' : ''), [h('span.ti', null, tb.icon), t('tab_' + tb.id)], () => { cur = tb.id; render(); })));
+    tabs.replaceChildren(...TABS.map((tb) => button('tab' + (tb.id === cur ? '.on' : ''), [h('span.ti', null, tb.icon), t('tab_' + tb.id)], () => { cur = tb.id; audio.page(); render(); })));
     body.replaceChildren(PAGES[cur](host, render));
     (body.parentElement as HTMLElement).scrollTop = 0;
   };

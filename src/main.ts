@@ -10,7 +10,7 @@ import { fadeThrough, h, ui } from './ui/dom';
 async function boot() {
   const canvas = document.getElementById('scene') as HTMLCanvasElement;
   const game = new Game(canvas);
-  (window as unknown as { __game: Game }).__game = game;
+  Object.assign(window, { __game: game, __audio: audio }); // debug handles for automated tests
   const hasSave = await store.load();
 
   if (hasSave) {

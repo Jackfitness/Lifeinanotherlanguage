@@ -218,6 +218,9 @@ function bodyDecal(ctx: CanvasRenderingContext2D, s: number, spec: PlushSpec) {
 }
 
 export class Plush {
+  /** Set by the game to play hop/landing sounds. */
+  static onHop?: (p: Plush) => void;
+  static onLand?: (p: Plush) => void;
   root = new THREE.Group();
   bob = new THREE.Group();
   head = new THREE.Group();
@@ -470,7 +473,7 @@ export class Plush {
     if (e === 'happy' || e === 'love') this.hop();
     this.redrawFace();
   }
-  hop(power = 2.2) { if (this.hopY <= 0.001) this.hopV = power; }
+  hop(power = 2.2) { if (this.hopY <= 0.001) { this.hopV = power; Plush.onHop?.(this); } }
   wave(sec = 1.2) { this.waveT = sec; }
 
   /** Equip accessories by item id (hat/neck/face slots). */
@@ -496,8 +499,9 @@ export class Plush {
     if (s > 0.02) this.phase += dt * (7 + 5 * s);
     const sw = Math.sin(this.phase);
     // Hop physics
+    const wasUp = this.hopY > 0.02;
     this.hopV -= dt * 14; this.hopY = Math.max(0, this.hopY + this.hopV * dt);
-    if (this.hopY === 0) this.hopV = 0;
+    if (this.hopY === 0) { if (wasUp) Plush.onLand?.(this); this.hopV = 0; }
     const breathe = Math.sin(t * 2.2 + this.seed) * 0.014;
     this.bob.position.y = Math.abs(sw) * 0.085 * s + this.hopY;
     this.bob.rotation.z = sw * 0.09 * s + Math.sin(t * 1.1 + this.seed) * 0.012;

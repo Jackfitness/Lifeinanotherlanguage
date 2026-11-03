@@ -9,7 +9,7 @@ import { audio } from '../audio/audio';
 import { speech } from '../learning/tts';
 import {
   card, distractors, expose, exposePhrase, glossVisible, levelNum, lexNative, lexPlain, lexTarget, markNote, noteFor,
-  phraseNative, phrasePlain, phraseTarget, phraseTiles, review, say, sayLex, sayPhrase, shuffle, target,
+  phraseNative, phrasePlain, phraseSyllables, phraseTarget, phraseTiles, review, say, sayLex, sayPhrase, shuffle, target,
 } from '../learning/engine';
 import { button, floatText, h, toast, ui } from './dom';
 
@@ -28,6 +28,8 @@ export interface DialogueHost {
 export interface ConvoResult { correct: number; total: number; closed: boolean }
 
 const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
+/** Little vocal reactions that go with each expression. */
+const EMOTE: Partial<Record<Expr, string>> = { happy: 'giggle', love: 'yay', surprised: 'gasp', thinking: 'hmm', sad: 'aww', sleepy: 'yawn' };
 
 /** Wrap characters (and whole <ruby> units) in spans so they can be revealed one by one. */
 function prepareTypewriter(el: HTMLElement): HTMLElement[] {
@@ -57,6 +59,8 @@ export class Dialogue {
   private closed = false;
   private lastSay: { p: string; item?: string } | null = null;
   private resolveClose?: () => void;
+  private lastExpr: Expr = 'neutral';
+  private lastEmote = 0;
 
   constructor(private speaker: Speaker | null, private host: DialogueHost, private opts: { closable?: boolean } = {}) {
     ui().append(this.root);
@@ -97,6 +101,19 @@ export class Dialogue {
     }
   }
 
+  /** Change the villager's face, with a matching little sound when it changes. */
+  private express(e: Expr) {
+    if (!this.speaker) return;
+    this.speaker.setExpr?.(e);
+    if (e === this.lastExpr) return;
+    this.lastExpr = e;
+    const kind = EMOTE[e], now = performance.now();
+    if (kind && S().settings.blips && this.speaker.voice.pitch > 0 && now - this.lastEmote > 1800) {
+      this.lastEmote = now;
+      audio.emote(kind, this.speaker.voice.pitch);
+    }
+  }
+
   // ------------------------------------------------------------ building blocks
   private nametag() {
     if (!this.speaker) return h('div.nametag.narrator', null, '✦');
@@ -121,13 +138,13 @@ export class Dialogue {
   }
 
   /** Reveal text with villager voice blips; resolves when done (tap to skip). */
-  private type(el: HTMLElement, holder: HTMLElement) {
+  private type(el: HTMLElement, holder: HTMLElement, syllables: string[] = []) {
     const units = prepareTypewriter(el);
     const v = this.speaker?.voice ?? { pitch: 260, speed: 1 };
     const blips = S().settings.blips && !!this.speaker && v.pitch > 0;
     this.speaker?.setTalking?.(true);
     return new Promise<void>((res) => {
-      let i = 0, done = false;
+      let i = 0, done = false, sylAt = -1;
       const finish = () => {
         if (done) return; done = true;
         units.forEach((u) => u.classList.add('on'));
@@ -142,7 +159,12 @@ export class Dialogue {
         const n = Math.max(1, Math.round(v.speed * 1.4));
         for (let k = 0; k < n && i < units.length; k++, i++) {
           units[i].classList.add('on');
-          if (blips && i % 2 === 0 && /\S/.test(units[i].textContent ?? '')) audio.blip(v.pitch);
+          if (!blips) continue;
+          if (syllables.length) {
+            // Spread the line's syllables across the reveal so the babble ends with the text.
+            const want = Math.floor((i / units.length) * syllables.length);
+            if (want > sylAt) { sylAt = want; audio.syllable(syllables[want], v.pitch); }
+          } else if (i % 2 === 0 && /\S/.test(units[i].textContent ?? '')) audio.blip(v.pitch);
         }
         if (i >= units.length) finish(); else setTimeout(tick, 42);
       };
@@ -188,7 +210,7 @@ export class Dialogue {
     const n = noteFor(phrase(p));
     if (!n) return;
     markNote(n.id);
-    audio.sparkle();
+    audio.discovery();
     const nc = h('div.note-card', null,
       h('div.kicker', null, '✨ ' + t('discovery')), h('h3', null, pick(n.title)), h('div', null, pick(n.body)),
       h('div.row.end', { style: { marginTop: '12px' } }, null));
@@ -202,14 +224,14 @@ export class Dialogue {
   async say(p: string, e: Expr = 'neutral', item?: string) {
     exposePhrase(p);
     this.lastSay = { p, item };
-    this.speaker?.setExpr?.(e);
+    this.express(e);
     const { sayEl, gloss } = this.sayLine(p, item);
     const next = h('div.next');
     next.style.visibility = 'hidden';
     const tools = h('div.bubble-tools', null, this.speakBtn(() => sayPhrase(p, item)), this.chips(phrase(p).words ?? []), next);
     const b = this.bubble(sayEl, gloss, tools);
     this.root.replaceChildren(b);
-    await this.type(sayEl, b);
+    await this.type(sayEl, b, phraseSyllables(p, item));
     if (S().settings.autoplay) sayPhrase(p, item);
     next.style.visibility = '';
     await this.waitTap(b);
@@ -242,7 +264,7 @@ export class Dialogue {
     if (correct) {
       this.result.correct++;
       audio.correct();
-      this.speaker?.setExpr?.('happy');
+      this.express('happy');
       const coins = reward();
       if (el) {
         const r = el.getBoundingClientRect();
@@ -252,7 +274,7 @@ export class Dialogue {
       return;
     }
     audio.gentleWrong();
-    this.speaker?.setExpr?.('thinking');
+    this.express('thinking');
     reward();
     const cont = button('btn.primary.small', '→', () => {}, { 'aria-label': t('continue') });
     cont.style.marginLeft = 'auto';
@@ -260,7 +282,7 @@ export class Dialogue {
     tipEl.append(cont);
     this.root.append(tipEl);
     await new Promise<void>((res) => cont.addEventListener('click', () => { audio.soft(); res(); }));
-    this.speaker?.setExpr?.('neutral');
+    this.express('neutral');
   }
 
   async reply(ok: string[], bad: string[], item?: string, e?: Expr) {
@@ -306,7 +328,7 @@ export class Dialogue {
       t('tipMeans', { a: phraseTarget(id, item), b: phraseNative(id, item) }),
       t('tipTry', { a: `<b>${phraseTarget(main, item)}</b>`, b: phraseNative(main, item) }),
     ], el, () => { const r = review('phr', correct ? id : main, correct, hinted); return correct ? (addXP(hinted ? 2 : 4), 0) : (void r, 0); });
-    if (correct && e) this.speaker?.setExpr?.(e);
+    if (correct && e) this.express(e);
     await this.noteCheck(correct ? id : main);
   }
 
@@ -496,13 +518,13 @@ export class Dialogue {
     if (prompt) {
       exposePhrase(prompt.p);
       this.lastSay = { p: prompt.p };
-      this.speaker?.setExpr?.(prompt.e ?? 'happy');
+      this.express(prompt.e ?? 'happy');
     }
     const ctx = prompt ? this.contextBubble() : null;
     if (ctx && prompt) {
       const sayEl = ctx.querySelector('.say') as HTMLElement;
       sayEl.innerHTML = phraseTarget(prompt.p);
-      void this.type(sayEl, ctx).then(() => { if (S().settings.autoplay) sayPhrase(prompt.p); });
+      void this.type(sayEl, ctx, phraseSyllables(prompt.p)).then(() => { if (S().settings.autoplay) sayPhrase(prompt.p); });
     }
     const grid = h('div.menu-opts');
     const res = new Promise<string>((r) => {

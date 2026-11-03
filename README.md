@@ -39,7 +39,9 @@ Debug URL parameters: `?hour=21.5`, `?weather=rainy|snowy|cloudy|sunny`, `?seaso
 | Coins, XP and levels, friendship hearts, unlocks, achievements, outfits, pond journal | `src/core/progress.ts`, `src/ui/notebook.ts` |
 | Customizable home (furniture placement, wallpaper, floor, room expansion) | `src/world/home.ts`, decorate mode in `src/game.ts` |
 | Day/night from the real clock, daily weather, seasons and seasonal decorations | `src/world/env.ts` |
-| Generative music, ambience, UI sounds, villager voice blips, pronunciation via speech synthesis | `src/audio/audio.ts`, `src/learning/tts.ts` |
+| Sound effects (UI, footsteps by surface, hops, fishing, doors, decorating, rewards) | `tools/sound/render.py` → `src/audio/assets/sfx.ts` |
+| Villager voices: babble built from each line's real syllables, plus giggles, gasps, "hmm"s, yawns | `tools/sound/render.py` → `src/audio/assets/voice.ts`, `src/audio/samples.ts` |
+| Generative music, ambience, pronunciation via speech synthesis | `src/audio/audio.ts`, `src/learning/tts.ts` |
 | Persistent progress, cloud-ready storage adapter, save migration | `src/core/save.ts` |
 
 ### Learning activities
@@ -61,6 +63,23 @@ Coins from small talk are paid only for correct answers on words that are actual
 - Script mode: **kana only** (with word spacing, like children's books), **kanji with furigana**, or **kanji** (tap a line to peek at readings).
 - Romaji is optional and off by default. It is generated from the kana readings, and particles are romanized correctly (は→wa, を→o, へ→e).
 - Content uses a small ruby markup, `{漢字|かな}` with `^` marking particles, so one string drives every display mode, the romaji, and the word tiles.
+
+## Sound
+
+All effects and villager voices are designed in `tools/sound/render.py` (numpy only), using music-box and bell
+synthesis, shaped noise, and formant-synthesized vowels. They're packed into two sprite banks embedded in the
+build, so there are no network requests.
+
+```bash
+python3 tools/sound/render.py
+```
+
+- **Footsteps** change with the ground: grass, wooden dock and bridge, plaza stone, snow in winter, and wood floors indoors.
+- **Villager babble** follows the vowels and consonants of the line being spoken (romaji for Japanese). Each villager plays the same syllable bank at their own pitch, so Pip squeaks, Biscuit is warm, and Yuzu rumbles.
+- **Expression changes** trigger a small vocal reaction: giggle, gasp, hmm, yay, aww, yawn, or "hi!" when you walk up.
+- **Replacing a sound:** to use recorded or commissioned audio, keep the sprite names and replace the bank. The game falls back to live synthesis for any missing name.
+- **Pronunciation** still uses the device's speech voices. Pre-rendered neural voices would need a TTS model or API.
+  Those hosts, such as huggingface.co, are blocked in the environment that built this.
 
 ## Architecture
 

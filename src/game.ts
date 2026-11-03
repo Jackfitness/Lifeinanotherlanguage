@@ -134,7 +134,14 @@ export class Game {
     this.player = new Player(new Plush(playerSpec(d.profile.species, d.profile.color)));
     this.player.plush.setOutfit(d.player.outfit);
     this.player.pos.set(d.player.x, 0, d.player.z);
-    this.player.onStep = () => audio.step2();
+    this.player.onStep = () => audio.step(this.surfaceAt(this.player!.pos));
+    Plush.onHop = (p) => { if (this.nearPlayer(p)) audio.hop(); };
+    Plush.onLand = (p) => { if (this.nearPlayer(p)) audio.land(); };
+    for (const n of this.npcs) n.onGreet = (npc) => {
+      if (!S().settings.blips || this.busy) return;
+      const dx = npc.pos.x - this.player!.pos.x;
+      audio.emote('hi', npc.def.voice.pitch, 0.7, dx / 6);
+    };
     this.scene.add(this.player.plush.root);
     this.hud = new Hud((tab) => this.openMenu(tab));
     this.joy = new Joystick(this.joyHint());
@@ -155,6 +162,22 @@ export class Game {
     window.setInterval(() => dailyRollover(), 60_000);
   }
 
+  /** Which footstep sound fits the ground under the player. */
+  private surfaceAt(p: THREE.Vector3): 'grass' | 'wood' | 'stone' | 'snow' {
+    if (this.mode === 'home') return 'wood';
+    const d = SPOTS.dockRect, b = SPOTS.bridge;
+    if (p.x > d.minX && p.x < d.maxX && p.z > d.minZ && p.z < d.maxZ) return 'wood';
+    if (Math.abs(p.x) < b.halfW && p.z > b.minZ && p.z < b.maxZ) return 'wood';
+    if (Math.hypot(p.x, p.z) < 7.4) return 'stone';
+    return this.season === 'winter' ? 'snow' : 'grass';
+  }
+
+  private nearPlayer(p: Plush) {
+    if (!this.player) return false;
+    if (p === this.player.plush) return true;
+    return p.root.position.distanceTo(this.player.pos) < 5;
+  }
+
   private joyHint() { return { en: 'Drag to walk', es: 'Arrastra para caminar', ja: 'ドラッグで歩く' }[S().profile.native] ?? 'Drag to walk'; }
 
   private wireEvents() {
@@ -165,9 +188,10 @@ export class Game {
     bus.on('heartup', ({ id, hearts }: { id: string; hearts: number }) => {
       const npc = this.npcs.find((n) => n.def.id === id);
       if (npc) this.burst.emit('💛', npc.pos.clone().setY(1.6), 6);
+      audio.heart();
       toast('💛', t('friendUp', { npc: this.npcName(npcDef(id)) }), '💛'.repeat(hearts));
     });
-    bus.on('achievement', (id: string) => { audio.sparkle(); toast('🏅', t('ach_' + id), t('ach_' + id + '_d'), 3200); });
+    bus.on('achievement', (id: string) => { audio.achievement(); toast('🏅', t('ach_' + id), t('ach_' + id + '_d'), 3200); });
     bus.on('quest:new', (id: string) => { const q = questDef(id); toast(q.icon, t('newQuest'), pick(q.title), 3000); this.hud?.setMenuDot(true); });
     bus.on('quest:step', () => { this.refreshPickups(); this.hud?.refresh(); });
     bus.on('quest:done', (id: string) => this.onQuestDone(id));
@@ -225,7 +249,7 @@ export class Game {
       equip: (slot, id) => {
         S().player.outfit[slot] = id; store.touch('outfit');
         this.player!.plush.setOutfit(S().player.outfit);
-        this.player!.plush.hop(); this.portraits.delete('player');
+        this.player!.plush.hop(); audio.squeak(); this.portraits.delete('player');
       },
       changeLanguages: (n, tg) => this.changeLanguages(n, tg),
       resetSave: async () => { await store.reset(); location.href = location.pathname; },
@@ -498,6 +522,7 @@ export class Game {
       ...(fav ? [{ t: 'say', p: 'i_like_item', item: lx, e: 'love' } as Step] : []),
     ]);
     f.lastGift = today();
+    audio.gift();
     this.burst.emit(fav ? '💖' : '💛', n.pos.clone().setY(1.6), fav ? 8 : 4);
     addFriend(n.def.id, fav ? 15 : like ? 8 : 4);
   }
@@ -578,7 +603,7 @@ export class Game {
   }
 
   private collect(p: Pickup) {
-    audio.sparkle();
+    audio.pickup();
     giveItem(p.id);
     const lx = item(p.id).lex;
     expose('lex', lx);
@@ -596,7 +621,7 @@ export class Game {
     giveItem(id);
     expose('lex', id);
     sayLex(id);
-    audio.sparkle();
+    audio.pickup();
     toast(lex(id).icon, t('found', { x: lexTarget(id) }), lexNative(id), 2200);
     this.player!.plush.hop(1.6);
     this.refreshPickups();
@@ -622,7 +647,7 @@ export class Game {
   }
 
   private onLevelUp(lvl: number) {
-    audio.fanfare(); confetti(70);
+    audio.levelUp(); confetti(70);
     const unlocks: string[] = [];
     if (lvl === 2) { unlocks.push('🌲 ' + t('forestOpen')); this.openForest(false); }
     if (lvl === 3) unlocks.push('🏠 ' + t('homeUpgrade'));
@@ -635,7 +660,7 @@ export class Game {
     const q = questDef(id);
     this.refreshPickups();
     setTimeout(() => {
-      audio.fanfare(); confetti(80);
+      audio.questDone(); confetti(80);
       const rewards = [`🪙 +${q.reward.coins}`, `✨ +${q.reward.xp} XP`, ...(q.reward.items ?? []).map((i) => `${lex(item(i).lex).icon} ${lexTarget(item(i).lex)}`)];
       centerCard(q.icon, t('questComplete'), [pick(q.title), h('div.unlock-list', null, ...rewards.map((r) => h('div', { html: r })))], t('gotIt'));
     }, 700);
@@ -657,7 +682,8 @@ export class Game {
     const lineGeo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(fx + 0.3, 1.4, fz - 0.3), bobber.position]);
     const line = new THREE.Line(lineGeo, new THREE.LineBasicMaterial({ color: '#ffffff', transparent: true, opacity: 0.7 }));
     this.scene.add(bobber, line);
-    audio.plop();
+    audio.cast();
+    setTimeout(() => audio.plop(), 280);
     const msg = h('div.fish-msg', null, t('fishWait'));
     const hud = h('div.fish-hud', null, msg);
     const stop = button('btn.soft.small', t('stopFishing'), () => this.endFishing(), { style: { position: 'absolute', left: '50%', bottom: 'calc(130px + var(--safe-b))', transform: 'translateX(-50%)' } });
@@ -679,7 +705,7 @@ export class Game {
     (f.line.geometry as THREE.BufferGeometry).setFromPoints([new THREE.Vector3(SPOTS.fishSpot[0] + 0.3, 1.4, SPOTS.fishSpot[1] - 0.3), f.bobber.position]);
     if (f.t > 0) return;
     if (f.phase === 'wait' || f.phase === 'nibble') {
-      if (f.nibbles > 0) { f.nibbles--; f.phase = 'nibble'; f.t = 0.35 + Math.random() * 1.2; audio.plop(); }
+      if (f.nibbles > 0) { f.nibbles--; f.phase = 'nibble'; f.t = 0.35 + Math.random() * 1.2; audio.nibble(); }
       else { f.phase = 'bite'; f.t = levelNum() === 1 ? 1.3 : 1.0; audio.splash(); f.msg.textContent = t('fishNow'); f.msg.classList.add('now'); navigator.vibrate?.(80); }
     } else if (f.phase === 'bite') {
       f.msg.textContent = t('fishEscaped'); f.msg.classList.remove('now');
@@ -696,7 +722,8 @@ export class Game {
       if (f.phase === 'nibble') { f.t = 999; setTimeout(() => this.endFishing(), 1100); }
       return;
     }
-    audio.splash();
+    audio.reel();
+    setTimeout(() => audio.splash(), 260);
     const night = this.sky.night > 0.6;
     const pool = ITEMS.filter((i) => i.fish && !(i.fish.night && !night) && !(i.fish.day && night));
     const total = pool.reduce((s, i) => s + i.fish!.weight, 0);
@@ -740,6 +767,7 @@ export class Game {
   // ------------------------------------------------------------ home
   async enterHome() {
     this.setBusy(true);
+    audio.door();
     await fadeThrough(() => {
       this.mode = 'home';
       this.home.build(S().home);
@@ -755,6 +783,7 @@ export class Game {
 
   async exitHome() {
     this.setBusy(true);
+    audio.door();
     this.closeDecorate();
     await fadeThrough(() => {
       this.mode = 'village';
@@ -863,7 +892,7 @@ export class Game {
       takeItem(d.placing);
       home.placed.push({ uid: home.nextUid++, item: d.placing, x: snap.x, z: snap.z, rot: 0 });
       store.touch('home');
-      audio.plop();
+      audio.place();
       this.home.rebuildFurniture(home.placed);
       if (!count(d.placing)) d.placing = null;
       this.renderDecorate();
@@ -872,7 +901,7 @@ export class Game {
       if (!p) return;
       const snap = this.home.snap(p.item, p.rot, pt.x, pt.z, home.placed, p.uid);
       if (!snap.ok) { audio.gentleWrong(); return; }
-      p.x = snap.x; p.z = snap.z; store.touch('home'); audio.plop();
+      p.x = snap.x; p.z = snap.z; store.touch('home'); audio.place();
       this.home.rebuildFurniture(home.placed);
       d.pop?.remove(); d.pop = null; d.selected = null;
     }
@@ -883,7 +912,7 @@ export class Game {
     const home = S().home;
     d.pop?.remove();
     d.selected = uid;
-    audio.tap();
+    audio.select();
     const p = home.placed.find((x) => x.uid === uid)!;
     sayLex(item(p.item).lex);
     const pop = h('div.sel-pop', { style: { left: sx + 'px', top: sy + 'px' } },
@@ -891,11 +920,11 @@ export class Game {
         const nr = (p.rot + 1) % 4;
         const snap = this.home.snap(p.item, nr, p.x, p.z, home.placed, p.uid);
         if (!snap.ok) { audio.gentleWrong(); return; }
-        p.rot = nr; p.x = snap.x; p.z = snap.z; store.touch('home'); this.home.rebuildFurniture(home.placed);
+        p.rot = nr; p.x = snap.x; p.z = snap.z; store.touch('home'); audio.rotate(); this.home.rebuildFurniture(home.placed);
       }),
       button('btn.small', '📦 ' + t('putAway'), () => {
         home.placed = home.placed.filter((x) => x.uid !== uid);
-        giveItem(p.item); store.touch('home');
+        giveItem(p.item); store.touch('home'); audio.pickup();
         this.home.rebuildFurniture(home.placed);
         pop.remove(); d.pop = null; d.selected = null;
         this.renderDecorate();

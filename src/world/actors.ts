@@ -119,6 +119,8 @@ export class Npc {
   private anchor: V2 = [0, 0];
   private wanderT = 2;
   private greeted = false;
+  /** Called when the villager notices the player walking up. */
+  onGreet?: (n: Npc) => void;
 
   constructor(public def: NpcDef) {
     this.plush = new Plush({ species: def.species, ...def.colors, extra: def.extra });
@@ -171,7 +173,7 @@ export class Npc {
       else { moveX = dx / d; moveZ = dz / d; }
     } else if (pd < 3.6) {
       this.plush.faceToward(player.x, player.z);
-      if (!this.greeted) { this.greeted = true; this.plush.wave(); }
+      if (!this.greeted) { this.greeted = true; this.plush.wave(); this.onGreet?.(this); }
     } else {
       this.greeted = pd < 6 && this.greeted;
       if (this.activity === 'stroll' || this.activity === 'garden') {

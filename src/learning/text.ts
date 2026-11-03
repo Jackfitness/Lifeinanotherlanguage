@@ -72,6 +72,12 @@ export function plainText(src: string, lang: LangCode, o: Pick<RenderOpts, 'name
   return parseJa(s).map((c) => chunkPlain(c, mode)).join(mode === 'kana' ? ' ' : '');
 }
 
+/** Latin-letter version of a line (romaji for Japanese), used to drive villager babble. */
+export function romanized(src: string, lang: LangCode, o: Pick<RenderOpts, 'name' | 'item'>): string {
+  const s = substitute(src, o);
+  return langInfo(lang).japaneseScripts ? romajiOf(s) : s;
+}
+
 /** Word tiles for sentence building. Japanese tiles are chunks; others split on spaces. */
 export function tilesOf(src: string, lang: LangCode, o: RenderOpts): { html: string; key: string }[] {
   const s = substitute(src, o);
