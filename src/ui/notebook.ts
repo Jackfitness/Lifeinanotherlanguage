@@ -218,6 +218,7 @@ const PAGES: Record<Tab, (host: NotebookHost, rerender: () => void) => HTMLEleme
       rowEl('🎵 ' + t('music'), range(set.music, 0, 1, 0.05, (x) => { set.music = x; apply(); })),
       rowEl('🔔 ' + t('sfx'), range(set.sfx, 0, 1, 0.05, (x) => { set.sfx = x; apply(); })),
       rowEl('🗨️ ' + t('blips'), toggle(set.blips, (v) => { set.blips = v; apply(); })),
+      rowEl('👀 ' + t('showMeanings'), toggle(!!set.showMeanings, (v) => { set.showMeanings = v; apply(); })),
       rowEl('🔊 ' + t('autoplay'), toggle(set.autoplay, (v) => { set.autoplay = v; apply(); })),
       rowEl('🐢 ' + t('rate'), range(set.rate, 0.6, 1.15, 0.05, (x) => { set.rate = x; apply(); })),
       rowEl('✏️ ' + t('font'), seg([{ v: 'cozy', label: t('font_cozy') }, { v: 'pop', label: t('font_pop') }, { v: 'hand', label: t('font_hand') }, { v: 'classic', label: t('font_classic') }], set.font ?? 'cozy', (v) => { set.font = v as 'cozy' | 'pop' | 'hand' | 'classic'; d.flags.fontPicked = true; apply(); })),

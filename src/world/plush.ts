@@ -235,6 +235,8 @@ export class Plush {
   expr: Expr = 'neutral';
   speed = 0;
   talking = false;
+  /** Seated pose (legs forward, arms resting) for benches. */
+  sitting = false;
   yaw = 0; targetYaw = 0;
   private phase = 0; private seed = Math.random() * 10;
   private blinkIn = 2; private blinkT = 0; private mouthT = 0; private mouthOpen = false;
@@ -509,8 +511,14 @@ export class Plush {
     const squash = this.hopV < -1 && this.hopY < 0.05 ? 0.06 : 0;
     this.bob.scale.set(1 - breathe * 0.5 + squash, 1 + breathe - squash, 1 - breathe * 0.5 + squash);
 
-    this.legL.rotation.x = sw * 0.75 * s;
-    this.legR.rotation.x = -sw * 0.75 * s;
+    if (this.sitting) {
+      // Legs stick straight out over the seat edge and swing happily.
+      this.legL.rotation.x = -1.45 + Math.sin(t * 2.2) * 0.12;
+      this.legR.rotation.x = -1.45 + Math.sin(t * 2.2 + 1.6) * 0.12;
+    } else {
+      this.legL.rotation.x = sw * 0.75 * s;
+      this.legR.rotation.x = -sw * 0.75 * s;
+    }
     this.armL.rotation.x = -sw * 0.6 * s;
     this.armR.rotation.x = sw * 0.6 * s;
     this.armL.rotation.z = -0.4 - Math.sin(t * 1.7 + this.seed) * 0.05;

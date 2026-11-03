@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { emojiTexture, petal, softDot, type Season } from './textures';
+import { iconName, iconTexture } from '../ui/icons';
 
 export type Weather = 'sunny' | 'cloudy' | 'rainy' | 'snowy';
 
@@ -224,7 +225,8 @@ export class Ambience {
 const texCache = new Map<string, THREE.Texture>();
 export function markerSprite(emoji: string, bg = '#FFF8EC', size = 0.7) {
   const key = emoji + bg;
-  if (!texCache.has(key)) texCache.set(key, emojiTexture(emoji, 128, bg));
+  const name = iconName(emoji);
+  if (!texCache.has(key)) texCache.set(key, name ? iconTexture(name, bg) : emojiTexture(emoji, 128, bg));
   const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: texCache.get(key)!, transparent: true, depthWrite: false, depthTest: false }));
   s.scale.setScalar(size);
   s.renderOrder = 10;

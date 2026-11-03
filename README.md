@@ -78,8 +78,19 @@ python3 tools/sound/render.py
 - **Villager babble** follows the vowels and consonants of the line being spoken (romaji for Japanese). Each villager plays the same syllable bank at their own pitch, so Pip squeaks, Biscuit is warm, and Yuzu rumbles.
 - **Expression changes** trigger a small vocal reaction: giggle, gasp, hmm, yay, aww, yawn, or "hi!" when you walk up.
 - **Replacing a sound:** to use recorded or commissioned audio, keep the sprite names and replace the bank. The game falls back to live synthesis for any missing name.
-- **Pronunciation** still uses the device's speech voices. Pre-rendered neural voices would need a TTS model or API.
-  Those hosts, such as huggingface.co, are blocked in the environment that built this.
+- **Pronunciation** uses pre-rendered neural voices (Kokoro-82M, Apache-2.0) for every word and phrase, in all three
+  languages, at normal and slow speeds (`public/voice/`). The game loads only the target language. Lines that
+  include the player's name fall back to the device voice. To regenerate, see `tools/voice/render_tts.py`.
+
+## Free play and the Village Pass
+
+- **Free play:** 15 minutes per day, counted only while the game is open and visible, and reset at local midnight. A warning appears two minutes before the end. After that, a bedtime screen shows today's progress, a countdown to tomorrow, word review, and the Village Pass.
+- **The Village Pass** (`src/ui/pass.ts`) unlocks unlimited play and five new towns on the map (`src/content/regions.ts`). The towns are labeled N5–N1 for Japanese learners and A1–C1 for English and Spanish.
+- **Payments are not connected.** The call to action records interest ("Notify me"), and entitlement is the `flags.villagePass` save flag. For testing, `?pass=1` simulates the pass and `?playlimit=60` shortens the limit.
+
+## Icons
+
+All icons are custom SVGs in `src/ui/icons.ts`, in one consistent style; no emoji are used. Interface emoji in the code are swapped for icons automatically when rendered.
 
 ## Architecture
 

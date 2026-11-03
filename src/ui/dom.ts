@@ -1,4 +1,5 @@
 import { audio } from '../audio/audio';
+import { emo, emoText } from './icons';
 
 type Child = Node | string | number | null | undefined | false;
 type Props = Record<string, any> & { html?: string; style?: Record<string, string | number | undefined> | string };
@@ -10,13 +11,18 @@ export function h(sel: string, props: Props | null = null, ...children: Child[])
   if (cls.length) el.className = cls.join(' ');
   if (props) for (const [k, v] of Object.entries(props)) {
     if (v === undefined || v === null || v === false) continue;
-    if (k === 'html') el.innerHTML = v;
+    if (k === 'html') el.innerHTML = emo(String(v));
     else if (k === 'style') typeof v === 'string' ? el.setAttribute('style', v) : Object.assign(el.style, v);
     else if (k.startsWith('on')) el.addEventListener(k.slice(2), v);
     else if (k === 'class') el.className += ' ' + v;
     else el.setAttribute(k, v === true ? '' : String(v));
   }
-  for (const c of children) if (c !== null && c !== undefined && c !== false) el.append(c instanceof Node ? c : String(c));
+  for (const c of children) {
+    if (c === null || c === undefined || c === false) continue;
+    if (c instanceof Node) { el.append(c); continue; }
+    const html = emoText(String(c));
+    if (html) el.insertAdjacentHTML('beforeend', html); else el.append(String(c));
+  }
   return el;
 }
 

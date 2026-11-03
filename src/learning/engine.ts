@@ -150,7 +150,8 @@ export function noteFor(p: Phrase): GrammarNote | undefined {
 export function markNote(id: string) { progress().notes.push(id); store.touch('note'); }
 
 /** Whether the native-language meaning should show without a tap. */
-export const glossVisible = (p: Phrase) => levelNum() === 1 || p.lvl > levelNum() + 1;
+/** Meanings stay hidden (tap to peek) unless the player turned on "Always show meanings". */
+export const glossVisible = (_p?: Phrase) => !!S().settings.showMeanings;
 
 export function shuffle<T>(a: T[]): T[] {
   for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }

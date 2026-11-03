@@ -298,7 +298,8 @@ export class Dialogue {
     const firstTime = !card('phr', main);
     const ctx = this.contextBubble();
     const prompt = h('div.prompt', null, '💬 ' + t('yourReply'));
-    let hinted = firstTime && levelNum() === 1;
+    let hinted = !!S().settings.showMeanings;
+    void firstTime;
     const list = h('div.options');
     const showGloss = () => list.querySelectorAll('.opt-gloss').forEach((g) => ((g as HTMLElement).style.display = 'block'));
     const hintBtn: HTMLElement | null = levelNum() < 3 ? button('btn.soft.small', '💡 ' + t('hint'), () => { hinted = true; showGloss(); hintBtn?.remove(); }) : null;

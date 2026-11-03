@@ -79,7 +79,8 @@ def main():
             for i, line in enumerate(lines[lang]):
                 text = line['text']
                 if lang == 'ja':
-                    phonemes = g2p(text)[0]
+                    out = g2p(text)
+                    phonemes = out[0] if isinstance(out, tuple) else out  # misaki ja returns a plain string
                     audio, sr = kokoro.create(phonemes, voice=VOICES[lang], speed=speed, is_phonemes=True)
                 else:
                     audio, sr = kokoro.create(text, voice=VOICES[lang], speed=speed, lang=ESPEAK[lang])

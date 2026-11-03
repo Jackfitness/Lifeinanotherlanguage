@@ -25,6 +25,7 @@ export interface SaveData {
     rate: number; textSize: 'm' | 'l' | 'xl'; jaScript: JaScript; romaji: boolean;
     timeMode: 'real' | 'day';
     font: 'cozy' | 'pop' | 'hand' | 'classic';
+    showMeanings: boolean;
   };
   player: { coins: number; xp: number; x: number; z: number; outfit: { hat?: string; neck?: string; face?: string } };
   inventory: Record<string, number>;
@@ -34,7 +35,7 @@ export interface SaveData {
   friends: Record<string, { pts: number; met: boolean; lastChat: string; lastGift: string; story: number }>;
   collection: Record<string, { caught: number; known: boolean }>;
   achievements: Record<string, number>;
-  daily: { day: string; reviewCoins: number; notice: boolean; flowers: number[]; mushrooms: number[] };
+  daily: { day: string; reviewCoins: number; notice: boolean; flowers: number[]; mushrooms: number[]; playSeconds: number; warned: boolean };
   stats: { streak: number; lastDay: string; days: number; correct: number; answered: number; fishCaught: number };
   flags: Record<string, boolean>;
 }
@@ -76,7 +77,7 @@ export function newSave(profile: SaveData['profile']): SaveData {
       rate: profile.level === 'beginner' ? 0.8 : profile.level === 'intermediate' ? 0.9 : 1,
       textSize: 'm',
       jaScript: profile.level === 'beginner' ? 'kana' : profile.level === 'intermediate' ? 'furigana' : 'kanji',
-      romaji: false, timeMode: 'real', font: 'cozy',
+      romaji: false, timeMode: 'real', font: 'cozy', showMeanings: false,
     },
     player: { coins: 20, xp: 0, x: 1.2, z: 22.2, outfit: {} },
     inventory: {},
@@ -89,7 +90,7 @@ export function newSave(profile: SaveData['profile']): SaveData {
     friends: {},
     collection: {},
     achievements: {},
-    daily: { day: '', reviewCoins: 0, notice: false, flowers: [], mushrooms: [] },
+    daily: { day: '', reviewCoins: 0, notice: false, flowers: [], mushrooms: [], playSeconds: 0, warned: false },
     stats: { streak: 0, lastDay: '', days: 0, correct: 0, answered: 0, fishCaught: 0 },
     flags: {},
   };

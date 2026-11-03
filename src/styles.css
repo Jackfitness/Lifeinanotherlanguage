@@ -305,3 +305,101 @@ input[type=range] { accent-color: var(--leaf-deep); width: 130px; }
 :root[data-font='cozy'] .sheet-head h2, :root[data-font='cozy'] .center-card h2 { letter-spacing: 0.005em; }
 
 .deco-panel .btn { white-space: nowrap; }
+
+/* ---------- custom icons */
+.ic { display: inline-block; width: 1.3em; height: 1.3em; vertical-align: -0.3em; flex: none; }
+.action-btn .ic { width: 54px; height: 54px; vertical-align: middle; }
+.menu-btn .ic, .map-btn .ic { width: 34px; height: 34px; vertical-align: middle; }
+.big-icon .ic { width: 1.1em; height: 1.1em; }
+.icon-opt .ic { width: 1.25em; height: 1.25em; }
+.slot .si .ic { width: 1.15em; height: 1.15em; }
+.tab .ti .ic { width: 1.15em; height: 1.15em; vertical-align: middle; }
+.hearts .ic { width: 1.1em; height: 1.1em; margin-right: 1px; }
+.center-card .big .ic { width: 1.25em; height: 1.25em; }
+
+/* ---------- map button */
+.map-btn { width: 52px; height: 52px; border-radius: 18px; background: var(--paper); box-shadow: var(--shadow); display: grid; place-items: center; }
+.map-btn:active, .menu-btn:active { transform: scale(0.94); }
+
+/* ---------- level badges */
+.lvl-badge { display: inline-grid; place-items: center; min-width: 38px; height: 26px; padding: 0 8px; border-radius: 999px; background: var(--cocoa); color: #FFF4E3;
+  font-family: var(--font-display); font-weight: var(--display-weight); font-variation-settings: var(--display-variation, normal); font-size: 0.82em; letter-spacing: 0.02em; }
+.lvl-badge.home { background: var(--leaf-deep); }
+
+/* ---------- Village Pass */
+.pass-sheet { background: linear-gradient(180deg, #FFF0D6 0%, var(--cream) 28%); }
+.pass-hero { position: relative; text-align: center; padding: 6px 10px 4px; }
+.pass-badge { width: 92px; height: 92px; margin: 0 auto 6px; border-radius: 30px; display: grid; place-items: center; background: var(--paper);
+  box-shadow: 0 10px 24px rgba(214, 160, 40, 0.35), inset 0 -5px 0 rgba(91, 70, 54, 0.08); animation: passFloat 3.2s ease-in-out infinite; }
+.pass-badge .ic { width: 66px; height: 66px; }
+@keyframes passFloat { 50% { transform: translateY(-5px) rotate(-3deg); } }
+.pass-kicker { font-size: 0.78em; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #B9832A; }
+.pass-hero h3 { margin: 4px 0 6px; font-family: var(--font-display); font-weight: var(--display-weight); font-variation-settings: var(--display-variation, normal); font-size: 1.6em; line-height: 1.15; text-wrap: balance; }
+.pass-hero p { margin: 0 auto; max-width: 34ch; color: var(--cocoa-soft); line-height: 1.5; font-size: 0.95em; }
+.pass-town-row { display: flex; gap: 8px; overflow-x: auto; padding: 2px 2px 10px; touch-action: pan-x; scrollbar-width: none; }
+.pass-town { flex: none; width: 104px; border-radius: 22px; padding: 10px 8px 10px; text-align: center; box-shadow: inset 0 -4px 0 rgba(91, 70, 54, 0.12); position: relative; }
+.pass-town .lvl-badge { position: absolute; top: -8px; left: 50%; transform: translateX(-50%); height: 22px; min-width: 34px; font-size: 0.72em; }
+.pt-animals { display: flex; justify-content: center; gap: 0; margin-top: 10px; }
+.pt-animals .ic { width: 40px; height: 40px; }
+.pt-animals .ic + .ic { margin-left: -10px; }
+.pt-name { display: block; font-size: 0.74em; font-weight: 800; line-height: 1.2; margin-top: 4px; }
+.pass-benefits { display: flex; flex-direction: column; gap: 8px; margin: 10px 0 14px; }
+.pass-benefit { display: flex; gap: 12px; align-items: center; background: var(--paper); border-radius: 20px; padding: 12px 14px; }
+.pass-benefit .pb-icon .ic { width: 40px; height: 40px; }
+.pass-benefit b { display: block; font-size: 0.98em; }
+.pass-benefit span { font-size: 0.84em; color: var(--cocoa-soft); line-height: 1.4; }
+.pass-actions { display: flex; flex-direction: column; gap: 10px; }
+.btn.pass-cta, .btn.bed-pass { min-height: 58px; font-size: 1.08em; background: linear-gradient(180deg, #F6C343, #E9A92A); color: var(--cocoa);
+  box-shadow: inset 0 -5px 0 rgba(120, 80, 10, 0.2), 0 10px 22px rgba(214, 160, 40, 0.4); }
+.pass-cta .ic, .bed-pass .ic { width: 30px; height: 30px; }
+.pass-note { background: var(--butter-soft); border-radius: 16px; padding: 12px 14px; font-size: 0.9em; line-height: 1.5; }
+
+/* ---------- bedtime */
+.bedtime { position: absolute; inset: 0; z-index: 40; display: grid; place-items: center; padding: 20px max(16px, env(safe-area-inset-left, 0px));
+  background: radial-gradient(120% 80% at 50% 0%, rgba(78, 92, 150, 0.92), rgba(30, 36, 70, 0.96)); animation: fade 0.8s both; }
+.bed-stars i { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: #FFF6C8; box-shadow: 0 0 6px #FFF6C8; animation: twinkle 3s ease-in-out infinite; }
+@keyframes twinkle { 50% { opacity: 0.25; } }
+.bed-card { position: relative; width: min(100%, 400px); background: var(--paper); border-radius: 34px; padding: 26px 22px 20px; text-align: center;
+  box-shadow: 0 20px 50px rgba(10, 10, 30, 0.45); display: flex; flex-direction: column; gap: 10px; animation: pop 0.6s cubic-bezier(.2, 1.4, .4, 1) both; }
+.bed-moon { position: relative; width: 96px; height: 96px; margin: -70px auto 0; border-radius: 50%; background: #2F3A6B; display: grid; place-items: center; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); }
+.bed-moon > .ic { width: 70px; height: 70px; animation: bob 4s ease-in-out infinite; }
+.bed-z { position: absolute; right: -10px; top: -6px; } .bed-z .ic { width: 40px; height: 40px; animation: bob 2.4s ease-in-out infinite; }
+.bed-card h2 { margin: 4px 0 0; font-family: var(--font-display); font-weight: var(--display-weight); font-variation-settings: var(--display-variation, normal); font-size: 1.5em; line-height: 1.2; text-wrap: balance; }
+.bed-card p { margin: 0; color: var(--cocoa-soft); line-height: 1.55; }
+.bed-recap, .bed-count { display: inline-flex; align-self: center; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; background: var(--cream); font-weight: 700; font-size: 0.9em; }
+.bed-count { background: transparent; color: var(--cocoa-soft); font-weight: 600; }
+
+/* ---------- map */
+.vmap-wrap, .wmap-wrap { position: relative; width: 100%; max-width: 420px; margin: 12px auto 0; aspect-ratio: 1; }
+.vmap-wrap svg, .wmap-wrap svg { width: 100%; height: 100%; display: block; }
+.vmap-pin { position: absolute; transform: translate(-50%, -78%); display: flex; flex-direction: column-reverse; align-items: center; gap: 0; }
+.vmap-pin .ic { width: 38px; height: 38px; filter: drop-shadow(0 2px 2px rgba(60, 40, 25, 0.25)); }
+.vp-label { font-size: 0.68em; font-weight: 800; background: rgba(255, 252, 246, 0.95); padding: 1px 7px; border-radius: 999px; white-space: nowrap; box-shadow: 0 2px 6px rgba(60, 40, 25, 0.15); }
+.vmap-npc { position: absolute; transform: translate(-50%, -50%); width: 30px; height: 30px; border-radius: 50%; background: var(--paper); display: grid; place-items: center; box-shadow: 0 2px 6px rgba(60, 40, 25, 0.25); }
+.vmap-npc .ic { width: 26px; height: 26px; }
+.vmap-me { position: absolute; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; pointer-events: none; }
+.vm-dot { width: 18px; height: 18px; border-radius: 50%; background: var(--berry); border: 3px solid #fff; box-shadow: 0 0 0 0 rgba(232, 86, 108, 0.6); animation: pulse 1.6s infinite; }
+@keyframes pulse { 70% { box-shadow: 0 0 0 12px rgba(232, 86, 108, 0); } 100% { box-shadow: 0 0 0 0 rgba(232, 86, 108, 0); } }
+.vm-label { margin-top: 2px; font-size: 0.66em; font-weight: 800; color: #fff; background: var(--berry); padding: 1px 6px; border-radius: 999px; white-space: nowrap; }
+.map-hint { text-align: center; font-size: 0.82em; margin: 8px 0 0; }
+.wmap-pin { position: absolute; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; }
+.wp-icon .ic { width: 44px; height: 44px; filter: drop-shadow(0 3px 2px rgba(60, 40, 25, 0.25)); }
+.wmap-pin.home .wp-icon .ic { width: 52px; height: 52px; }
+.wp-label { font-size: 0.66em; font-weight: 800; background: rgba(255, 252, 246, 0.96); padding: 2px 8px; border-radius: 999px; white-space: nowrap; box-shadow: 0 2px 6px rgba(60, 40, 25, 0.18); }
+.wp-label b { font-family: var(--font-display); font-weight: var(--display-weight); }
+.wp-lock { position: absolute; top: -6px; right: -10px; } .wp-lock .ic { width: 22px; height: 22px; }
+.wp-here { margin-top: 2px; font-size: 0.6em; font-weight: 800; color: #fff; background: var(--berry); padding: 1px 6px; border-radius: 999px; }
+.region-detail { margin-top: 14px; background: var(--paper); border-radius: 24px; padding: 16px; }
+.rd-head { display: flex; align-items: center; gap: 10px; }
+.rd-head h3 { margin: 0; flex: 1; font-family: var(--font-display); font-weight: var(--display-weight); font-variation-settings: var(--display-variation, normal); font-size: 1.2em; }
+.rd-lock .ic { width: 26px; height: 26px; }
+.region-detail p { margin: 8px 0 0; color: var(--cocoa-soft); line-height: 1.5; font-size: 0.92em; }
+.rd-animals { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 4px; }
+.rd-animals > .ic { width: 46px; height: 46px; }
+.rd-animal { display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.9em; }
+.rd-animal .ic { width: 42px; height: 42px; }
+.rd-cta { width: 100%; margin-top: 14px; }
+.rd-cta .ic { width: 26px; height: 26px; }
+
+/* Sheets and toasts stay above the bedtime overlay */
+.scrim { z-index: 45; } .sheet { z-index: 46; } .toasts { z-index: 60; } .center-card { z-index: 47; }

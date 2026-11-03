@@ -88,7 +88,8 @@ export function checkAchievements() {
 export function dailyRollover() {
   const d = S(), day = today();
   if (d.daily.day === day) return;
-  d.daily = { day, reviewCoins: 0, notice: false, flowers: [], mushrooms: [] };
+  d.daily = { day, reviewCoins: 0, notice: false, flowers: [], mushrooms: [], playSeconds: 0, warned: false };
+  bus.emit('newday');
   const st = d.stats;
   const y = new Date(); y.setDate(y.getDate() - 1);
   const yesterday = `${y.getFullYear()}-${String(y.getMonth() + 1).padStart(2, '0')}-${String(y.getDate()).padStart(2, '0')}`;

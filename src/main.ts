@@ -8,11 +8,16 @@ import { runOnboarding } from './ui/onboarding';
 import { fadeThrough, h, ui } from './ui/dom';
 import { applyFont } from './ui/fonts';
 import { logoBlock } from './ui/brand';
+import { installLexiconIcons } from './ui/icons';
+import { voicePack } from './audio/voicepack';
+import { LEXICON } from './content/lexicon';
+
+installLexiconIcons(LEXICON);
 
 async function boot() {
   const canvas = document.getElementById('scene') as HTMLCanvasElement;
   const game = new Game(canvas);
-  Object.assign(window, { __game: game, __audio: audio }); // debug handles for automated tests
+  Object.assign(window, { __game: game, __audio: audio, __voice: voicePack }); // debug handles for automated tests
   const hasSave = await store.load();
   void applyFont(hasSave ? store.data.settings.font : 'cozy');
 

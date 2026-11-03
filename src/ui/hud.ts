@@ -2,6 +2,7 @@ import { S } from '../core/save';
 import { pick, t } from '../core/i18n';
 import { activeQuests, playerLevel, qs, xpAt } from '../core/progress';
 import { button, h, ui } from './dom';
+import { emoText, icon } from './icons';
 
 export class Hud {
   root = h('div.hud-top');
@@ -17,7 +18,7 @@ export class Hud {
   private actionLabel = h('div.action-label');
   private onAction: (() => void) | null = null;
 
-  constructor(private openMenu: (tab?: string) => void) {
+  constructor(private openMenu: (tab?: string) => void, openMap?: () => void) {
     const svgNS = 'http://www.w3.org/2000/svg';
     const svg = document.createElementNS(svgNS, 'svg');
     svg.setAttribute('viewBox', '0 0 42 42');
@@ -30,10 +31,11 @@ export class Hud {
     lvl.prepend(svg as unknown as HTMLElement);
 
     const menu = button('menu-btn', ['📒', this.menuDot], () => openMenu(), { 'aria-label': 'Notebook' });
+    const mapBtn = button('map-btn', '🗺️', () => openMap?.(), { 'aria-label': 'Map' });
     this.tracker.addEventListener('click', () => openMenu('quests'));
     this.root.append(
       h('div.hud-left', null, h('div.pill', null, this.weather, this.clock), this.tracker),
-      h('div.hud-right', null, h('div.hud-row', null, h('div.pill', null, '🪙', this.coins), lvl), menu),
+      h('div.hud-right', null, h('div.hud-row', null, h('div.pill', null, '🪙', this.coins), lvl), menu, mapBtn),
     );
     this.actionBtn = button('action-btn', '', () => this.onAction?.()) as HTMLButtonElement;
     this.actionWrap = h('div.action-wrap.off', null, this.actionBtn, this.actionLabel);
@@ -44,13 +46,13 @@ export class Hud {
   setTime(hour: number, weatherIcon: string) {
     const hh = Math.floor(hour), mm = Math.floor((hour - hh) * 60);
     this.clock.textContent = `${hh}:${String(mm).padStart(2, '0')}`;
-    this.weather.textContent = weatherIcon;
+    if (this.weather.dataset.icon !== weatherIcon) { this.weather.dataset.icon = weatherIcon; this.weather.innerHTML = emoText(weatherIcon) ?? ''; }
   }
 
   setAction(a: { icon: string; label: string; use: () => void } | null) {
     if (!a) { this.actionWrap.classList.add('off'); this.onAction = null; return; }
     this.actionWrap.classList.remove('off');
-    if (this.actionBtn.textContent !== a.icon) this.actionBtn.textContent = a.icon;
+    if (this.actionBtn.dataset.icon !== a.icon) { this.actionBtn.dataset.icon = a.icon; this.actionBtn.innerHTML = emoText(a.icon) ?? icon(a.icon); }
     this.actionBtn.setAttribute('aria-label', a.label);
     if (this.actionLabel.textContent !== a.label) this.actionLabel.textContent = a.label;
     this.onAction = a.use;

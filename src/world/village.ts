@@ -19,6 +19,8 @@ export interface Village {
   mushrooms: THREE.Object3D[];
   chimneys: THREE.Vector3[];
   fountainTop: THREE.Vector3;
+  /** Bench seats: center and facing (the sitter looks along +Z rotated by ry). */
+  benches: { x: number; z: number; ry: number }[];
   isWater: (x: number, z: number) => boolean;
 }
 
@@ -222,6 +224,7 @@ export function buildVillage(season: Season): Village {
   const kept = new THREE.Group();
   const colliders: Collider[] = [];
   const waters: THREE.Texture[] = [];
+  const benches: { x: number; z: number; ry: number }[] = [];
   const chimneys: THREE.Vector3[] = [];
   const box = (cx: number, cz: number, w: number, d: number, tag?: string) =>
     colliders.push({ kind: 'box', minX: cx - w / 2, maxX: cx + w / 2, minZ: cz - d / 2, maxZ: cz + d / 2, tag });
@@ -270,7 +273,7 @@ export function buildVillage(season: Season): Village {
   fWater2.rotation.x = -Math.PI / 2; fWater2.position.y = 1.76; fWater2.userData.keep = true; kept.add(fWater2);
   circ(0, 0, 2.5);
   for (const [x, z, ry] of [[-5.6, 3.2, 2.1], [5.6, 3.2, -2.1], [-5.8, -2.6, 1.15]] as [number, number, number][]) {
-    root.add(bench(x, z, ry)); circ(x, z, 0.9);
+    root.add(bench(x, z, ry)); circ(x, z, 0.9); benches.push({ x, z, ry });
   }
   const lampSpots: V2[] = [[-5.2, -5.2], [5.2, -5.2], [-5.2, 5.2], [5.2, 5.2], [-2, 11.5], [2.6, -12], [-9, -2], [9, -2]];
   for (const [x, z] of lampSpots) { root.add(lamp(x, z)); circ(x, z, 0.32); }
@@ -430,7 +433,7 @@ export function buildVillage(season: Season): Village {
   colliders.push({ kind: 'box', minX: -2.7, maxX: 2.7, minZ: lz - 0.6, maxZ: lz + 0.6, tag: 'log' });
 
   // Clearing: stumps, bench, pickable mushrooms
-  root.add(bench(0, -32.2, 0)); circ(0, -32.2, 1.0);
+  root.add(bench(0, -32.2, 0)); circ(0, -32.2, 1.0); benches.push({ x: 0, z: -32.2, ry: 0 });
   for (const [x, z] of [[-3.6, -27.5], [3.8, -31.2]] as V2[]) {
     root.add(mesh(CYL(0.5, 0.6, 0.5, 14), '#A07A55', x, 0.25, z));
     root.add(mesh(CYL(0.5, 0.5, 0.02, 14), '#E2C49B', x, 0.51, z));
@@ -449,7 +452,7 @@ export function buildVillage(season: Season): Village {
   // Bus stop at the village edge
   root.add(mesh(CYL(0.06, 0.06, 2.3, 8), '#6E6A7A', 3.2, 1.15, 23.6));
   root.add(mesh(CYL(0.42, 0.42, 0.08, 20), '#8FB8DE', 3.2, 2.35, 23.6, { rx: Math.PI / 2 }));
-  root.add(bench(4.6, 24.4, Math.PI)); circ(4.6, 24.4, 0.9); circ(3.2, 23.6, 0.2);
+  root.add(bench(4.6, 24.4, Math.PI)); circ(4.6, 24.4, 0.9); benches.push({ x: 4.6, z: 24.4, ry: Math.PI }); circ(3.2, 23.6, 0.2);
 
   // Trees: decorative inside the village, dense forest outside
   const nearPath = (x: number, z: number, m: number) => EDGES.some(([a, bb]) => {
@@ -541,7 +544,7 @@ export function buildVillage(season: Season): Village {
     return false;
   };
 
-  return { group, colliders, waters, glowMat, lamps, log, flowers, mushrooms, chimneys, fountainTop: new THREE.Vector3(0, 2.3, 0), isWater };
+  return { group, colliders, waters, glowMat, lamps, log, flowers, mushrooms, chimneys, fountainTop: new THREE.Vector3(0, 2.3, 0), isWater, benches };
 }
 
 /** Update the shop signs so they read in the language being learned. */

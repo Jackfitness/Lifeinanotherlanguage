@@ -32,6 +32,11 @@ import { openNotebook } from './ui/notebook';
 import { openShop } from './ui/shop';
 import { button, centerCard, confetti, fadeThrough, h, toast, ui } from './ui/dom';
 import { playerSpec } from './ui/onboarding';
+import { openMap } from './ui/map';
+import { openPass } from './ui/pass';
+import { showBedtime } from './ui/bedtime';
+import { voicePack } from './audio/voicepack';
+import { progress } from './learning/engine';
 import { applyFont, displayFamily, FONTS } from './ui/fonts';
 import type { Season } from './world/textures';
 
@@ -71,6 +76,9 @@ export class Game {
   private zoom = 1;
   private shake = 0;
   private talkSlot: THREE.Vector3 | null = null;
+  private seat: { x: number; z: number; ry: number } | null = null;
+  private bedtime: { close: () => void } | null = null;
+  private playTick = 0;
 
   constructor(canvas: HTMLCanvasElement) {
     this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
@@ -108,6 +116,52 @@ export class Game {
     this.renderer.domElement.addEventListener('wheel', (e) => { this.zoom = THREE.MathUtils.clamp(this.zoom + e.deltaY * 0.001, 0.7, 1.3); }, { passive: true });
     this.renderer.domElement.addEventListener('pointerdown', (e) => this.onCanvasTap(e));
     this.renderer.setAnimationLoop(() => this.frame());
+  }
+
+  // ------------------------------------------------------------ daily play time
+  /** Free players get 15 minutes a day (?playlimit=<seconds> overrides for testing). */
+  private get playLimit() { return Number(params.get('playlimit')) || 15 * 60; }
+  private hasPass() { return !!S().flags.villagePass || params.get('pass') === '1'; }
+  private playLimitReached() { return !this.hasPass() && (S().daily.playSeconds ?? 0) >= this.playLimit; }
+
+  private trackPlayTime(realDt: number) {
+    if (this.hasPass() || this.bedtime || document.hidden || this.mode === 'title') return;
+    const d = S().daily;
+    d.playSeconds = (d.playSeconds ?? 0) + Math.min(realDt, 1);
+    this.playTick += realDt;
+    if (this.playTick > 10) { this.playTick = 0; store.touch('playtime'); }
+    const left = this.playLimit - d.playSeconds;
+    if (!d.warned && left <= 120 && left > 0) {
+      d.warned = true;
+      toast('⏳', t('timeLeft', { m: Math.ceil(left / 60) }), t('timeLeftSub'), 4500);
+    }
+    if (left <= 0 && !this.busy) this.enterBedtime();
+  }
+
+  private enterBedtime() {
+    if (this.bedtime || this.hasPass()) return;
+    this.standUp();
+    store.touch('bedtime');
+    const dayStart = new Date(); dayStart.setHours(0, 0, 0, 0);
+    const words = Object.values(progress().lex).filter((c) => c.last >= dayStart.getTime()).length;
+    const next = new Date(dayStart); next.setDate(next.getDate() + 1);
+    this.bedtime = showBedtime({
+      minutes: Math.max(1, Math.round((S().daily.playSeconds ?? this.playLimit) / 60)),
+      words,
+      msToNextDay: () => next.getTime() - Date.now(),
+      onReview: () => this.openMenu('words', true),
+      onPass: () => openPass(),
+    });
+    this.setBusy(true);
+  }
+
+  openMapSheet() {
+    if (this.busy) return;
+    this.setBusy(true);
+    openMap({
+      player: () => ({ x: this.player!.pos.x, z: this.player!.pos.z }),
+      villagers: () => this.npcs.map((n) => ({ icon: n.def.species, x: n.pos.x, z: n.pos.z })),
+    }, () => this.setBusy(false));
   }
 
   /** Copy the live player position into the save (called before the app is hidden or closed). */
@@ -151,7 +205,7 @@ export class Game {
       audio.emote('hi', npc.def.voice.pitch, 0.7, dx / 6);
     };
     this.scene.add(this.player.plush.root);
-    this.hud = new Hud((tab) => this.openMenu(tab));
+    this.hud = new Hud((tab) => this.openMenu(tab), () => this.openMapSheet());
     this.joy = new Joystick(this.joyHint());
     this.applySettings();
     this.mode = 'village';
@@ -159,7 +213,7 @@ export class Game {
     if (playerLevel() >= 2) this.openForest(false);
     this.refreshPickups();
     this.wireEvents();
-    speech.onMissing = (lang) => toast('🔇', t('noVoice', { lang: langInfo(lang).autonym }), undefined, 4500);
+    speech.onMissing = (lang) => voicePack.ready() ? undefined : toast('🔇', t('noVoice', { lang: langInfo(lang).autonym }), undefined, 4500);
     if (isNew) {
       this.player.plush.targetYaw = Math.PI;
       setTimeout(() => this.narrate([t('arrive')]), 600);
@@ -168,6 +222,8 @@ export class Game {
     }
     checkAchievements();
     window.setInterval(() => dailyRollover(), 60_000);
+    bus.on('newday', () => { if (this.bedtime) { this.bedtime.close(); this.bedtime = null; this.setBusy(false); } });
+    if (this.playLimitReached()) setTimeout(() => this.enterBedtime(), 800);
   }
 
   /** Which footstep sound fits the ground under the player. */
@@ -230,7 +286,7 @@ export class Game {
     store.touch('lang');
     this.hud?.root.remove();
     document.querySelector('.action-wrap')?.remove();
-    this.hud = new Hud((tab) => this.openMenu(tab));
+    this.hud = new Hud((tab) => this.openMenu(tab), () => this.openMapSheet());
     this.joy?.remove();
     this.joy = new Joystick(this.joyHint());
     this.applySettings();
@@ -249,8 +305,8 @@ export class Game {
     return this.portraits.get(id)!;
   }
 
-  openMenu(tab?: string) {
-    if (this.busy) return;
+  openMenu(tab?: string, force = false) {
+    if (this.busy && !force) return;
     this.hud?.setMenuDot(false);
     this.setBusy(true);
     openNotebook({
@@ -267,6 +323,7 @@ export class Game {
   }
 
   setBusy(b: boolean) {
+    b = b || !!this.bedtime;
     this.busy = b;
     this.joy?.setEnabled(!b);
     if (b) this.hud?.setAction(null);
@@ -274,7 +331,9 @@ export class Game {
 
   // ------------------------------------------------------------ frame
   private frame() {
-    const dt = Math.min(0.05, this.clock.getDelta());
+    const rawDt = this.clock.getDelta();
+    const dt = Math.min(0.05, rawDt);
+    if (this.player) this.trackPlayTime(rawDt);
     const t = this.clock.elapsedTime;
     const hour = this.hour();
     if (this.mode === 'home') { this.frameHome(dt, t); return; }
@@ -296,7 +355,11 @@ export class Game {
       dynamic: this.npcs.map((n) => ({ x: n.pos.x, z: n.pos.z, r: 0.45 })),
     };
     if (this.player) {
-      const input = this.busy || this.fishing ? { x: 0, z: 0 } : this.joy!.read();
+      let input = this.busy || this.fishing ? { x: 0, z: 0 } : this.joy!.read();
+      if (this.seat) {
+        if (Math.hypot(input.x, input.z) > 0.3) this.standUp();
+        input = { x: 0, z: 0 };
+      }
       if (this.talkSlot) {
         const d = this.talkSlot.clone().sub(this.player.pos);
         if (d.length() > 0.05) { this.player.pos.addScaledVector(d, Math.min(1, dt * 6)); this.player.plush.speed = 0.5; }
@@ -356,6 +419,13 @@ export class Game {
   // ------------------------------------------------------------ interactions
   private interactables(): Interactable[] {
     const list: Interactable[] = [];
+    if (this.seat) {
+      const p = this.player!.pos;
+      return [{ icon: '🧍', label: t('standUp'), x: p.x, z: p.z, r: 5, use: () => this.standUp() }];
+    }
+    for (const b of this.village.benches) {
+      list.push({ icon: '🪑', label: t('sit'), x: b.x + Math.sin(b.ry) * 0.9, z: b.z + Math.cos(b.ry) * 0.9, r: 1.4, pri: -0.3, use: () => this.sitDown(b) });
+    }
     for (const n of this.npcs) {
       const q = !!questTalk(n.def.id);
       list.push({ icon: q ? '❗' : '💬', label: `${t('talk')} · ${this.npcName(n.def)}`, x: n.pos.x, z: n.pos.z, r: 2.6, pri: q ? 2 : 0.8, use: () => this.talkTo(n) });
@@ -521,6 +591,27 @@ export class Game {
     p.setExpr('neutral');
   }
 
+  /** Hop onto a bench and settle in. */
+  private sitDown(b: { x: number; z: number; ry: number }) {
+    const pl = this.player!;
+    this.seat = b;
+    pl.pos.set(b.x + Math.sin(b.ry) * 0.05, 0.45, b.z + Math.cos(b.ry) * 0.05);
+    pl.plush.sitting = true;
+    pl.plush.targetYaw = pl.plush.yaw = b.ry;
+    pl.plush.speed = 0;
+    audio.land();
+    setTimeout(() => audio.squeak(), 120);
+  }
+
+  private standUp() {
+    const b = this.seat, pl = this.player!;
+    if (!b) return;
+    this.seat = null;
+    pl.plush.sitting = false;
+    pl.pos.set(b.x + Math.sin(b.ry) * 1.4, 0, b.z + Math.cos(b.ry) * 1.4);
+    pl.plush.hop(1.6);
+  }
+
   private timeGreeting() {
     const hr = this.hour();
     return hr >= 5 && hr < 11 ? 'good_morning' : hr >= 11 && hr < 18 ? 'good_afternoon' : 'good_evening';
@@ -639,7 +730,7 @@ export class Game {
       for (const id of ['key', 'book', 'umbrella'] as const) {
         if (st.found.includes(id)) continue;
         const [x, z] = SPOTS.lost[id];
-        const obj = markerSprite(lex(item(id).lex).icon, '#FFFFFFcc', 0.8);
+        const obj = markerSprite(item(id).lex, '#FFFFFF', 0.8);
         (obj.material as THREE.SpriteMaterial).depthTest = true;
         obj.position.set(x, 0.6, z);
         const sparkle = new Sparkle(new THREE.Vector3(x, 0, z));
@@ -785,7 +876,7 @@ export class Game {
     col[caught.id] = { caught: (col[caught.id]?.caught ?? 0) + 1, known: col[caught.id]?.known ?? false };
     S().stats.fishCaught++;
     store.touch('fish');
-    this.burst.emit(lex(caught.lex).icon, new THREE.Vector3(SPOTS.bobber[0], 0.6, SPOTS.bobber[1]), 1);
+    this.burst.emit(caught.lex, new THREE.Vector3(SPOTS.bobber[0], 0.6, SPOTS.bobber[1]), 1);
     this.player!.plush.hop(2.6);
     this.player!.plush.setExpr('happy');
     const yuzu = this.npcs.find((n) => n.def.id === 'yuzu')!;
@@ -816,6 +907,7 @@ export class Game {
 
   // ------------------------------------------------------------ home
   async enterHome() {
+    this.standUp();
     this.setBusy(true);
     audio.door();
     await fadeThrough(() => {
