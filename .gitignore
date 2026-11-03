@@ -3,3 +3,5 @@ dist
 *.log
 src/audio/assets/*.wav
 __pycache__
+
+# Source art kept for re-exports (tools/brand/cutout.py)

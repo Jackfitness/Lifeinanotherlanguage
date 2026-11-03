@@ -288,3 +288,10 @@ input[type=range] { accent-color: var(--leaf-deep); width: 130px; }
 .tracker small, .choice small { font-family: var(--font); font-weight: 500; }
 .logo h1 { letter-spacing: 0.02em; }
 :root[data-font='hand'] .say, :root[data-font='hand'] .opt { font-weight: 600; }
+
+/* ---------- logo */
+.logo-img { display: block; width: min(86vw, 440px); max-width: 100%; height: auto; margin: 0 auto; pointer-events: none;
+  filter: drop-shadow(0 8px 16px rgba(60, 40, 25, 0.18)); animation: logoIn 0.9s cubic-bezier(.2, 1.4, .4, 1) both, bob 4s 0.9s ease-in-out infinite; }
+@keyframes logoIn { from { opacity: 0; transform: scale(0.85) translateY(10px); } }
+.logo .tagline { display: inline-block; margin: 6px 0 0; padding: 5px 14px; border-radius: 999px; background: rgba(255, 252, 246, 0.92); box-shadow: 0 4px 12px rgba(60, 40, 25, 0.12); font-family: var(--font-display); font-weight: var(--display-weight); font-size: 0.9em; color: var(--cocoa); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }

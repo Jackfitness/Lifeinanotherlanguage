@@ -7,6 +7,7 @@ import { Game } from './game';
 import { runOnboarding } from './ui/onboarding';
 import { fadeThrough, h, ui } from './ui/dom';
 import { applyFont } from './ui/fonts';
+import { logoBlock } from './ui/brand';
 
 async function boot() {
   const canvas = document.getElementById('scene') as HTMLCanvasElement;
@@ -18,7 +19,7 @@ async function boot() {
   if (hasSave) {
     setUiLang(store.data.profile.native);
     const title = h('div.onb.title-screen', null,
-      h('div.logo', null, h('span.mark', null, '🧸'), h('h1', null, t('title')), h('p', null, t('subtitle'))),
+      logoBlock(),
       h('div.tap-start', null, t('tapStart')));
     ui().append(title);
     await new Promise<void>((res) => title.addEventListener('click', () => res(), { once: true }));

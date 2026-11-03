@@ -6,6 +6,7 @@ import { speech } from '../learning/tts';
 import { Plush } from '../world/plush';
 import { mini } from '../world/portrait';
 import { button, h, seg, toggle, ui } from './dom';
+import { logoBlock } from './brand';
 
 export interface OnboardResult {
   name: string; species: Species; color: string;
@@ -136,7 +137,7 @@ export function runOnboarding(): Promise<OnboardResult> {
 
     // Title screen
     root.append(
-      h('div.logo', null, h('span.mark', null, '🧸'), h('h1', null, t('title')), h('p', null, t('subtitle'))),
+      logoBlock(),
       h('div.tap-start', null, t('tapStart')),
     );
     root.addEventListener('click', function start() {
