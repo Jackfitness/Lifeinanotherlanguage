@@ -1,0 +1,2552 @@
+{
+ "en": [
+  {
+   "key": "w:bread",
+   "text": "bread"
+  },
+  {
+   "key": "w:coffee",
+   "text": "coffee"
+  },
+  {
+   "key": "w:tea",
+   "text": "tea"
+  },
+  {
+   "key": "w:cake",
+   "text": "cake"
+  },
+  {
+   "key": "w:cookie",
+   "text": "cookie"
+  },
+  {
+   "key": "w:croissant",
+   "text": "croissant"
+  },
+  {
+   "key": "w:honey",
+   "text": "honey"
+  },
+  {
+   "key": "w:milk",
+   "text": "milk"
+  },
+  {
+   "key": "w:water",
+   "text": "water"
+  },
+  {
+   "key": "w:apple",
+   "text": "apple"
+  },
+  {
+   "key": "w:strawberry",
+   "text": "strawberry"
+  },
+  {
+   "key": "w:carrot",
+   "text": "carrot"
+  },
+  {
+   "key": "w:soup",
+   "text": "soup"
+  },
+  {
+   "key": "w:sandwich",
+   "text": "sandwich"
+  },
+  {
+   "key": "w:fish",
+   "text": "fish"
+  },
+  {
+   "key": "w:goldfish",
+   "text": "goldfish"
+  },
+  {
+   "key": "w:carp",
+   "text": "carp"
+  },
+  {
+   "key": "w:catfish",
+   "text": "catfish"
+  },
+  {
+   "key": "w:trout",
+   "text": "trout"
+  },
+  {
+   "key": "w:crab",
+   "text": "crab"
+  },
+  {
+   "key": "w:turtle",
+   "text": "turtle"
+  },
+  {
+   "key": "w:frog",
+   "text": "frog"
+  },
+  {
+   "key": "w:shrimp",
+   "text": "shrimp"
+  },
+  {
+   "key": "w:boot",
+   "text": "old boot"
+  },
+  {
+   "key": "w:flower",
+   "text": "flower"
+  },
+  {
+   "key": "w:tree",
+   "text": "tree"
+  },
+  {
+   "key": "w:mushroom",
+   "text": "mushroom"
+  },
+  {
+   "key": "w:leaf",
+   "text": "leaf"
+  },
+  {
+   "key": "w:bird",
+   "text": "bird"
+  },
+  {
+   "key": "w:butterfly",
+   "text": "butterfly"
+  },
+  {
+   "key": "w:star",
+   "text": "star"
+  },
+  {
+   "key": "w:moon",
+   "text": "moon"
+  },
+  {
+   "key": "w:sun",
+   "text": "sun"
+  },
+  {
+   "key": "w:rain",
+   "text": "rain"
+  },
+  {
+   "key": "w:snow",
+   "text": "snow"
+  },
+  {
+   "key": "w:cloud",
+   "text": "cloud"
+  },
+  {
+   "key": "w:key",
+   "text": "key"
+  },
+  {
+   "key": "w:book",
+   "text": "book"
+  },
+  {
+   "key": "w:umbrella",
+   "text": "umbrella"
+  },
+  {
+   "key": "w:letter",
+   "text": "letter"
+  },
+  {
+   "key": "w:rod",
+   "text": "fishing rod"
+  },
+  {
+   "key": "w:coin",
+   "text": "coin"
+  },
+  {
+   "key": "w:cafe",
+   "text": "café"
+  },
+  {
+   "key": "w:store",
+   "text": "store"
+  },
+  {
+   "key": "w:house",
+   "text": "house"
+  },
+  {
+   "key": "w:garden",
+   "text": "garden"
+  },
+  {
+   "key": "w:plaza",
+   "text": "town square"
+  },
+  {
+   "key": "w:fountain",
+   "text": "fountain"
+  },
+  {
+   "key": "w:forest",
+   "text": "forest"
+  },
+  {
+   "key": "w:bridge",
+   "text": "bridge"
+  },
+  {
+   "key": "w:pond",
+   "text": "pond"
+  },
+  {
+   "key": "w:red",
+   "text": "red"
+  },
+  {
+   "key": "w:blue",
+   "text": "blue"
+  },
+  {
+   "key": "w:yellow",
+   "text": "yellow"
+  },
+  {
+   "key": "w:green",
+   "text": "green"
+  },
+  {
+   "key": "w:pink",
+   "text": "pink"
+  },
+  {
+   "key": "w:white",
+   "text": "white"
+  },
+  {
+   "key": "w:chair",
+   "text": "chair"
+  },
+  {
+   "key": "w:table",
+   "text": "table"
+  },
+  {
+   "key": "w:bed",
+   "text": "bed"
+  },
+  {
+   "key": "w:lamp",
+   "text": "lamp"
+  },
+  {
+   "key": "w:plant",
+   "text": "plant"
+  },
+  {
+   "key": "w:sofa",
+   "text": "sofa"
+  },
+  {
+   "key": "w:bookshelf",
+   "text": "bookshelf"
+  },
+  {
+   "key": "w:clock",
+   "text": "clock"
+  },
+  {
+   "key": "w:radio",
+   "text": "radio"
+  },
+  {
+   "key": "w:plush",
+   "text": "stuffed animal"
+  },
+  {
+   "key": "w:rug",
+   "text": "rug"
+  },
+  {
+   "key": "w:hat",
+   "text": "hat"
+  },
+  {
+   "key": "w:scarf",
+   "text": "scarf"
+  },
+  {
+   "key": "w:ribbon",
+   "text": "ribbon"
+  },
+  {
+   "key": "w:glasses",
+   "text": "glasses"
+  },
+  {
+   "key": "w:cap",
+   "text": "cap"
+  },
+  {
+   "key": "w:crown",
+   "text": "crown"
+  },
+  {
+   "key": "w:happy",
+   "text": "happy"
+  },
+  {
+   "key": "w:sleepy",
+   "text": "sleepy"
+  },
+  {
+   "key": "w:delicious",
+   "text": "delicious"
+  },
+  {
+   "key": "w:cute",
+   "text": "cute"
+  },
+  {
+   "key": "w:big",
+   "text": "big"
+  },
+  {
+   "key": "w:small",
+   "text": "small"
+  },
+  {
+   "key": "w:hot",
+   "text": "hot"
+  },
+  {
+   "key": "w:cold",
+   "text": "cold"
+  },
+  {
+   "key": "w:eat",
+   "text": "to eat"
+  },
+  {
+   "key": "w:drink",
+   "text": "to drink"
+  },
+  {
+   "key": "w:go_fishing",
+   "text": "to fish"
+  },
+  {
+   "key": "w:walk",
+   "text": "to walk"
+  },
+  {
+   "key": "w:read",
+   "text": "to read"
+  },
+  {
+   "key": "w:sleep",
+   "text": "to sleep"
+  },
+  {
+   "key": "p:hello",
+   "text": "Hello!"
+  },
+  {
+   "key": "p:good_morning",
+   "text": "Good morning!"
+  },
+  {
+   "key": "p:good_afternoon",
+   "text": "Good afternoon!"
+  },
+  {
+   "key": "p:good_evening",
+   "text": "Good evening!"
+  },
+  {
+   "key": "p:see_you",
+   "text": "See you later!"
+  },
+  {
+   "key": "p:thanks",
+   "text": "Thank you!"
+  },
+  {
+   "key": "p:thanks_lot",
+   "text": "Thank you very much!"
+  },
+  {
+   "key": "p:of_course",
+   "text": "Of course!"
+  },
+  {
+   "key": "p:yes_it_is",
+   "text": "Yes, it is!"
+  },
+  {
+   "key": "p:im_sleepy",
+   "text": "I'm a little sleepy."
+  },
+  {
+   "key": "p:welcome_village",
+   "text": "Welcome to our village!"
+  },
+  {
+   "key": "p:im_biscuit",
+   "text": "My name is Biscuit."
+  },
+  {
+   "key": "p:whats_your_name",
+   "text": "What's your name?"
+  },
+  {
+   "key": "p:nice_meet",
+   "text": "Nice to meet you!"
+  },
+  {
+   "key": "p:nice_meet_too",
+   "text": "Nice to meet you, too!"
+  },
+  {
+   "key": "p:cookie_for_you",
+   "text": "Here, a cookie for you."
+  },
+  {
+   "key": "p:go_say_hello",
+   "text": "Go say hello to Pip and Yuzu!"
+  },
+  {
+   "key": "p:im_pip",
+   "text": "Hi! I'm Pip!"
+  },
+  {
+   "key": "p:how_are_you",
+   "text": "How are you?"
+  },
+  {
+   "key": "p:im_fine",
+   "text": "I'm fine, thank you!"
+  },
+  {
+   "key": "p:this_my_store",
+   "text": "This is my store!"
+  },
+  {
+   "key": "p:come_anytime",
+   "text": "Come by anytime!"
+  },
+  {
+   "key": "p:yuzu_hello",
+   "text": "...Oh. Hello."
+  },
+  {
+   "key": "p:im_yuzu",
+   "text": "I'm Yuzu. I like fishing."
+  },
+  {
+   "key": "p:like_fish_q",
+   "text": "Do you like fish?"
+  },
+  {
+   "key": "p:yes_like",
+   "text": "Yes, I like them!"
+  },
+  {
+   "key": "p:not_really",
+   "text": "Not really..."
+  },
+  {
+   "key": "p:pond_calm",
+   "text": "This pond is calm. I like calm."
+  },
+  {
+   "key": "p:talk_anytime",
+   "text": "Come talk to me anytime."
+  },
+  {
+   "key": "p:a_bit_cold",
+   "text": "Brr... I'm a little cold."
+  },
+  {
+   "key": "p:want_hot_tea",
+   "text": "I'd like a hot tea."
+  },
+  {
+   "key": "p:buy_at_cafe",
+   "text": "Could you buy one at the café?"
+  },
+  {
+   "key": "p:what_would_you_like",
+   "text": "Welcome! What would you like?"
+  },
+  {
+   "key": "p:order_tea",
+   "text": "A tea, please."
+  },
+  {
+   "key": "p:order_coffee",
+   "text": "A coffee, please."
+  },
+  {
+   "key": "p:order_cake",
+   "text": "A cake, please."
+  },
+  {
+   "key": "p:hot_or_iced",
+   "text": "Hot or iced?"
+  },
+  {
+   "key": "p:hot_please",
+   "text": "Hot, please."
+  },
+  {
+   "key": "p:iced_please",
+   "text": "Iced, please."
+  },
+  {
+   "key": "p:thats_5",
+   "text": "That's 5 coins."
+  },
+  {
+   "key": "p:here_you_go",
+   "text": "Here you go. Enjoy!"
+  },
+  {
+   "key": "p:heres_tea",
+   "text": "Here's your tea!"
+  },
+  {
+   "key": "p:heres_coffee",
+   "text": "Here's your coffee!"
+  },
+  {
+   "key": "p:rod_for_you",
+   "text": "Here. A fishing rod, for you."
+  },
+  {
+   "key": "p:lets_fish",
+   "text": "Let's fish together sometime."
+  },
+  {
+   "key": "p:oh_no",
+   "text": "Oh no! Oh no!"
+  },
+  {
+   "key": "p:lost_three",
+   "text": "I lost three things!"
+  },
+  {
+   "key": "p:key_fountain",
+   "text": "My key is near the fountain."
+  },
+  {
+   "key": "p:book_tree",
+   "text": "My book is under the big tree."
+  },
+  {
+   "key": "p:umbrella_bridge",
+   "text": "My umbrella is next to the bridge."
+  },
+  {
+   "key": "p:can_you_help",
+   "text": "Can you help me?"
+  },
+  {
+   "key": "p:what_did_you_find",
+   "text": "What did you find?"
+  },
+  {
+   "key": "p:i_found_it",
+   "text": "I found it!"
+  },
+  {
+   "key": "p:youre_best",
+   "text": "You're the best! Take this!"
+  },
+  {
+   "key": "p:whats_this",
+   "text": "What's this?"
+  },
+  {
+   "key": "p:weather_sunny",
+   "text": "It's a nice day today, isn't it?"
+  },
+  {
+   "key": "p:weather_rain",
+   "text": "It's raining today, isn't it?"
+  },
+  {
+   "key": "p:weather_cloudy",
+   "text": "It's cloudy today, isn't it?"
+  },
+  {
+   "key": "p:weather_snow",
+   "text": "Look! It's snowing!"
+  },
+  {
+   "key": "p:well_done",
+   "text": "Well done!"
+  },
+  {
+   "key": "p:almost",
+   "text": "Hmm, almost!"
+  },
+  {
+   "key": "p:gift_thanks",
+   "text": "Wow, for me? Thank you!"
+  },
+  {
+   "key": "p:gift_love",
+   "text": "This is my favorite! I'm so happy!"
+  },
+  {
+   "key": "p:i_like_item|strawberry",
+   "text": "I like strawberry."
+  },
+  {
+   "key": "p:i_like_item|honey",
+   "text": "I like honey."
+  },
+  {
+   "key": "p:i_like_item|carrot",
+   "text": "I like carrot."
+  },
+  {
+   "key": "p:i_like_item|flower",
+   "text": "I like flower."
+  },
+  {
+   "key": "p:i_like_item|tea",
+   "text": "I like tea."
+  },
+  {
+   "key": "p:i_like_item|apple",
+   "text": "I like apple."
+  },
+  {
+   "key": "p:heres_gift",
+   "text": "This is for you!"
+  },
+  {
+   "key": "p:want_item|bread",
+   "text": "I'd like the bread, please."
+  },
+  {
+   "key": "p:want_item|cookie",
+   "text": "I'd like the cookie, please."
+  },
+  {
+   "key": "p:want_item|croissant",
+   "text": "I'd like the croissant, please."
+  },
+  {
+   "key": "p:want_item|cake",
+   "text": "I'd like the cake, please."
+  },
+  {
+   "key": "p:want_item|coffee",
+   "text": "I'd like the coffee, please."
+  },
+  {
+   "key": "p:want_item|tea",
+   "text": "I'd like the tea, please."
+  },
+  {
+   "key": "p:want_item|milk",
+   "text": "I'd like the milk, please."
+  },
+  {
+   "key": "p:want_item|soup",
+   "text": "I'd like the soup, please."
+  },
+  {
+   "key": "p:want_item|sandwich",
+   "text": "I'd like the sandwich, please."
+  },
+  {
+   "key": "p:want_item|honey",
+   "text": "I'd like the honey, please."
+  },
+  {
+   "key": "p:want_item|apple",
+   "text": "I'd like the apple, please."
+  },
+  {
+   "key": "p:want_item|strawberry",
+   "text": "I'd like the strawberry, please."
+  },
+  {
+   "key": "p:want_item|carrot",
+   "text": "I'd like the carrot, please."
+  },
+  {
+   "key": "p:want_item|chair",
+   "text": "I'd like the chair, please."
+  },
+  {
+   "key": "p:want_item|table",
+   "text": "I'd like the table, please."
+  },
+  {
+   "key": "p:want_item|lamp",
+   "text": "I'd like the lamp, please."
+  },
+  {
+   "key": "p:want_item|plant",
+   "text": "I'd like the plant, please."
+  },
+  {
+   "key": "p:want_item|rug",
+   "text": "I'd like the rug, please."
+  },
+  {
+   "key": "p:want_item|bed",
+   "text": "I'd like the bed, please."
+  },
+  {
+   "key": "p:want_item|radio",
+   "text": "I'd like the radio, please."
+  },
+  {
+   "key": "p:want_item|clock",
+   "text": "I'd like the clock, please."
+  },
+  {
+   "key": "p:want_item|bookshelf",
+   "text": "I'd like the bookshelf, please."
+  },
+  {
+   "key": "p:want_item|sofa",
+   "text": "I'd like the sofa, please."
+  },
+  {
+   "key": "p:want_item|plush",
+   "text": "I'd like the stuffed animal, please."
+  },
+  {
+   "key": "p:want_item|hat",
+   "text": "I'd like the hat, please."
+  },
+  {
+   "key": "p:want_item|cap",
+   "text": "I'd like the cap, please."
+  },
+  {
+   "key": "p:want_item|ribbon",
+   "text": "I'd like the ribbon, please."
+  },
+  {
+   "key": "p:want_item|scarf",
+   "text": "I'd like the scarf, please."
+  },
+  {
+   "key": "p:want_item|glasses",
+   "text": "I'd like the glasses, please."
+  },
+  {
+   "key": "p:want_item|crown",
+   "text": "I'd like the crown, please."
+  },
+  {
+   "key": "p:pip_shop_welcome",
+   "text": "Welcome! Take a look!"
+  },
+  {
+   "key": "p:biscuit_menu",
+   "text": "Everything's fresh today!"
+  },
+  {
+   "key": "p:which_one",
+   "text": "Which one would you like?"
+  },
+  {
+   "key": "p:thanks_purchase",
+   "text": "Thank you! Enjoy it!"
+  },
+  {
+   "key": "p:not_enough",
+   "text": "Oh... you don't have enough coins."
+  },
+  {
+   "key": "p:nice_catch",
+   "text": "Nice catch!"
+  },
+  {
+   "key": "p:what_fish",
+   "text": "What is it?"
+  },
+  {
+   "key": "p:slowly_fine",
+   "text": "There's no need to hurry."
+  },
+  {
+   "key": "p:b_s1",
+   "text": "I bake bread every morning."
+  },
+  {
+   "key": "p:b_s2",
+   "text": "My favorite food is honey cake."
+  },
+  {
+   "key": "p:b_s3",
+   "text": "When I was little, my grandma taught me to bake."
+  },
+  {
+   "key": "p:p_s1",
+   "text": "I love carrots! Crunch crunch!"
+  },
+  {
+   "key": "p:p_s2",
+   "text": "I grow flowers in the garden."
+  },
+  {
+   "key": "p:p_s3",
+   "text": "Someday I want to open a store in a big city!"
+  },
+  {
+   "key": "p:p_s4",
+   "text": "But... I'd miss everyone here."
+  },
+  {
+   "key": "p:y_s1",
+   "text": "I love warm baths."
+  },
+  {
+   "key": "p:y_s2",
+   "text": "At night, I watch the stars."
+  },
+  {
+   "key": "p:y_s3",
+   "text": "Slowly is fine. Slowly is good."
+  },
+  {
+   "key": "p:y_s4",
+   "text": "With a friend here, even the pond feels warmer."
+  },
+  {
+   "key": "p:n_cake",
+   "text": "Today at the café: strawberry cake! Only 8 coins."
+  },
+  {
+   "key": "p:n_umbrella",
+   "text": "Lost: a red umbrella. Please bring it to the store."
+  },
+  {
+   "key": "p:n_stars",
+   "text": "Tonight: stargazing at the pond with Yuzu."
+  },
+  {
+   "key": "p:n_chair",
+   "text": "New at Pip's store: a green chair!"
+  },
+  {
+   "key": "p:n_rain",
+   "text": "Rain is coming. Don't forget your umbrella!"
+  }
+ ],
+ "es": [
+  {
+   "key": "w:bread",
+   "text": "el pan"
+  },
+  {
+   "key": "w:coffee",
+   "text": "el café"
+  },
+  {
+   "key": "w:tea",
+   "text": "el té"
+  },
+  {
+   "key": "w:cake",
+   "text": "el pastel"
+  },
+  {
+   "key": "w:cookie",
+   "text": "la galleta"
+  },
+  {
+   "key": "w:croissant",
+   "text": "el cruasán"
+  },
+  {
+   "key": "w:honey",
+   "text": "la miel"
+  },
+  {
+   "key": "w:milk",
+   "text": "la leche"
+  },
+  {
+   "key": "w:water",
+   "text": "el agua"
+  },
+  {
+   "key": "w:apple",
+   "text": "la manzana"
+  },
+  {
+   "key": "w:strawberry",
+   "text": "la fresa"
+  },
+  {
+   "key": "w:carrot",
+   "text": "la zanahoria"
+  },
+  {
+   "key": "w:soup",
+   "text": "la sopa"
+  },
+  {
+   "key": "w:sandwich",
+   "text": "el sándwich"
+  },
+  {
+   "key": "w:fish",
+   "text": "el pez"
+  },
+  {
+   "key": "w:goldfish",
+   "text": "el pez dorado"
+  },
+  {
+   "key": "w:carp",
+   "text": "la carpa"
+  },
+  {
+   "key": "w:catfish",
+   "text": "el bagre"
+  },
+  {
+   "key": "w:trout",
+   "text": "la trucha"
+  },
+  {
+   "key": "w:crab",
+   "text": "el cangrejo"
+  },
+  {
+   "key": "w:turtle",
+   "text": "la tortuga"
+  },
+  {
+   "key": "w:frog",
+   "text": "la rana"
+  },
+  {
+   "key": "w:shrimp",
+   "text": "el camarón"
+  },
+  {
+   "key": "w:boot",
+   "text": "la bota vieja"
+  },
+  {
+   "key": "w:flower",
+   "text": "la flor"
+  },
+  {
+   "key": "w:tree",
+   "text": "el árbol"
+  },
+  {
+   "key": "w:mushroom",
+   "text": "el hongo"
+  },
+  {
+   "key": "w:leaf",
+   "text": "la hoja"
+  },
+  {
+   "key": "w:bird",
+   "text": "el pájaro"
+  },
+  {
+   "key": "w:butterfly",
+   "text": "la mariposa"
+  },
+  {
+   "key": "w:star",
+   "text": "la estrella"
+  },
+  {
+   "key": "w:moon",
+   "text": "la luna"
+  },
+  {
+   "key": "w:sun",
+   "text": "el sol"
+  },
+  {
+   "key": "w:rain",
+   "text": "la lluvia"
+  },
+  {
+   "key": "w:snow",
+   "text": "la nieve"
+  },
+  {
+   "key": "w:cloud",
+   "text": "la nube"
+  },
+  {
+   "key": "w:key",
+   "text": "la llave"
+  },
+  {
+   "key": "w:book",
+   "text": "el libro"
+  },
+  {
+   "key": "w:umbrella",
+   "text": "el paraguas"
+  },
+  {
+   "key": "w:letter",
+   "text": "la carta"
+  },
+  {
+   "key": "w:rod",
+   "text": "la caña de pescar"
+  },
+  {
+   "key": "w:coin",
+   "text": "la moneda"
+  },
+  {
+   "key": "w:cafe",
+   "text": "la cafetería"
+  },
+  {
+   "key": "w:store",
+   "text": "la tienda"
+  },
+  {
+   "key": "w:house",
+   "text": "la casa"
+  },
+  {
+   "key": "w:garden",
+   "text": "el jardín"
+  },
+  {
+   "key": "w:plaza",
+   "text": "la plaza"
+  },
+  {
+   "key": "w:fountain",
+   "text": "la fuente"
+  },
+  {
+   "key": "w:forest",
+   "text": "el bosque"
+  },
+  {
+   "key": "w:bridge",
+   "text": "el puente"
+  },
+  {
+   "key": "w:pond",
+   "text": "el estanque"
+  },
+  {
+   "key": "w:red",
+   "text": "rojo"
+  },
+  {
+   "key": "w:blue",
+   "text": "azul"
+  },
+  {
+   "key": "w:yellow",
+   "text": "amarillo"
+  },
+  {
+   "key": "w:green",
+   "text": "verde"
+  },
+  {
+   "key": "w:pink",
+   "text": "rosa"
+  },
+  {
+   "key": "w:white",
+   "text": "blanco"
+  },
+  {
+   "key": "w:chair",
+   "text": "la silla"
+  },
+  {
+   "key": "w:table",
+   "text": "la mesa"
+  },
+  {
+   "key": "w:bed",
+   "text": "la cama"
+  },
+  {
+   "key": "w:lamp",
+   "text": "la lámpara"
+  },
+  {
+   "key": "w:plant",
+   "text": "la planta"
+  },
+  {
+   "key": "w:sofa",
+   "text": "el sofá"
+  },
+  {
+   "key": "w:bookshelf",
+   "text": "la estantería"
+  },
+  {
+   "key": "w:clock",
+   "text": "el reloj"
+  },
+  {
+   "key": "w:radio",
+   "text": "la radio"
+  },
+  {
+   "key": "w:plush",
+   "text": "el peluche"
+  },
+  {
+   "key": "w:rug",
+   "text": "la alfombra"
+  },
+  {
+   "key": "w:hat",
+   "text": "el sombrero"
+  },
+  {
+   "key": "w:scarf",
+   "text": "la bufanda"
+  },
+  {
+   "key": "w:ribbon",
+   "text": "el lazo"
+  },
+  {
+   "key": "w:glasses",
+   "text": "los lentes"
+  },
+  {
+   "key": "w:cap",
+   "text": "la gorra"
+  },
+  {
+   "key": "w:crown",
+   "text": "la corona"
+  },
+  {
+   "key": "w:happy",
+   "text": "feliz"
+  },
+  {
+   "key": "w:sleepy",
+   "text": "con sueño"
+  },
+  {
+   "key": "w:delicious",
+   "text": "delicioso"
+  },
+  {
+   "key": "w:cute",
+   "text": "lindo"
+  },
+  {
+   "key": "w:big",
+   "text": "grande"
+  },
+  {
+   "key": "w:small",
+   "text": "pequeño"
+  },
+  {
+   "key": "w:hot",
+   "text": "caliente"
+  },
+  {
+   "key": "w:cold",
+   "text": "frío"
+  },
+  {
+   "key": "w:eat",
+   "text": "comer"
+  },
+  {
+   "key": "w:drink",
+   "text": "beber"
+  },
+  {
+   "key": "w:go_fishing",
+   "text": "pescar"
+  },
+  {
+   "key": "w:walk",
+   "text": "caminar"
+  },
+  {
+   "key": "w:read",
+   "text": "leer"
+  },
+  {
+   "key": "w:sleep",
+   "text": "dormir"
+  },
+  {
+   "key": "p:hello",
+   "text": "¡Hola!"
+  },
+  {
+   "key": "p:good_morning",
+   "text": "¡Buenos días!"
+  },
+  {
+   "key": "p:good_afternoon",
+   "text": "¡Buenas tardes!"
+  },
+  {
+   "key": "p:good_evening",
+   "text": "¡Buenas noches!"
+  },
+  {
+   "key": "p:see_you",
+   "text": "¡Hasta luego!"
+  },
+  {
+   "key": "p:thanks",
+   "text": "¡Gracias!"
+  },
+  {
+   "key": "p:thanks_lot",
+   "text": "¡Muchas gracias!"
+  },
+  {
+   "key": "p:of_course",
+   "text": "¡Claro!"
+  },
+  {
+   "key": "p:yes_it_is",
+   "text": "¡Sí, es verdad!"
+  },
+  {
+   "key": "p:im_sleepy",
+   "text": "Tengo un poco de sueño."
+  },
+  {
+   "key": "p:welcome_village",
+   "text": "¡Bienvenidos a nuestro pueblo!"
+  },
+  {
+   "key": "p:im_biscuit",
+   "text": "Me llamo Bizcocho."
+  },
+  {
+   "key": "p:whats_your_name",
+   "text": "¿Cómo te llamas?"
+  },
+  {
+   "key": "p:nice_meet",
+   "text": "¡Mucho gusto!"
+  },
+  {
+   "key": "p:nice_meet_too",
+   "text": "¡Igualmente!"
+  },
+  {
+   "key": "p:cookie_for_you",
+   "text": "Toma, una galleta para ti."
+  },
+  {
+   "key": "p:go_say_hello",
+   "text": "¡Ve a saludar a Pip y a Yuzu!"
+  },
+  {
+   "key": "p:im_pip",
+   "text": "¡Hola! ¡Soy Pip!"
+  },
+  {
+   "key": "p:how_are_you",
+   "text": "¿Cómo estás?"
+  },
+  {
+   "key": "p:im_fine",
+   "text": "¡Bien, gracias!"
+  },
+  {
+   "key": "p:this_my_store",
+   "text": "¡Esta es mi tienda!"
+  },
+  {
+   "key": "p:come_anytime",
+   "text": "¡Ven cuando quieras!"
+  },
+  {
+   "key": "p:yuzu_hello",
+   "text": "...Ah. Hola."
+  },
+  {
+   "key": "p:im_yuzu",
+   "text": "Soy Yuzu. Me gusta pescar."
+  },
+  {
+   "key": "p:like_fish_q",
+   "text": "¿Te gustan los peces?"
+  },
+  {
+   "key": "p:yes_like",
+   "text": "¡Sí, me gustan!"
+  },
+  {
+   "key": "p:not_really",
+   "text": "No mucho..."
+  },
+  {
+   "key": "p:pond_calm",
+   "text": "Este estanque es tranquilo. Me gusta la calma."
+  },
+  {
+   "key": "p:talk_anytime",
+   "text": "Háblame cuando quieras."
+  },
+  {
+   "key": "p:a_bit_cold",
+   "text": "Brr... Tengo un poco de frío."
+  },
+  {
+   "key": "p:want_hot_tea",
+   "text": "Quisiera un té caliente."
+  },
+  {
+   "key": "p:buy_at_cafe",
+   "text": "¿Puedes comprar uno en la cafetería?"
+  },
+  {
+   "key": "p:what_would_you_like",
+   "text": "¡Hola! ¿Qué te gustaría?"
+  },
+  {
+   "key": "p:order_tea",
+   "text": "Un té, por favor."
+  },
+  {
+   "key": "p:order_coffee",
+   "text": "Un café, por favor."
+  },
+  {
+   "key": "p:order_cake",
+   "text": "Un pastel, por favor."
+  },
+  {
+   "key": "p:hot_or_iced",
+   "text": "¿Caliente o frío?"
+  },
+  {
+   "key": "p:hot_please",
+   "text": "Caliente, por favor."
+  },
+  {
+   "key": "p:iced_please",
+   "text": "Frío, por favor."
+  },
+  {
+   "key": "p:thats_5",
+   "text": "Son cinco monedas."
+  },
+  {
+   "key": "p:here_you_go",
+   "text": "Aquí tienes. ¡Disfrútalo!"
+  },
+  {
+   "key": "p:heres_tea",
+   "text": "¡Aquí está tu té!"
+  },
+  {
+   "key": "p:heres_coffee",
+   "text": "¡Aquí está tu café!"
+  },
+  {
+   "key": "p:rod_for_you",
+   "text": "Toma. Una caña de pescar para ti."
+  },
+  {
+   "key": "p:lets_fish",
+   "text": "Pesquemos juntos algún día."
+  },
+  {
+   "key": "p:oh_no",
+   "text": "¡Ay, no! ¡Ay, no!"
+  },
+  {
+   "key": "p:lost_three",
+   "text": "¡Perdí tres cosas!"
+  },
+  {
+   "key": "p:key_fountain",
+   "text": "Mi llave está cerca de la fuente."
+  },
+  {
+   "key": "p:book_tree",
+   "text": "Mi libro está debajo del árbol grande."
+  },
+  {
+   "key": "p:umbrella_bridge",
+   "text": "Mi paraguas está al lado del puente."
+  },
+  {
+   "key": "p:can_you_help",
+   "text": "¿Me puedes ayudar?"
+  },
+  {
+   "key": "p:what_did_you_find",
+   "text": "¿Qué encontraste?"
+  },
+  {
+   "key": "p:i_found_it",
+   "text": "¡Lo encontré!"
+  },
+  {
+   "key": "p:youre_best",
+   "text": "¡Eres lo máximo! ¡Toma esto!"
+  },
+  {
+   "key": "p:whats_this",
+   "text": "¿Qué es esto?"
+  },
+  {
+   "key": "p:weather_sunny",
+   "text": "Hoy hace buen tiempo, ¿verdad?"
+  },
+  {
+   "key": "p:weather_rain",
+   "text": "Hoy está lloviendo, ¿verdad?"
+  },
+  {
+   "key": "p:weather_cloudy",
+   "text": "Hoy está nublado, ¿verdad?"
+  },
+  {
+   "key": "p:weather_snow",
+   "text": "¡Mira! ¡Está nevando!"
+  },
+  {
+   "key": "p:well_done",
+   "text": "¡Muy bien!"
+  },
+  {
+   "key": "p:almost",
+   "text": "Mmm, ¡casi!"
+  },
+  {
+   "key": "p:gift_thanks",
+   "text": "¡Guau! ¿Para mí? ¡Gracias!"
+  },
+  {
+   "key": "p:gift_love",
+   "text": "¡Es mi favorito! ¡Qué feliz estoy!"
+  },
+  {
+   "key": "p:i_like_item|strawberry",
+   "text": "Me gusta la fresa."
+  },
+  {
+   "key": "p:i_like_item|honey",
+   "text": "Me gusta la miel."
+  },
+  {
+   "key": "p:i_like_item|carrot",
+   "text": "Me gusta la zanahoria."
+  },
+  {
+   "key": "p:i_like_item|flower",
+   "text": "Me gusta la flor."
+  },
+  {
+   "key": "p:i_like_item|tea",
+   "text": "Me gusta el té."
+  },
+  {
+   "key": "p:i_like_item|apple",
+   "text": "Me gusta la manzana."
+  },
+  {
+   "key": "p:heres_gift",
+   "text": "¡Esto es para ti!"
+  },
+  {
+   "key": "p:want_item|bread",
+   "text": "Quisiera el pan, por favor."
+  },
+  {
+   "key": "p:want_item|cookie",
+   "text": "Quisiera la galleta, por favor."
+  },
+  {
+   "key": "p:want_item|croissant",
+   "text": "Quisiera el cruasán, por favor."
+  },
+  {
+   "key": "p:want_item|cake",
+   "text": "Quisiera el pastel, por favor."
+  },
+  {
+   "key": "p:want_item|coffee",
+   "text": "Quisiera el café, por favor."
+  },
+  {
+   "key": "p:want_item|tea",
+   "text": "Quisiera el té, por favor."
+  },
+  {
+   "key": "p:want_item|milk",
+   "text": "Quisiera la leche, por favor."
+  },
+  {
+   "key": "p:want_item|soup",
+   "text": "Quisiera la sopa, por favor."
+  },
+  {
+   "key": "p:want_item|sandwich",
+   "text": "Quisiera el sándwich, por favor."
+  },
+  {
+   "key": "p:want_item|honey",
+   "text": "Quisiera la miel, por favor."
+  },
+  {
+   "key": "p:want_item|apple",
+   "text": "Quisiera la manzana, por favor."
+  },
+  {
+   "key": "p:want_item|strawberry",
+   "text": "Quisiera la fresa, por favor."
+  },
+  {
+   "key": "p:want_item|carrot",
+   "text": "Quisiera la zanahoria, por favor."
+  },
+  {
+   "key": "p:want_item|chair",
+   "text": "Quisiera la silla, por favor."
+  },
+  {
+   "key": "p:want_item|table",
+   "text": "Quisiera la mesa, por favor."
+  },
+  {
+   "key": "p:want_item|lamp",
+   "text": "Quisiera la lámpara, por favor."
+  },
+  {
+   "key": "p:want_item|plant",
+   "text": "Quisiera la planta, por favor."
+  },
+  {
+   "key": "p:want_item|rug",
+   "text": "Quisiera la alfombra, por favor."
+  },
+  {
+   "key": "p:want_item|bed",
+   "text": "Quisiera la cama, por favor."
+  },
+  {
+   "key": "p:want_item|radio",
+   "text": "Quisiera la radio, por favor."
+  },
+  {
+   "key": "p:want_item|clock",
+   "text": "Quisiera el reloj, por favor."
+  },
+  {
+   "key": "p:want_item|bookshelf",
+   "text": "Quisiera la estantería, por favor."
+  },
+  {
+   "key": "p:want_item|sofa",
+   "text": "Quisiera el sofá, por favor."
+  },
+  {
+   "key": "p:want_item|plush",
+   "text": "Quisiera el peluche, por favor."
+  },
+  {
+   "key": "p:want_item|hat",
+   "text": "Quisiera el sombrero, por favor."
+  },
+  {
+   "key": "p:want_item|cap",
+   "text": "Quisiera la gorra, por favor."
+  },
+  {
+   "key": "p:want_item|ribbon",
+   "text": "Quisiera el lazo, por favor."
+  },
+  {
+   "key": "p:want_item|scarf",
+   "text": "Quisiera la bufanda, por favor."
+  },
+  {
+   "key": "p:want_item|glasses",
+   "text": "Quisiera los lentes, por favor."
+  },
+  {
+   "key": "p:want_item|crown",
+   "text": "Quisiera la corona, por favor."
+  },
+  {
+   "key": "p:pip_shop_welcome",
+   "text": "¡Hola! ¡Mira lo que tengo!"
+  },
+  {
+   "key": "p:biscuit_menu",
+   "text": "¡Todo está fresco hoy!"
+  },
+  {
+   "key": "p:which_one",
+   "text": "¿Cuál quieres?"
+  },
+  {
+   "key": "p:thanks_purchase",
+   "text": "¡Gracias! ¡Disfrútalo!"
+  },
+  {
+   "key": "p:not_enough",
+   "text": "Ay... no tienes suficientes monedas."
+  },
+  {
+   "key": "p:nice_catch",
+   "text": "¡Buena pesca!"
+  },
+  {
+   "key": "p:what_fish",
+   "text": "¿Qué es?"
+  },
+  {
+   "key": "p:slowly_fine",
+   "text": "No hay prisa."
+  },
+  {
+   "key": "p:b_s1",
+   "text": "Hago pan todas las mañanas."
+  },
+  {
+   "key": "p:b_s2",
+   "text": "Mi comida favorita es el pastel de miel."
+  },
+  {
+   "key": "p:b_s3",
+   "text": "Cuando era pequeña, mi abuela me enseñó a hornear."
+  },
+  {
+   "key": "p:p_s1",
+   "text": "¡Me encantan las zanahorias! ¡Crunch, crunch!"
+  },
+  {
+   "key": "p:p_s2",
+   "text": "Cultivo flores en el jardín."
+  },
+  {
+   "key": "p:p_s3",
+   "text": "¡Algún día quiero abrir una tienda en una gran ciudad!"
+  },
+  {
+   "key": "p:p_s4",
+   "text": "Pero... extrañaría a todos aquí."
+  },
+  {
+   "key": "p:y_s1",
+   "text": "Me encantan los baños calientes."
+  },
+  {
+   "key": "p:y_s2",
+   "text": "Por la noche, miro las estrellas."
+  },
+  {
+   "key": "p:y_s3",
+   "text": "Despacio está bien. Despacio es bueno."
+  },
+  {
+   "key": "p:y_s4",
+   "text": "Con un amigo aquí, hasta el estanque se siente más cálido."
+  },
+  {
+   "key": "p:n_cake",
+   "text": "Hoy en la cafetería: ¡pastel de fresa! Solo ocho monedas."
+  },
+  {
+   "key": "p:n_umbrella",
+   "text": "Perdido: un paraguas rojo. Por favor, tráelo a la tienda."
+  },
+  {
+   "key": "p:n_stars",
+   "text": "Esta noche: mirar las estrellas en el estanque con Yuzu."
+  },
+  {
+   "key": "p:n_chair",
+   "text": "Nuevo en la tienda de Pip: ¡una silla verde!"
+  },
+  {
+   "key": "p:n_rain",
+   "text": "Va a llover. ¡No olvides tu paraguas!"
+  }
+ ],
+ "ja": [
+  {
+   "key": "w:bread",
+   "text": "パン"
+  },
+  {
+   "key": "w:coffee",
+   "text": "コーヒー"
+  },
+  {
+   "key": "w:tea",
+   "text": "おちゃ"
+  },
+  {
+   "key": "w:cake",
+   "text": "ケーキ"
+  },
+  {
+   "key": "w:cookie",
+   "text": "クッキー"
+  },
+  {
+   "key": "w:croissant",
+   "text": "クロワッサン"
+  },
+  {
+   "key": "w:honey",
+   "text": "はちみつ"
+  },
+  {
+   "key": "w:milk",
+   "text": "ぎゅうにゅう"
+  },
+  {
+   "key": "w:water",
+   "text": "みず"
+  },
+  {
+   "key": "w:apple",
+   "text": "りんご"
+  },
+  {
+   "key": "w:strawberry",
+   "text": "いちご"
+  },
+  {
+   "key": "w:carrot",
+   "text": "にんじん"
+  },
+  {
+   "key": "w:soup",
+   "text": "スープ"
+  },
+  {
+   "key": "w:sandwich",
+   "text": "サンドイッチ"
+  },
+  {
+   "key": "w:fish",
+   "text": "さかな"
+  },
+  {
+   "key": "w:goldfish",
+   "text": "きんぎょ"
+  },
+  {
+   "key": "w:carp",
+   "text": "こい"
+  },
+  {
+   "key": "w:catfish",
+   "text": "ナマズ"
+  },
+  {
+   "key": "w:trout",
+   "text": "マス"
+  },
+  {
+   "key": "w:crab",
+   "text": "カニ"
+  },
+  {
+   "key": "w:turtle",
+   "text": "カメ"
+  },
+  {
+   "key": "w:frog",
+   "text": "カエル"
+  },
+  {
+   "key": "w:shrimp",
+   "text": "エビ"
+  },
+  {
+   "key": "w:boot",
+   "text": "ふるいブーツ"
+  },
+  {
+   "key": "w:flower",
+   "text": "はな"
+  },
+  {
+   "key": "w:tree",
+   "text": "き"
+  },
+  {
+   "key": "w:mushroom",
+   "text": "きのこ"
+  },
+  {
+   "key": "w:leaf",
+   "text": "はっぱ"
+  },
+  {
+   "key": "w:bird",
+   "text": "とり"
+  },
+  {
+   "key": "w:butterfly",
+   "text": "ちょうちょ"
+  },
+  {
+   "key": "w:star",
+   "text": "ほし"
+  },
+  {
+   "key": "w:moon",
+   "text": "つき"
+  },
+  {
+   "key": "w:sun",
+   "text": "たいよう"
+  },
+  {
+   "key": "w:rain",
+   "text": "あめ"
+  },
+  {
+   "key": "w:snow",
+   "text": "ゆき"
+  },
+  {
+   "key": "w:cloud",
+   "text": "くも"
+  },
+  {
+   "key": "w:key",
+   "text": "かぎ"
+  },
+  {
+   "key": "w:book",
+   "text": "ほん"
+  },
+  {
+   "key": "w:umbrella",
+   "text": "かさ"
+  },
+  {
+   "key": "w:letter",
+   "text": "てがみ"
+  },
+  {
+   "key": "w:rod",
+   "text": "つりざお"
+  },
+  {
+   "key": "w:coin",
+   "text": "コイン"
+  },
+  {
+   "key": "w:cafe",
+   "text": "カフェ"
+  },
+  {
+   "key": "w:store",
+   "text": "みせ"
+  },
+  {
+   "key": "w:house",
+   "text": "いえ"
+  },
+  {
+   "key": "w:garden",
+   "text": "にわ"
+  },
+  {
+   "key": "w:plaza",
+   "text": "ひろば"
+  },
+  {
+   "key": "w:fountain",
+   "text": "ふんすい"
+  },
+  {
+   "key": "w:forest",
+   "text": "もり"
+  },
+  {
+   "key": "w:bridge",
+   "text": "はし"
+  },
+  {
+   "key": "w:pond",
+   "text": "いけ"
+  },
+  {
+   "key": "w:red",
+   "text": "あかい"
+  },
+  {
+   "key": "w:blue",
+   "text": "あおい"
+  },
+  {
+   "key": "w:yellow",
+   "text": "きいろい"
+  },
+  {
+   "key": "w:green",
+   "text": "みどり"
+  },
+  {
+   "key": "w:pink",
+   "text": "ピンク"
+  },
+  {
+   "key": "w:white",
+   "text": "しろい"
+  },
+  {
+   "key": "w:chair",
+   "text": "いす"
+  },
+  {
+   "key": "w:table",
+   "text": "テーブル"
+  },
+  {
+   "key": "w:bed",
+   "text": "ベッド"
+  },
+  {
+   "key": "w:lamp",
+   "text": "ランプ"
+  },
+  {
+   "key": "w:plant",
+   "text": "しょくぶつ"
+  },
+  {
+   "key": "w:sofa",
+   "text": "ソファ"
+  },
+  {
+   "key": "w:bookshelf",
+   "text": "ほんだな"
+  },
+  {
+   "key": "w:clock",
+   "text": "とけい"
+  },
+  {
+   "key": "w:radio",
+   "text": "ラジオ"
+  },
+  {
+   "key": "w:plush",
+   "text": "ぬいぐるみ"
+  },
+  {
+   "key": "w:rug",
+   "text": "ラグ"
+  },
+  {
+   "key": "w:hat",
+   "text": "ぼうし"
+  },
+  {
+   "key": "w:scarf",
+   "text": "マフラー"
+  },
+  {
+   "key": "w:ribbon",
+   "text": "リボン"
+  },
+  {
+   "key": "w:glasses",
+   "text": "めがね"
+  },
+  {
+   "key": "w:cap",
+   "text": "キャップ"
+  },
+  {
+   "key": "w:crown",
+   "text": "おうかん"
+  },
+  {
+   "key": "w:happy",
+   "text": "うれしい"
+  },
+  {
+   "key": "w:sleepy",
+   "text": "ねむい"
+  },
+  {
+   "key": "w:delicious",
+   "text": "おいしい"
+  },
+  {
+   "key": "w:cute",
+   "text": "かわいい"
+  },
+  {
+   "key": "w:big",
+   "text": "おおきい"
+  },
+  {
+   "key": "w:small",
+   "text": "ちいさい"
+  },
+  {
+   "key": "w:hot",
+   "text": "あつい"
+  },
+  {
+   "key": "w:cold",
+   "text": "つめたい"
+  },
+  {
+   "key": "w:eat",
+   "text": "たべる"
+  },
+  {
+   "key": "w:drink",
+   "text": "のむ"
+  },
+  {
+   "key": "w:go_fishing",
+   "text": "つる"
+  },
+  {
+   "key": "w:walk",
+   "text": "あるく"
+  },
+  {
+   "key": "w:read",
+   "text": "よむ"
+  },
+  {
+   "key": "w:sleep",
+   "text": "ねる"
+  },
+  {
+   "key": "p:hello",
+   "text": "こんにちは！"
+  },
+  {
+   "key": "p:good_morning",
+   "text": "おはようございます！"
+  },
+  {
+   "key": "p:good_afternoon",
+   "text": "こんにちは！"
+  },
+  {
+   "key": "p:good_evening",
+   "text": "こんばんは！"
+  },
+  {
+   "key": "p:see_you",
+   "text": "またね！"
+  },
+  {
+   "key": "p:thanks",
+   "text": "ありがとう！"
+  },
+  {
+   "key": "p:thanks_lot",
+   "text": "どうもありがとうございます！"
+  },
+  {
+   "key": "p:of_course",
+   "text": "もちろん！"
+  },
+  {
+   "key": "p:yes_it_is",
+   "text": "そうですね！"
+  },
+  {
+   "key": "p:im_sleepy",
+   "text": "ちょっとねむいです。"
+  },
+  {
+   "key": "p:welcome_village",
+   "text": "わたしたちのむらへようこそ！"
+  },
+  {
+   "key": "p:im_biscuit",
+   "text": "わたしはビスケットです。"
+  },
+  {
+   "key": "p:whats_your_name",
+   "text": "おなまえは？"
+  },
+  {
+   "key": "p:nice_meet",
+   "text": "はじめまして！"
+  },
+  {
+   "key": "p:nice_meet_too",
+   "text": "こちらこそ、よろしくおねがいします。"
+  },
+  {
+   "key": "p:cookie_for_you",
+   "text": "はい、クッキーをどうぞ。"
+  },
+  {
+   "key": "p:go_say_hello",
+   "text": "ピップとゆずにあいさつしてね！"
+  },
+  {
+   "key": "p:im_pip",
+   "text": "やあ！ピップだよ！"
+  },
+  {
+   "key": "p:how_are_you",
+   "text": "おげんきですか？"
+  },
+  {
+   "key": "p:im_fine",
+   "text": "げんきです、ありがとう！"
+  },
+  {
+   "key": "p:this_my_store",
+   "text": "ここはぼくのみせだよ！"
+  },
+  {
+   "key": "p:come_anytime",
+   "text": "いつでもきてね！"
+  },
+  {
+   "key": "p:yuzu_hello",
+   "text": "…あ。こんにちは。"
+  },
+  {
+   "key": "p:im_yuzu",
+   "text": "ゆずです。つりがすきです。"
+  },
+  {
+   "key": "p:like_fish_q",
+   "text": "さかなはすき？"
+  },
+  {
+   "key": "p:yes_like",
+   "text": "はい、すきです！"
+  },
+  {
+   "key": "p:not_really",
+   "text": "あまり…"
+  },
+  {
+   "key": "p:pond_calm",
+   "text": "このいけはしずかです。しずかがすき。"
+  },
+  {
+   "key": "p:talk_anytime",
+   "text": "いつでもはなしかけてね。"
+  },
+  {
+   "key": "p:a_bit_cold",
+   "text": "ブルル…ちょっとさむい。"
+  },
+  {
+   "key": "p:want_hot_tea",
+   "text": "あたたかいおちゃがのみたい。"
+  },
+  {
+   "key": "p:buy_at_cafe",
+   "text": "カフェでかってきてくれる？"
+  },
+  {
+   "key": "p:what_would_you_like",
+   "text": "いらっしゃいませ！なににしますか？"
+  },
+  {
+   "key": "p:order_tea",
+   "text": "おちゃをください。"
+  },
+  {
+   "key": "p:order_coffee",
+   "text": "コーヒーをください。"
+  },
+  {
+   "key": "p:order_cake",
+   "text": "ケーキをください。"
+  },
+  {
+   "key": "p:hot_or_iced",
+   "text": "ホットとアイス、どちらですか？"
+  },
+  {
+   "key": "p:hot_please",
+   "text": "ホットでおねがいします。"
+  },
+  {
+   "key": "p:iced_please",
+   "text": "アイスでおねがいします。"
+  },
+  {
+   "key": "p:thats_5",
+   "text": "ごコインです。"
+  },
+  {
+   "key": "p:here_you_go",
+   "text": "はい、どうぞ！"
+  },
+  {
+   "key": "p:heres_tea",
+   "text": "おちゃをどうぞ！"
+  },
+  {
+   "key": "p:heres_coffee",
+   "text": "コーヒーをどうぞ！"
+  },
+  {
+   "key": "p:rod_for_you",
+   "text": "これ、つりざお。あげる。"
+  },
+  {
+   "key": "p:lets_fish",
+   "text": "こんどいっしょにつりをしよう。"
+  },
+  {
+   "key": "p:oh_no",
+   "text": "わあ！どうしよう！"
+  },
+  {
+   "key": "p:lost_three",
+   "text": "みっつのものをなくしちゃった！"
+  },
+  {
+   "key": "p:key_fountain",
+   "text": "かぎはふんすいのちかく。"
+  },
+  {
+   "key": "p:book_tree",
+   "text": "ほんはおおきいきのした。"
+  },
+  {
+   "key": "p:umbrella_bridge",
+   "text": "かさははしのよこ。"
+  },
+  {
+   "key": "p:can_you_help",
+   "text": "てつだってくれる？"
+  },
+  {
+   "key": "p:what_did_you_find",
+   "text": "なにをみつけたの？"
+  },
+  {
+   "key": "p:i_found_it",
+   "text": "みつけたよ！"
+  },
+  {
+   "key": "p:youre_best",
+   "text": "さいこう！これ、あげる！"
+  },
+  {
+   "key": "p:whats_this",
+   "text": "これはなんですか？"
+  },
+  {
+   "key": "p:weather_sunny",
+   "text": "きょうはいいてんきですね。"
+  },
+  {
+   "key": "p:weather_rain",
+   "text": "きょうはあめですね。"
+  },
+  {
+   "key": "p:weather_cloudy",
+   "text": "きょうはくもりですね。"
+  },
+  {
+   "key": "p:weather_snow",
+   "text": "みて！ゆきだよ！"
+  },
+  {
+   "key": "p:well_done",
+   "text": "よくできました！"
+  },
+  {
+   "key": "p:almost",
+   "text": "うーん、おしい！"
+  },
+  {
+   "key": "p:gift_thanks",
+   "text": "わあ、くれるの？ありがとう！"
+  },
+  {
+   "key": "p:gift_love",
+   "text": "これ、だいすき！うれしい！"
+  },
+  {
+   "key": "p:i_like_item|strawberry",
+   "text": "いちごがすきです。"
+  },
+  {
+   "key": "p:i_like_item|honey",
+   "text": "はちみつがすきです。"
+  },
+  {
+   "key": "p:i_like_item|carrot",
+   "text": "にんじんがすきです。"
+  },
+  {
+   "key": "p:i_like_item|flower",
+   "text": "はながすきです。"
+  },
+  {
+   "key": "p:i_like_item|tea",
+   "text": "おちゃがすきです。"
+  },
+  {
+   "key": "p:i_like_item|apple",
+   "text": "りんごがすきです。"
+  },
+  {
+   "key": "p:heres_gift",
+   "text": "これ、どうぞ！"
+  },
+  {
+   "key": "p:want_item|bread",
+   "text": "パンをください。"
+  },
+  {
+   "key": "p:want_item|cookie",
+   "text": "クッキーをください。"
+  },
+  {
+   "key": "p:want_item|croissant",
+   "text": "クロワッサンをください。"
+  },
+  {
+   "key": "p:want_item|cake",
+   "text": "ケーキをください。"
+  },
+  {
+   "key": "p:want_item|coffee",
+   "text": "コーヒーをください。"
+  },
+  {
+   "key": "p:want_item|tea",
+   "text": "おちゃをください。"
+  },
+  {
+   "key": "p:want_item|milk",
+   "text": "ぎゅうにゅうをください。"
+  },
+  {
+   "key": "p:want_item|soup",
+   "text": "スープをください。"
+  },
+  {
+   "key": "p:want_item|sandwich",
+   "text": "サンドイッチをください。"
+  },
+  {
+   "key": "p:want_item|honey",
+   "text": "はちみつをください。"
+  },
+  {
+   "key": "p:want_item|apple",
+   "text": "りんごをください。"
+  },
+  {
+   "key": "p:want_item|strawberry",
+   "text": "いちごをください。"
+  },
+  {
+   "key": "p:want_item|carrot",
+   "text": "にんじんをください。"
+  },
+  {
+   "key": "p:want_item|chair",
+   "text": "いすをください。"
+  },
+  {
+   "key": "p:want_item|table",
+   "text": "テーブルをください。"
+  },
+  {
+   "key": "p:want_item|lamp",
+   "text": "ランプをください。"
+  },
+  {
+   "key": "p:want_item|plant",
+   "text": "しょくぶつをください。"
+  },
+  {
+   "key": "p:want_item|rug",
+   "text": "ラグをください。"
+  },
+  {
+   "key": "p:want_item|bed",
+   "text": "ベッドをください。"
+  },
+  {
+   "key": "p:want_item|radio",
+   "text": "ラジオをください。"
+  },
+  {
+   "key": "p:want_item|clock",
+   "text": "とけいをください。"
+  },
+  {
+   "key": "p:want_item|bookshelf",
+   "text": "ほんだなをください。"
+  },
+  {
+   "key": "p:want_item|sofa",
+   "text": "ソファをください。"
+  },
+  {
+   "key": "p:want_item|plush",
+   "text": "ぬいぐるみをください。"
+  },
+  {
+   "key": "p:want_item|hat",
+   "text": "ぼうしをください。"
+  },
+  {
+   "key": "p:want_item|cap",
+   "text": "キャップをください。"
+  },
+  {
+   "key": "p:want_item|ribbon",
+   "text": "リボンをください。"
+  },
+  {
+   "key": "p:want_item|scarf",
+   "text": "マフラーをください。"
+  },
+  {
+   "key": "p:want_item|glasses",
+   "text": "めがねをください。"
+  },
+  {
+   "key": "p:want_item|crown",
+   "text": "おうかんをください。"
+  },
+  {
+   "key": "p:pip_shop_welcome",
+   "text": "いらっしゃい！みていってね！"
+  },
+  {
+   "key": "p:biscuit_menu",
+   "text": "きょうもぜんぶできたてですよ！"
+  },
+  {
+   "key": "p:which_one",
+   "text": "どれにする？"
+  },
+  {
+   "key": "p:thanks_purchase",
+   "text": "まいどありがとう！"
+  },
+  {
+   "key": "p:not_enough",
+   "text": "あ…コインがたりないよ。"
+  },
+  {
+   "key": "p:nice_catch",
+   "text": "やったね！"
+  },
+  {
+   "key": "p:what_fish",
+   "text": "なにがつれた？"
+  },
+  {
+   "key": "p:slowly_fine",
+   "text": "いそがなくていいよ。"
+  },
+  {
+   "key": "p:b_s1",
+   "text": "まいあさ、パンをやきます。"
+  },
+  {
+   "key": "p:b_s2",
+   "text": "すきなたべものははちみつケーキです。"
+  },
+  {
+   "key": "p:b_s3",
+   "text": "ちいさいころ、おばあちゃんがパンのやきかたをおしえてくれました。"
+  },
+  {
+   "key": "p:p_s1",
+   "text": "にんじん、だいすき！ポリポリ！"
+  },
+  {
+   "key": "p:p_s2",
+   "text": "にわではなをそだてているよ。"
+  },
+  {
+   "key": "p:p_s3",
+   "text": "いつかおおきなまちでみせをひらきたい！"
+  },
+  {
+   "key": "p:p_s4",
+   "text": "でも…みんなとはなれるのはさびしいな。"
+  },
+  {
+   "key": "p:y_s1",
+   "text": "あたたかいおふろがだいすき。"
+  },
+  {
+   "key": "p:y_s2",
+   "text": "よるはほしをみるの。"
+  },
+  {
+   "key": "p:y_s3",
+   "text": "ゆっくりでいい。ゆっくりがいい。"
+  },
+  {
+   "key": "p:y_s4",
+   "text": "ともだちがいると、いけもあたたかい。"
+  },
+  {
+   "key": "p:n_cake",
+   "text": "きょうのカフェ：いちごケーキ！はちコインです。"
+  },
+  {
+   "key": "p:n_umbrella",
+   "text": "おとしもの：あかいかさ。みせにもってきてください。"
+  },
+  {
+   "key": "p:n_stars",
+   "text": "こんや：ゆずといけでほしをみよう。"
+  },
+  {
+   "key": "p:n_chair",
+   "text": "ピップのみせにあたらしいみどりのいす！"
+  },
+  {
+   "key": "p:n_rain",
+   "text": "あめがふります。かさをわすれないで！"
+  }
+ ]
+}

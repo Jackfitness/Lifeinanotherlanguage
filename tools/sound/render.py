@@ -422,13 +422,21 @@ def s_select():
     return mix((pluck(hz('C6'), 0.18, 0.55, 0.3), 0), (bubble(600, 900, 0.05, 0.3), 0))
 
 
+def s_surprise():
+    """The "!" moment when a villager first notices you: a quick upward swoop and a bright stab."""
+    swoop = bubble(380, 1500, 0.14, 0.55)
+    stab = mix((bell(hz('G6'), 0.7, 0.55), 0), (bell(hz('D7'), 0.6, 0.3), 0), (pluck(hz('G5'), 0.4, 0.5, 0.6), 0))
+    whoosh = rustle(1500, 7000, 0.12, 0.12, a=0.08)
+    return reverb(mix((whoosh, 0), (swoop, 0.02), (stab, 0.12)), 0.2, 0.6)
+
+
 SFX = {
     'tap': s_tap, 'soft': s_soft, 'open': s_open, 'close': s_close, 'page': s_page,
     'correct': s_correct, 'wrong': s_wrong, 'discovery': s_discovery,
     'coin': s_coin, 'sparkle': s_sparkle, 'heart': s_heart, 'levelup': s_levelup, 'quest': s_quest, 'achievement': s_achievement,
     'hop': s_hop, 'land': s_land, 'squeak': s_squeak,
     'cast': s_cast, 'plop': s_plop, 'nibble': s_nibble, 'splash': s_splash, 'reel': s_reel,
-    'door': s_door, 'place': s_place, 'pickup': s_pickup, 'rotate': s_rotate, 'gift': s_gift, 'select': s_select,
+    'door': s_door, 'place': s_place, 'pickup': s_pickup, 'rotate': s_rotate, 'gift': s_gift, 'select': s_select, 'surprise': s_surprise,
 }
 for i in range(3):
     SFX[f'step_grass{i}'] = (lambda i=i: s_step_grass(i))

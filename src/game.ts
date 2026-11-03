@@ -18,7 +18,7 @@ import { langInfo } from './content/languages';
 import { audio } from './audio/audio';
 import { speech } from './learning/tts';
 import { plainText } from './learning/text';
-import { exposePhrase, expose, lexNative, lexTarget, renderOpts, sayLex, target, wordsForChat, levelNum } from './learning/engine';
+import { exposePhrase, expose, lexNative, lexTarget, loadVoicePack, renderOpts, sayLex, target, wordsForChat, levelNum } from './learning/engine';
 import { buildVillage, BOUNDS, setSigns, type Village } from './world/village';
 import { Ambience, Burst, Sky, Sparkle, markerSprite, seasonOf, weatherOf, type Weather } from './world/env';
 import { Npc, Player, blendYaw, moveCircle, type Walkable } from './world/actors';
@@ -68,6 +68,7 @@ export class Game {
   private fishing: null | { phase: 'wait' | 'nibble' | 'bite'; t: number; bobber: THREE.Mesh; line: THREE.Line; hud: HTMLElement; msg: HTMLElement; nibbles: number } = null;
   private deco: null | { panel: HTMLElement; placing: string | null; selected: number | null; pop: HTMLElement | null } = null;
   private zoom = 1;
+  private shake = 0;
   private talkSlot: THREE.Vector3 | null = null;
 
   constructor(canvas: HTMLCanvasElement) {
@@ -204,6 +205,7 @@ export class Game {
     const s = S().settings;
     audio.musicVol = s.music; audio.sfxVol = s.sfx; audio.applyVolumes();
     speech.rate = s.rate;
+    loadVoicePack();
     document.documentElement.dataset.text = s.textSize;
     const sign = (id: string) => {
       let txt = plainText(lex(id).t[target()] ?? lex(id).t.en, target(), renderOpts(), s.jaScript === 'kana' ? 'kana' : 'kanji');
@@ -337,6 +339,12 @@ export class Game {
     this.camPos.lerp(want, k);
     this.camLook.lerp(target.clone().add(new THREE.Vector3(0, 0.6, portrait ? -0.6 : -0.3)), k);
     this.camera.position.copy(this.camPos);
+    if (this.shake > 0) {
+      this.shake = Math.max(0, this.shake - dt);
+      const s = this.shake * 0.5;
+      this.camera.position.x += Math.sin(t * 90) * s;
+      this.camera.position.y += Math.cos(t * 75) * s * 0.6;
+    }
     this.camera.lookAt(this.camLook);
   }
 
@@ -445,6 +453,7 @@ export class Game {
     const qt = questTalk(n.def.id);
     if (qt) {
       await this.withNpc(n, async () => {
+        if (!friend(n.def.id).met) await this.firstMeeting(n);
         const r = await this.conversation(n, CONVOS[qt.convo]);
         if (!r.closed) { finishTalk(qt.quest, n.def.id); addFriend(n.def.id, 5); }
       });
@@ -469,6 +478,42 @@ export class Game {
         }));
       } else { dlg.finish(); n.plush.wave(); }
     });
+  }
+
+  /** Animal Crossing–style "!" the first time you talk to someone. */
+  private async firstMeeting(n: Npc) {
+    const p = n.plush, pl = this.player!;
+    p.faceToward(pl.pos.x, pl.pos.z);
+    p.yaw = p.targetYaw;
+    await new Promise((r) => setTimeout(r, 150));
+    const bang = markerSprite('❗', '#FFE9A8', 1);
+    bang.position.set(0, 2.25, 0);
+    bang.scale.setScalar(0.01);
+    p.root.add(bang);
+    audio.surprise();
+    if (S().settings.blips) audio.emote('gasp', n.def.voice.pitch);
+    p.setExpr('surprised');
+    p.hop(3.4);
+    this.shake = 0.35;
+    navigator.vibrate?.(40);
+    // Hop back a little, away from the player.
+    const away = n.pos.clone().sub(pl.pos).setY(0).normalize().multiplyScalar(0.45);
+    const from = n.pos.clone(), start = performance.now();
+    await new Promise<void>((resolve) => {
+      const tick = () => {
+        const k = Math.min(1, (performance.now() - start) / 900);
+        // "!" pops with an overshoot, then settles; villager slides back during the jump.
+        const pop = k < 0.25 ? (k / 0.25) * 1.25 : k < 0.4 ? 1.25 - ((k - 0.25) / 0.15) * 0.25 : 1;
+        bang.scale.setScalar(pop * 0.95);
+        bang.position.y = 2.25 + Math.sin(Math.min(1, k * 2) * Math.PI) * 0.15;
+        n.pos.copy(from).addScaledVector(away, Math.min(1, k * 2.5));
+        if (k < 1) requestAnimationFrame(tick); else resolve();
+      };
+      requestAnimationFrame(tick);
+    });
+    bang.removeFromParent();
+    (bang.material as THREE.Material).dispose();
+    p.setExpr('neutral');
   }
 
   private timeGreeting() {

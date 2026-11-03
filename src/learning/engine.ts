@@ -8,6 +8,7 @@ import { grade, isDue, mastery, newCard } from './srs';
 import { plainText, renderNative, renderTarget, romanized, tilesOf, type RenderOpts } from './text';
 import { toSyllables } from '../audio/samples';
 import { speech } from './tts';
+import { voicePack } from '../audio/voicepack';
 
 /** Learning state for the active native→target pair, plus rendering helpers bound to settings. */
 export const pairKey = () => `${S().profile.native}>${S().profile.target}`;
@@ -48,8 +49,20 @@ export const phraseTiles = (id: string, itemLex?: string) =>
 export function say(text: string, rate?: number, onEnd?: () => void) {
   speech.speak(text, target(), { rate: rate ?? S().settings.rate, onEnd });
 }
-export const sayPhrase = (id: string, itemLex?: string, onEnd?: () => void) => say(phrasePlain(id, itemLex), undefined, onEnd);
-export const sayLex = (id: string) => say(lexPlain(id));
+/** Speak a phrase: neural pre-rendered clip when available, device voice otherwise. */
+export function sayPhrase(id: string, itemLex?: string, onEnd?: () => void) {
+  speech.stop();
+  if (voicePack.play(itemLex ? `p:${id}|${itemLex}` : `p:${id}`, onEnd)) return;
+  say(phrasePlain(id, itemLex), undefined, onEnd);
+}
+export function sayLex(id: string) {
+  speech.stop();
+  if (voicePack.play(`w:${id}`)) return;
+  say(lexPlain(id));
+}
+export function stopSpeaking() { speech.stop(); voicePack.stop(); }
+/** Load the pronunciation pack for the current target language and speed setting. */
+export function loadVoicePack() { voicePack.ensure(target(), S().settings.rate < 0.85 ? 'slow' : 'normal'); }
 
 // ------------------------------------------------------------ tracking
 type Kind = 'lex' | 'phr';

@@ -8,8 +8,8 @@ import { addXP, reviewReward } from '../core/progress';
 import { audio } from '../audio/audio';
 import { speech } from '../learning/tts';
 import {
-  card, distractors, expose, exposePhrase, glossVisible, levelNum, lexNative, lexPlain, lexTarget, markNote, noteFor,
-  phraseNative, phrasePlain, phraseSyllables, phraseTarget, phraseTiles, review, say, sayLex, sayPhrase, shuffle, target,
+  card, distractors, stopSpeaking, expose, exposePhrase, glossVisible, levelNum, lexNative, lexPlain, lexTarget, markNote, noteFor,
+  phraseNative, phraseSyllables, phraseTarget, phraseTiles, review, say, sayLex, sayPhrase, shuffle, target,
 } from '../learning/engine';
 import { button, floatText, h, toast, ui } from './dom';
 
@@ -79,7 +79,7 @@ export class Dialogue {
     if (!this.root.isConnected) return;
     this.speaker?.setTalking?.(false);
     this.speaker?.setExpr?.('neutral');
-    speech.stop();
+    stopSpeaking();
     this.root.style.transition = 'opacity .2s, transform .2s';
     this.root.style.opacity = '0';
     setTimeout(() => this.root.remove(), 200);
@@ -319,7 +319,7 @@ export class Dialogue {
     list.querySelectorAll('.opt').forEach((o) => ((o as HTMLButtonElement).disabled = true));
     const correct = ok.includes(id);
     el.classList.add(correct ? 'right' : 'wrong');
-    speech.speak(phrasePlain(id, item), target(), { rate: S().settings.rate, pitch: 1.15 });
+    sayPhrase(id, item);
     if (!correct) {
       list.querySelectorAll('.opt').forEach((o, i) => { if (opts[i] === main) o.classList.add('right'); else if (o !== el) o.classList.add('dim'); });
     }
@@ -367,7 +367,7 @@ export class Dialogue {
     const correct = built === tiles.map((x) => x.key).join(' ');
     tray.style.background = correct ? 'var(--leaf-soft)' : 'var(--rose-soft)';
     tileBox.remove(); sayBtn.remove();
-    speech.speak(phrasePlain(p, item), target(), { rate: S().settings.rate, pitch: 1.15 });
+    sayPhrase(p, item);
     await this.afterAnswer(correct, [t('tipOrder', { a: `<b>${phraseTarget(p, item)}</b>` }) + ' — ' + phraseNative(p, item)], tray,
       () => { review('phr', p, correct); if (correct) addXP(5); });
   }
@@ -484,7 +484,7 @@ export class Dialogue {
     const correct = id === want;
     el.classList.add(correct ? 'right' : 'wrong');
     if (!correct) list.querySelectorAll('.opt').forEach((o, i) => { if (opts[i] === want) o.classList.add('right'); });
-    speech.speak(phrasePlain(p, want), target(), { rate: S().settings.rate, pitch: 1.15 });
+    sayPhrase(p, want);
     exposePhrase(p);
     await this.afterAnswer(correct, [
       t('tipWord', { a: `<b>${lex(want).icon} ${lexTarget(want)}</b>`, b: lexNative(want) }),

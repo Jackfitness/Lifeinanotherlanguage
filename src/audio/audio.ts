@@ -21,6 +21,7 @@ class AudioSys {
   private sfxBus!: GainNode;
   private ambBus!: GainNode;
   private voiceBus!: GainNode;
+  private speechBus!: GainNode;
   private reverb!: ConvolverNode;
   private rainGain?: GainNode;
   private noiseBuf?: AudioBuffer;
@@ -45,6 +46,7 @@ class AudioSys {
     this.sfxBus = ctx.createGain(); this.sfxBus.connect(this.master);
     this.ambBus = ctx.createGain(); this.ambBus.connect(this.master); this.ambBus.connect(this.reverb);
     this.voiceBus = ctx.createGain(); this.voiceBus.connect(this.master);
+    this.speechBus = ctx.createGain(); this.speechBus.gain.value = 1; this.speechBus.connect(this.master);
     void sfx.load(ctx).catch(() => {}); void voice.load(ctx).catch(() => {});
     this.noiseBuf = this.makeNoise();
     this.applyVolumes();
@@ -63,6 +65,9 @@ class AudioSys {
     this.ambBus.gain.setTargetAtTime(this.muted ? 0 : this.sfxVol * 0.6, t, 0.3);
     this.voiceBus.gain.setTargetAtTime(this.muted ? 0 : this.sfxVol, t, 0.05);
   }
+
+  /** Output for pronunciation clips (kept at full volume so learning audio is always clear). */
+  speechOut(): AudioNode { return this.speechBus; }
 
   /** Whether the rendered sound banks finished decoding. */
   banksReady() { return sfx.has('tap') && voice.has('_a'); }
@@ -202,6 +207,7 @@ class AudioSys {
   squeak() { this.fx('squeak', () => this.tone(1400, this.now(), 0.15, { gain: 0.06, slideTo: 1700 }), { gain: 0.4, jitter: 0.06 }); }
   pickup() { this.fx('pickup', () => this.sparkle(), { gain: 0.6 }); }
   gift() { this.fx('gift', () => this.sparkle(), { gain: 0.6 }); }
+  surprise() { this.fx('surprise', () => this.sparkle(), { gain: 0.7, jitter: 0 }); }
   door() { this.fx('door', () => this.soft(), { gain: 0.6, jitter: 0.02 }); }
   place() { this.fx('place', () => this.plop(), { gain: 0.6 }); }
   rotate() { this.fx('rotate', () => this.tap(), { gain: 0.6 }); }
