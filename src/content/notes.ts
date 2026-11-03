@@ -1,0 +1,83 @@
+import type { LangCode, LText } from '../core/types';
+
+/** Short grammar discoveries shown once, the first time a matching phrase appears. Bodies are plain text in the learner's native language. */
+export interface GrammarNote { id: string; target: LangCode; phrases?: string[]; contains?: string; title: LText; body: LText }
+
+export const NOTES: GrammarNote[] = [
+  // Learning Japanese
+  { id: 'ja_scripts', target: 'ja', phrases: ['hello'],
+    title: { en: 'Three scripts', es: 'Tres escrituras' },
+    body: { en: 'Japanese mixes hiragana (ひらがな), katakana (カタカナ) for borrowed words, and kanji (漢字). Change how kanji appear anytime in Settings.',
+      es: 'El japonés mezcla hiragana (ひらがな), katakana (カタカナ) para palabras extranjeras y kanji (漢字). Puedes cambiar cómo se ven los kanji en Ajustes.' } },
+  { id: 'ja_wa', target: 'ja', contains: '^は',
+    title: { en: 'Particle は (wa)', es: 'Partícula は (wa)' },
+    body: { en: 'は marks the topic: わたしは ビスケットです = "As for me, I am Biscuit." Written は (ha), but read "wa" as a particle.',
+      es: 'は marca el tema: わたしは ビスケットです = "En cuanto a mí, soy Bizcocho". Se escribe は (ha) pero como partícula se lee "wa".' } },
+  { id: 'ja_ka', target: 'ja', contains: '^か？',
+    title: { en: 'Questions with か', es: 'Preguntas con か' },
+    body: { en: 'Put か (ka) at the end of a sentence to make it a question, like a spoken question mark.',
+      es: 'Pon か (ka) al final de una oración para hacer una pregunta, como un signo de interrogación hablado.' } },
+  { id: 'ja_wo', target: 'ja', contains: '^を',
+    title: { en: 'Particle を (o)', es: 'Partícula を (o)' },
+    body: { en: 'を marks the object of an action: おちゃを ください = "Tea, please (give me)." Read "o".',
+      es: 'を marca el objeto de una acción: おちゃを ください = "Té, por favor". Se lee "o".' } },
+  { id: 'ja_katakana', target: 'ja', phrases: ['cookie_for_you'],
+    title: { en: 'Katakana for borrowed words', es: 'Katakana para palabras prestadas' },
+    body: { en: 'Words from other languages use katakana: クッキー (kukkī) = cookie, コーヒー (kōhī) = coffee. The ー makes a vowel long.',
+      es: 'Las palabras de otros idiomas usan katakana: クッキー (kukkī) = galleta, コーヒー (kōhī) = café. La ー alarga la vocal.' } },
+  { id: 'ja_no', target: 'ja', contains: '^の',
+    title: { en: 'Particle の (no)', es: 'Partícula の (no)' },
+    body: { en: 'の links nouns like "\'s" or "of": ぼくの みせ = my store; はしの よこ = the side of the bridge.',
+      es: 'の une sustantivos como "de": ぼくの みせ = mi tienda; はしの よこ = al lado del puente.' } },
+  // Learning Spanish
+  { id: 'es_marks', target: 'es', phrases: ['hello'],
+    title: { en: 'Upside-down marks', ja: '逆さまの記号' },
+    body: { en: 'Spanish questions and exclamations open with an upside-down mark: ¿Cómo estás? ¡Hola!',
+      ja: 'スペイン語の疑問文と感嘆文は、逆さまの記号で始まります：¿Cómo estás? ¡Hola!' } },
+  { id: 'es_llamo', target: 'es', phrases: ['im_biscuit'],
+    title: { en: 'Me llamo...', ja: 'Me llamo …' },
+    body: { en: '"Me llamo..." literally means "I call myself..." and is the usual way to say your name.',
+      ja: '「Me llamo 〜」は「私は〜と呼ばれています」、つまり「私の名前は〜です」という意味です。' } },
+  { id: 'es_gender', target: 'es', phrases: ['cookie_for_you'],
+    title: { en: 'el or la?', ja: 'el と la' },
+    body: { en: 'Every noun is masculine (el) or feminine (la): el pan, la galleta. Learn each word with its article!',
+      ja: '名詞には男性（el）と女性（la）があります：el pan、la galleta。冠詞といっしょに覚えましょう！' } },
+  { id: 'es_gustar', target: 'es', phrases: ['im_yuzu'],
+    title: { en: 'Me gusta', ja: 'Me gusta' },
+    body: { en: '"Me gusta" means "I like" (literally "it pleases me"). For plural things, use "me gustan".',
+      ja: '「Me gusta 〜」は「〜が好き」。複数のものには「me gustan」を使います。' } },
+  { id: 'es_estar', target: 'es', phrases: ['key_fountain'],
+    title: { en: 'Where things are: está', ja: '場所を言う：está' },
+    body: { en: 'Use "está" (from estar) for locations: Mi llave está cerca de la fuente. cerca de = near, debajo de = under, al lado de = next to.',
+      ja: '場所には「está」（estar）を使います。cerca de＝近く、debajo de＝下、al lado de＝横。' } },
+  // Learning English
+  { id: 'en_contractions', target: 'en', phrases: ['whats_your_name'],
+    title: { es: 'Contracciones', ja: '短縮形' },
+    body: { es: 'En inglés se juntan palabras: What\'s = What is, I\'m = I am, I\'d = I would.',
+      ja: '英語ではよく短くします：What\'s = What is、I\'m = I am、I\'d = I would。' } },
+  { id: 'en_articles', target: 'en', phrases: ['cookie_for_you'],
+    title: { es: 'a / the', ja: 'a と the' },
+    body: { es: '"a" = un/una, "the" = el/la. En inglés los sustantivos no tienen género.',
+      ja: '「a」は「ひとつの」、「the」は「その」。英語の名詞には男性・女性がありません。' } },
+  { id: 'en_like', target: 'en', phrases: ['im_yuzu'],
+    title: { es: 'I like...', ja: 'I like …' },
+    body: { es: '"I like fishing" = Me gusta pescar. En inglés la persona va primero: I like...',
+      ja: '「I like 〜」＝「〜が好きです」。主語の I が最初に来ます。' } },
+  { id: 'en_prep', target: 'en', phrases: ['key_fountain'],
+    title: { es: 'near, under, next to', ja: 'near・under・next to' },
+    body: { es: 'near = cerca de, under = debajo de, next to = al lado de.', ja: 'near＝近く、under＝下、next to＝横。' } },
+  { id: 'en_please', target: 'en', phrases: ['order_tea'],
+    title: { es: 'Pedir con amabilidad', ja: 'ていねいに頼む' },
+    body: { es: '"..., please" = "..., por favor". "I\'d like" (I would like) es una forma amable de pedir.',
+      ja: '「..., please」＝「〜をください」。「I\'d like 〜」はていねいな言い方です。' } },
+];
+
+/** Daily reading notices on the plaza board. */
+export interface Notice { p: string; q: LText; answer: string; opts: string[] }
+export const NOTICES: Notice[] = [
+  { p: 'n_cake', q: { en: "What's special at the café today?", es: '¿Qué hay de especial hoy en la cafetería?', ja: '今日のカフェのおすすめは？' }, answer: 'cake', opts: ['cake', 'bread', 'coffee'] },
+  { p: 'n_umbrella', q: { en: 'What was lost?', es: '¿Qué se perdió?', ja: '何をなくした？' }, answer: 'umbrella', opts: ['umbrella', 'key', 'hat'] },
+  { p: 'n_stars', q: { en: 'Where is tonight\'s event?', es: '¿Dónde es el evento de esta noche?', ja: '今夜のイベントはどこ？' }, answer: 'pond', opts: ['pond', 'cafe', 'forest'] },
+  { p: 'n_chair', q: { en: "What's new at the store?", es: '¿Qué hay de nuevo en la tienda?', ja: 'お店の新しい商品は？' }, answer: 'chair', opts: ['chair', 'bed', 'lamp'] },
+  { p: 'n_rain', q: { en: 'What weather is coming?', es: '¿Qué tiempo va a hacer?', ja: 'どんな天気になる？' }, answer: 'rain', opts: ['rain', 'sun', 'snow'] },
+];
