@@ -7,6 +7,7 @@ import { audio } from '../audio/audio';
 import { button, h, seg, sheet } from './dom';
 import { icon } from './icons';
 import { openPass } from './pass';
+import { hasPass, townOpenFree } from '../core/billing';
 
 interface MapHost {
   player: () => { x: number; z: number };
@@ -78,9 +79,8 @@ function worldMap(host: MapHost, close: () => void) {
       host.canTravel(r.id)
         ? (host.place === r.id ? h('p.muted', null, '📍 ' + t('youAreHere'))
           : button('btn.primary.rd-cta', [h('span', { html: icon('map') }), t('travelTo', { town: pick(r.name) })], () => { close(); host.travel(r.id); }))
-        : S().flags.villagePass || new URLSearchParams(location.search).get('pass') === '1'
-          ? h('p.muted', null, t('townSoon'))
-          : button('btn.primary.rd-cta', [h('span', { html: icon('pass') }), t('unlockWithPass')], () => openPass()),
+        : button('btn.primary.rd-cta', [h('span', { html: icon('pass') }), t('unlockWithPass')], () => openPass(undefined, 'town')),
+      ...(!hasPass() && townOpenFree(r.id) ? [h('p.muted', { style: { textAlign: 'center', marginTop: '6px' } }, '🎁 ' + t('freePreview'))] : []),
     );
   };
   // Sea, islands and dotted ferry routes

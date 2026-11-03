@@ -82,11 +82,26 @@ python3 tools/sound/render.py
   languages, at normal and slow speeds (`public/voice/`). The game loads only the target language. Lines that
   include the player's name fall back to the device voice. To regenerate, see `tools/voice/render_tts.py`.
 
-## Free play and the Village Pass
+## Free play, pricing and the Village Pass
 
-- **Free play:** 15 minutes per day, counted only while the game is open and visible, and reset at local midnight. A warning appears two minutes before the end. After that, a bedtime screen shows today's progress, a countdown to tomorrow, word review, and the Village Pass.
-- **The Village Pass** (`src/ui/pass.ts`) unlocks unlimited play and the five towns on the map (`src/content/regions.ts`). Any town can be visited once you have the pass.
-- **Payments are not connected.** The call to action records interest ("Notify me"), and entitlement is the `flags.villagePass` save flag. For testing, `?pass=1` simulates the pass and `?playlimit=60` shortens the limit.
+**Free:** the starter village (15 minutes a day, reset at local midnight) plus **chapter 1 of Clover Meadow (N5)** as a taste of the story, dojo and lessons. The Pass offer appears right after that chapter ends ("The story continues…"), when a locked chapter or lesson is tapped, at bedtime, and from the map.
+
+**Village Pass** (`src/core/billing.ts`, `src/ui/pass.ts`): unlimited daily play and every town, N5 to N1.
+
+| Plan | Product id | Price (USD) |
+| --- | --- | --- |
+| Lifetime (featured) | `village_pass_lifetime` | $19.99 one-time |
+| Monthly | `village_pass_monthly` | $3.99/month, 7-day free trial |
+
+Change prices in the stores (and `PRICING` in `billing.ts` for the web test mode). Change the free taste with `FREE_PREVIEW`.
+
+**Payments:**
+- **Web build / artifact:** test mode. Purchases are simulated and the sheet says "Test mode: no real money is charged". `?pass=1` still forces the Pass on.
+- **iOS / Android:** wrap the build with Capacitor and add RevenueCat, which handles both stores, receipts, trials, renewals and refunds:
+  1. `npm i @capacitor/core @capacitor/cli @capacitor/ios @capacitor/android @revenuecat/purchases-capacitor`, then `npx cap init`, `npx cap add ios`, `npx cap add android`.
+  2. Create the two products above in App Store Connect and Google Play Console, attach both to a RevenueCat entitlement named `village_pass`, and put them in the current offering.
+  3. Build with `VITE_REVENUECAT_KEY=<public SDK key>` (separate keys per platform, or set `window.__RC_KEY__` at startup). When the plugin and key are present, `billing.ts` switches to real purchases automatically: localized prices, purchase, restore, and an entitlement re-check on launch and resume.
+  4. Before review: the pass sheet already shows "Restore purchases" and the auto-renewal terms; add links to your privacy policy and terms of use.
 
 ## The towns (N5 → N1)
 
@@ -127,13 +142,14 @@ src/
 - **Mobile performance:** static props are merged into a few vertex-colored meshes, so the whole village draws in about 50 calls. Shadow resolution drops on touch devices.
 - **Content is data-driven.** Screens never hardcode language content.
 
-### Adding a language
+### Adding a menu language
 
-1. Register it in `src/content/languages.ts` (code, autonym, speech locales).
-2. Add the new code to the `t` objects in `lexicon.ts`, `phrases.ts`, `characters.ts`, `quests.ts`, `dialogues.ts`, and `notes.ts`, and add UI strings in `core/i18n.ts`.
-3. Learning progress is stored per `native>target` pair, so existing saves are unaffected.
+The game only teaches Japanese. Menus, hints and translations are shown in the player's own language (English or Spanish today).
 
-Missing translations fall back to English, so you can add a language incrementally.
+1. Add the code to `NATIVE_LANGS` in `src/content/languages.ts`.
+2. Add it to the `t` objects in the content files (`lexicon.ts`, `phrases.ts`, `characters.ts`, `quests.ts`, `dialogues.ts`, `notes.ts`, `content/towns/*`) and to the UI strings in `core/i18n.ts`.
+
+Missing translations fall back to English, so you can add one incrementally.
 
 ### Accounts and cloud saves
 

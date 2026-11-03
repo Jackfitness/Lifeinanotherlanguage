@@ -23,7 +23,7 @@ export function showBedtime(opts: { minutes: number; words: number; msToNextDay:
     h('div.bed-card', null,
       h('div.bed-moon', { html: icon('moon') + `<span class="bed-z">${icon('zzz')}</span>` }),
       h('h2', null, t('bedTitle')),
-      h('p', null, t('bedBody', { m: opts.minutes })),
+      h('p', null, (opts.minutes === 1 ? t('bedBody1') : t('bedBody', { m: opts.minutes }))),
       h('div.bed-recap', null, h('span', { html: icon('book') }), t('bedRecap', { n: opts.words })),
       countdown,
       button('btn.primary.bed-pass', [h('span', { html: icon('pass') }), t('bedPass')], () => opts.onPass()),

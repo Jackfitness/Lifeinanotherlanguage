@@ -6,7 +6,7 @@ import { h } from './dom';
 export function logoBlock() {
   return h('div.logo', null,
     h('h1.sr-only', null, t('title')),
-    h('img.logo-img', { src: logoUrl, alt: 'Cozy Language Village: a little life in another language', draggable: 'false' }),
+    h('img.logo-img', { src: logoUrl, alt: 'Cozy Language Village: learn Japanese, one cozy day at a time', draggable: 'false' }),
     uiLang() !== 'en' ? h('p.tagline', null, t('subtitle')) : null,
   );
 }

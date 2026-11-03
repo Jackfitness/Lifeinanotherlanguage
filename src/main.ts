@@ -1,3 +1,4 @@
+import { billing } from './core/billing';
 import './styles.css';
 import { store } from './core/save';
 import { setUiLang, t } from './core/i18n';
@@ -45,5 +46,6 @@ async function boot() {
 
 const persist = () => { (window as unknown as { __game?: Game }).__game?.persistPosition(); store.flush(); };
 window.addEventListener('pagehide', persist);
-document.addEventListener('visibilitychange', () => { if (document.hidden) persist(); });
+document.addEventListener('visibilitychange', () => { if (document.hidden) persist(); else void billing.refresh(); });
+void billing.refresh(); // pick up purchases, renewals or refunds made outside the game
 void boot();

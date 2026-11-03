@@ -2,12 +2,11 @@ import type { LText } from '../core/types';
 
 /**
  * Towns beyond the starter village, unlocked by the Village Pass. Levels follow the JLPT
- * (N5 → N1) for Japanese learners and the matching CEFR levels (A1 → C1) for English and Spanish.
+ * (N5 → N1). This is a Japanese-only learning game.
  */
 export interface Region {
   id: string;
   jlpt: string;
-  cefr: string;
   name: LText;
   blurb: LText;
   animals: { icon: string; name: LText }[];
@@ -23,7 +22,7 @@ export const HOME_REGION = {
 
 export const REGIONS: Region[] = [
   {
-    id: 'clover', jlpt: 'N5', cefr: 'A1', color: '#A8DABB', at: [22, 74],
+    id: 'clover', jlpt: 'N5', color: '#A8DABB', at: [22, 74],
     name: { en: 'Clover Meadow', es: 'Prado del Trébol', ja: 'クローバー草原' },
     blurb: {
       en: 'Rolling fields and a lily pond where you learn to shop, count and chat about the weather.',
@@ -36,7 +35,7 @@ export const REGIONS: Region[] = [
     ],
   },
   {
-    id: 'harbor', jlpt: 'N4', cefr: 'A2', color: '#9FD3E6', at: [16, 40],
+    id: 'harbor', jlpt: 'N4', color: '#9FD3E6', at: [16, 40],
     name: { en: 'Maple Harbor', es: 'Puerto Arce', ja: 'もみじ港' },
     blurb: {
       en: 'A breezy fishing port. Take the ferry, order at the fish market and plan trips with friends.',
@@ -49,7 +48,7 @@ export const REGIONS: Region[] = [
     ],
   },
   {
-    id: 'lantern', jlpt: 'N3', cefr: 'B1', color: '#F6C343', at: [42, 20],
+    id: 'lantern', jlpt: 'N3', color: '#F6C343', at: [42, 20],
     name: { en: 'Lantern Hills', es: 'Colinas de Faroles', ja: 'ちょうちん丘' },
     blurb: {
       en: 'A night market glowing with paper lanterns. Haggle, tell stories and solve little mysteries.',
@@ -62,7 +61,7 @@ export const REGIONS: Region[] = [
     ],
   },
   {
-    id: 'snowcap', jlpt: 'N2', cefr: 'B2', color: '#DDE8EC', at: [74, 18],
+    id: 'snowcap', jlpt: 'N2', color: '#DDE8EC', at: [74, 18],
     name: { en: 'Snowcap Peaks', es: 'Picos Nevados', ja: '雪山の里' },
     blurb: {
       en: 'A mountain village of hot springs and libraries. Debate, give advice and read the local news.',
@@ -75,7 +74,7 @@ export const REGIONS: Region[] = [
     ],
   },
   {
-    id: 'starlight', jlpt: 'N1', cefr: 'C1', color: '#B6A3D9', at: [82, 50],
+    id: 'starlight', jlpt: 'N1', color: '#B6A3D9', at: [82, 50],
     name: { en: 'Starlight City', es: 'Ciudad Estrella', ja: '星あかりの街' },
     blurb: {
       en: 'The big city Pip dreams about. Job interviews, theater nights and conversations with real depth.',
@@ -89,4 +88,5 @@ export const REGIONS: Region[] = [
   },
 ];
 
-export const regionLevel = (r: Region, target: string) => (target === 'ja' ? r.jlpt : r.cefr);
+/** JLPT level label for a town (the second argument is kept for older callers). */
+export const regionLevel = (r: Region, _target?: string) => r.jlpt;

@@ -43,6 +43,7 @@ import { activeQuests, finishDojo, startTown } from './core/progress';
 import { openPass } from './ui/pass';
 import { showBedtime } from './ui/bedtime';
 import { voicePack } from './audio/voicepack';
+import { billing, FREE_PREVIEW, hasPass, questLocked, townOpenFree } from './core/billing';
 import { progress } from './learning/engine';
 import { applyFont, displayFamily, FONTS } from './ui/fonts';
 import type { Season } from './world/textures';
@@ -136,7 +137,7 @@ export class Game {
   // ------------------------------------------------------------ daily play time
   /** Free players get 15 minutes a day (?playlimit=<seconds> overrides for testing). */
   private get playLimit() { return Number(params.get('playlimit')) || 15 * 60; }
-  private hasPass() { return !!S().flags.villagePass || params.get('pass') === '1'; }
+  private hasPass() { return hasPass(); }
   private playLimitReached() { return !this.hasPass() && (S().daily.playSeconds ?? 0) >= this.playLimit; }
 
   private trackPlayTime(realDt: number) {
@@ -165,7 +166,7 @@ export class Game {
       words,
       msToNextDay: () => next.getTime() - Date.now(),
       onReview: () => this.openMenu('words', true),
-      onPass: () => openPass(),
+      onPass: () => openPass(() => { if (this.hasPass() && this.bedtime) { this.bedtime.close(); this.bedtime = null; this.setBusy(false); } }, 'bedtime'),
     });
     this.setBusy(true);
   }
@@ -177,7 +178,7 @@ export class Game {
       player: () => ({ x: this.player!.pos.x, z: this.player!.pos.z }),
       villagers: () => (this.place === 'home' ? this.npcs : []).map((n) => ({ icon: n.def.species, x: n.pos.x, z: n.pos.z })),
       place: this.place,
-      canTravel: (id) => isTown(id) && this.hasPass(),
+      canTravel: (id) => isTown(id) && (this.hasPass() || townOpenFree(id)),
       travel: (id) => { void this.travel(id); },
     }, () => this.setBusy(false));
   }
@@ -227,7 +228,7 @@ export class Game {
   /** Bus travel between the starter village and the pass towns. */
   async travel(to: string, instant = false) {
     if (to !== 'home' && !isTown(to)) return;
-    if (to !== 'home' && !this.hasPass()) { openPass(); return; }
+    if (to !== 'home' && !this.hasPass() && !townOpenFree(to)) { openPass(undefined, 'town'); return; }
     this.standUp();
     this.setBusy(true);
     const swap = () => {
@@ -278,6 +279,7 @@ export class Game {
 
   /** Run a dojo lesson, practice set or the exam, then show results. */
   private async runDojo(kind: SessionKind, unit = 1) {
+    if (!this.hasPass() && (kind === 'exam' || (kind === 'lesson' && unit > FREE_PREVIEW.chapters))) { openPass(undefined, 'preview'); return; }
     this.dojoRunning = true;
     this.setBusy(true);
     holdCards(true);
@@ -399,7 +401,7 @@ export class Game {
     this.mode = 'village';
     this.snapCamera();
     if (playerLevel() >= 2) this.openForest(false);
-    if (isTown(S().player.place) && this.hasPass()) void this.travel(S().player.place!, true);
+    if (isTown(S().player.place) && (this.hasPass() || townOpenFree(S().player.place!))) void this.travel(S().player.place!, true);
     this.refreshPickups();
     this.wireEvents();
     speech.onMissing = (lang) => voicePack.ready() ? undefined : toast('🔇', t('noVoice', { lang: langInfo(lang).autonym }), undefined, 4500);
@@ -448,6 +450,7 @@ export class Game {
     bus.on('quest:new', (id: string) => { const q = questDef(id); toast(q.icon, t('newQuest'), pick(q.title), 3000); this.hud?.setMenuDot(true); });
     bus.on('quest:step', () => { this.refreshPickups(); this.updateTownRoutines(); this.hud?.refresh(); });
     bus.on('quest:done', (id: string) => this.onQuestDone(id));
+    bus.on('pass:granted', () => { this.hud?.refresh(); if (this.bedtime) { this.bedtime.close(); this.bedtime = null; this.setBusy(false); } });
   }
 
   npcName(d: NpcDef) {
@@ -460,6 +463,7 @@ export class Game {
     audio.musicVol = s.music; audio.sfxVol = s.sfx; audio.applyVolumes();
     speech.rate = s.rate;
     loadVoicePack();
+    void billing.refresh();
     document.documentElement.dataset.text = s.textSize;
     const sign = (id: string) => {
       let txt = plainText(lex(id).t[target()] ?? lex(id).t.en, target(), renderOpts(), s.jaScript === 'kana' ? 'kana' : 'kanji');
@@ -737,6 +741,7 @@ export class Game {
   async talkTo(n: Npc) {
     audio.soft();
     const qt = questTalk(n.def.id);
+    if (qt && questLocked(questDef(qt.quest))) { openPass(undefined, 'preview'); return; }
     if (qt) {
       await this.withNpc(n, async () => {
         if (!friend(n.def.id).met) await this.firstMeeting(n);
@@ -1023,7 +1028,10 @@ export class Game {
     setTimeout(() => {
       audio.questDone(); confetti(80);
       const rewards = [`🪙 +${q.reward.coins}`, `✨ +${q.reward.xp} XP`, ...(q.reward.items ?? []).map((i) => `${lex(item(i).lex).icon} ${lexTarget(item(i).lex)}`)];
-      centerCard(q.icon, t('questComplete'), [pick(q.title), h('div.unlock-list', null, ...rewards.map((r) => h('div', { html: r })))], t('gotIt'));
+      // The free preview ends here: show what's next while the player is happiest.
+      const previewEnd = id === `${FREE_PREVIEW.town}_${FREE_PREVIEW.chapters}` && !this.hasPass();
+      centerCard(q.icon, t('questComplete'), [pick(q.title), h('div.unlock-list', null, ...rewards.map((r) => h('div', { html: r })))], t('gotIt'),
+        previewEnd ? () => setTimeout(() => openPass(undefined, 'preview'), 600) : undefined);
     }, 700);
     this.hud?.refresh();
   }

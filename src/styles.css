@@ -348,6 +348,23 @@ input[type=range] { accent-color: var(--leaf-deep); width: 130px; }
 .pass-benefit .pb-icon .ic { width: 40px; height: 40px; }
 .pass-benefit b { display: block; font-size: 0.98em; }
 .pass-benefit span { font-size: 0.84em; color: var(--cocoa-soft); line-height: 1.4; }
+.plans { display: flex; flex-direction: column; gap: 10px; margin: 14px 0 12px; }
+.plan { position: relative; display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; padding: 14px 16px;
+  border-radius: 20px; background: var(--card, #FFFDF8); border: 2.5px solid rgba(91, 70, 54, 0.12); color: var(--cocoa); font: inherit; cursor: pointer;
+  transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease; }
+.plan.on { border-color: #E9A92A; box-shadow: 0 6px 18px rgba(233, 169, 42, 0.25); transform: translateY(-1px); }
+.plan .plan-main { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.plan .plan-main b { font-family: var(--font-display); font-weight: var(--display-weight); font-size: 1.08em; }
+.plan .plan-main span { font-size: 0.82em; opacity: 0.75; }
+.plan .plan-price { display: flex; flex-direction: column; align-items: flex-end; }
+.plan .plan-price b { font-size: 1.15em; }
+.plan .plan-price small { font-size: 0.72em; opacity: 0.65; }
+.plan .plan-tag { position: absolute; top: -10px; left: 16px; background: #E8566C; color: #fff; font-size: 0.7em; font-weight: 800;
+  padding: 3px 10px; border-radius: 99px; letter-spacing: .02em; }
+.pass-test { background: #EAF2FB; color: #3E6E9E; border-radius: 14px; padding: 9px 12px; font-size: 0.8em; line-height: 1.4; margin-bottom: 10px; text-align: center; }
+.pass-fine { font-size: 0.72em; line-height: 1.45; opacity: 0.65; text-align: center; margin: 10px 4px 2px; }
+.pass-links { display: flex; justify-content: center; }
+.linkish { background: none; border: 0; color: var(--cocoa); opacity: .75; text-decoration: underline; font: inherit; font-size: 0.85em; padding: 8px; cursor: pointer; }
 .pass-actions { display: flex; flex-direction: column; gap: 10px; }
 .btn.pass-cta, .btn.bed-pass { min-height: 58px; font-size: 1.08em; background: linear-gradient(180deg, #F6C343, #E9A92A); color: var(--cocoa);
   box-shadow: inset 0 -5px 0 rgba(120, 80, 10, 0.2), 0 10px 22px rgba(214, 160, 40, 0.4); }
