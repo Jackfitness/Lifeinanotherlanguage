@@ -8,10 +8,10 @@ import { audio } from '../audio/audio';
 import { button, h, sheet } from './dom';
 
 /** Shop browser. Names are shown for unfamiliar items (exposure) and hidden once familiar (recall). */
-export function openShop(kind: 'cafe' | 'store', onBuy: (it: ItemDef) => void) {
+export function openShop(kind: 'cafe' | 'store', onBuy: (it: ItemDef) => void, onClose?: () => void) {
   const items = ITEMS.filter((i) => i.shop === kind);
   const body = h('div');
-  const s = sheet(t(kind === 'cafe' ? 'shop_cafe' : 'shop_store'), body);
+  const s = sheet(t(kind === 'cafe' ? 'shop_cafe' : 'shop_store'), body, { onClose });
   let sel: ItemDef | null = null;
   const lvl = playerLevel();
   const render = () => {
@@ -29,7 +29,7 @@ export function openShop(kind: 'cafe' | 'store', onBuy: (it: ItemDef) => void) {
           h('div.muted', { style: { fontSize: '0.85em', marginTop: '4px' } }, `🪙 ${it.price} · ${t('owned', { n: count(it.id) })}`)),
         known ? null : button('icon-btn', '🔊', () => sayLex(it.lex))),
         h('div.row.end', { style: { marginTop: '10px' } },
-          button('btn.primary', (affordable ? '🛍️ ' : '') + (affordable ? t('buy') : t('coinsShort')), () => { if (!affordable) return; s.close(); onBuy(it); }, affordable ? {} : { disabled: true })));
+          button('btn.primary', (affordable ? '🛍️ ' : '') + (affordable ? t('buy') : t('coinsShort')), () => { if (!affordable) return; onBuy(it); s.close(); }, affordable ? {} : { disabled: true })));
     } else {
       top.append(h('div', { style: { textAlign: 'center', padding: '18px 0', fontWeight: 700 }, class: 'muted' }, kind === 'cafe' ? '🧁 ☕ 🍰' : '🪑 💡 👒'));
     }

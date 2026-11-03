@@ -22,8 +22,8 @@
   --safe-t: env(safe-area-inset-top, 0px);
   --safe-b: env(safe-area-inset-bottom, 0px);
   --font: 'Zen Maru Gothic', 'Hiragino Maru Gothic ProN', 'Arial Rounded MT Bold', system-ui, sans-serif;
-  --font-display: 'Mochiy Pop One', 'Hiragino Maru Gothic ProN', 'Arial Rounded MT Bold', system-ui, sans-serif;
-  --display-weight: 400;
+  --font-display: 'Fraunces', 'Kiwi Maru', 'Hiragino Maru Gothic ProN', 'Arial Rounded MT Bold', system-ui, sans-serif;
+  --display-weight: 800;
   color-scheme: light;
 }
 :root[data-text='l'] { --fs: 18px; }
@@ -295,3 +295,13 @@ input[type=range] { accent-color: var(--leaf-deep); width: 130px; }
 @keyframes logoIn { from { opacity: 0; transform: scale(0.85) translateY(10px); } }
 .logo .tagline { display: inline-block; margin: 6px 0 0; padding: 5px 14px; border-radius: 999px; background: rgba(255, 252, 246, 0.92); box-shadow: 0 4px 12px rgba(60, 40, 25, 0.12); font-family: var(--font-display); font-weight: var(--display-weight); font-size: 0.9em; color: var(--cocoa); }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Cozy: Fraunces at full softness gives the logo's Cooper-style rounded serifs. */
+:root[data-font='cozy'] { --display-variation: 'SOFT' 100, 'WONK' 0; }
+.logo h1, .tap-start, .onb-card h2, .sheet-head h2, .center-card h2, .nametag, .action-label, .tab, .btn, .pill,
+.lvl, .stat b, .fish-msg, .float-num, .say.shout, .menu-opts .opt, .choice > div, .tracker > div, .note-card h3, .quest-card h3, .logo .tagline {
+  font-variation-settings: var(--display-variation, normal);
+}
+:root[data-font='cozy'] .sheet-head h2, :root[data-font='cozy'] .center-card h2 { letter-spacing: 0.005em; }
+
+.deco-panel .btn { white-space: nowrap; }

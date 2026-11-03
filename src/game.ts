@@ -110,6 +110,12 @@ export class Game {
     this.renderer.setAnimationLoop(() => this.frame());
   }
 
+  /** Copy the live player position into the save (called before the app is hidden or closed). */
+  persistPosition() {
+    if (!this.player || this.mode !== 'village' || !store.data) return;
+    S().player.x = this.player.pos.x; S().player.z = this.player.pos.z;
+  }
+
   hour() {
     const ph = params.get('hour');
     if (ph) return parseFloat(ph);
@@ -213,7 +219,7 @@ export class Game {
       txt = txt.replace(/^(el|la|los|las|the) /i, '');
       return txt.charAt(0).toUpperCase() + txt.slice(1);
     };
-    void applyFont(s.font).then(() => setSigns(this.village, sign('cafe'), sign('store'), displayFamily(), FONTS[s.font ?? 'pop'].displayWeight));
+    void applyFont(s.font).then(() => setSigns(this.village, sign('cafe'), sign('store'), displayFamily(), FONTS[s.font ?? 'cozy'].displayWeight));
     this.hud?.refresh();
   }
 
@@ -257,9 +263,7 @@ export class Game {
       changeLanguages: (n, tg) => this.changeLanguages(n, tg),
       resetSave: async () => { await store.reset(); location.href = location.pathname; },
       portrait: (id) => this.portrait(id),
-    }, (tab as any) ?? 'quests').el.addEventListener('animationend', (e) => {
-      if ((e as AnimationEvent).animationName === 'sheetDown') this.setBusy(false);
-    });
+    }, (tab as any) ?? 'quests', () => this.setBusy(false));
   }
 
   setBusy(b: boolean) {
@@ -354,7 +358,7 @@ export class Game {
     const list: Interactable[] = [];
     for (const n of this.npcs) {
       const q = !!questTalk(n.def.id);
-      list.push({ icon: q ? '❗' : '💬', label: `${t('talk')} · ${this.npcName(n.def)}`, x: n.pos.x, z: n.pos.z, r: 2.2, pri: q ? 2 : 0.8, use: () => this.talkTo(n) });
+      list.push({ icon: q ? '❗' : '💬', label: `${t('talk')} · ${this.npcName(n.def)}`, x: n.pos.x, z: n.pos.z, r: 2.6, pri: q ? 2 : 0.8, use: () => this.talkTo(n) });
     }
     const [hx, hz] = SPOTS.homeDoor;
     list.push({ icon: '🏠', label: t('enter'), x: hx, z: hz + 0.4, r: 1.6, use: () => this.enterHome() });
@@ -363,8 +367,8 @@ export class Game {
     const [fx, fz] = SPOTS.fishSpot;
     list.push({ icon: '🎣', label: t('fish'), x: fx, z: fz, r: 1.3, use: () => this.startFishing() });
     for (const p of this.pickups) list.push({ icon: '✋', label: t('pickup'), x: p.obj.position.x, z: p.obj.position.z, r: 1.5, use: () => this.collect(p) });
-    SPOTS.flowers.forEach(([x, z], i) => { if (!S().daily.flowers.includes(i)) list.push({ icon: '🌷', label: t('pickup'), x, z, r: 1.2, use: () => this.pickNature('flower', i) }); });
-    if (!this.village.log.visible) SPOTS.mushrooms.forEach(([x, z], i) => { if (!S().daily.mushrooms.includes(i)) list.push({ icon: '🍄', label: t('pickup'), x, z, r: 1.2, use: () => this.pickNature('mushroom', i) }); });
+    SPOTS.flowers.forEach(([x, z], i) => { if (!S().daily.flowers.includes(i)) list.push({ icon: '🌷', label: t('pickup'), x, z, r: 1.6, use: () => this.pickNature('flower', i) }); });
+    if (!this.village.log.visible) SPOTS.mushrooms.forEach(([x, z], i) => { if (!S().daily.mushrooms.includes(i)) list.push({ icon: '🍄', label: t('pickup'), x, z, r: 1.6, use: () => this.pickNature('mushroom', i) }); });
     else { const [lx, lz] = SPOTS.forestLog; list.push({ icon: '🪵', label: t('look'), x: lx, z: lz + 1, r: 2.0, use: () => toast('🪵', t('forestBlocked')) }); }
     return list;
   }
@@ -474,9 +478,9 @@ export class Game {
       else if (choice === 'shop' || choice === 'order') {
         dlg.finish();
         let bought = false;
-        await new Promise<void>((res) => openShop(choice === 'shop' ? 'store' : 'cafe', (it) => { bought = true; void this.purchase(n, it).then(res); }).el.addEventListener('animationend', (e) => {
-          if ((e as AnimationEvent).animationName === 'sheetDown' && !bought) setTimeout(res, 50);
-        }));
+        await new Promise<void>((res) => openShop(choice === 'shop' ? 'store' : 'cafe',
+          (it) => { bought = true; void this.purchase(n, it).then(res); },
+          () => { if (!bought) res(); }));
       } else { dlg.finish(); n.plush.wave(); }
     });
   }
@@ -910,7 +914,7 @@ export class Game {
       h('div.row', { style: { justifyContent: 'space-between', margin: '4px 2px 6px' } },
         h('b', { style: { fontSize: '0.9em' } }, d.placing ? '👆 ' + t('placeHint') : t('furnitureBag')),
         h('div.row', null,
-          canExpand ? button('btn.soft.small', `📐 ${t('expand')} · 🪙300`, () => { if (spend(300)) { home.size = 8; store.touch('home'); this.home.build(home); this.renderDecorate(); } else toast('🪙', t('coinsShort')); }) : null,
+          canExpand ? button('btn.soft.small', `📐 ${t('expand')} 🪙300`, () => { if (spend(300)) { home.size = 8; store.touch('home'); this.home.build(home); this.renderDecorate(); } else toast('🪙', t('coinsShort')); }) : null,
           button('btn.primary.small', t('done'), () => { audio.close(); this.closeDecorate(); }))),
       scroll,
     );
@@ -932,6 +936,15 @@ export class Game {
     }
     const pt = new THREE.Vector3();
     if (!ray.ray.intersectPlane(new THREE.Plane(new THREE.Vector3(0, 1, 0), 0), pt)) return;
+    // Forgiving selection: a tap near an item's footprint selects it even if it missed the thin parts.
+    if (!d.placing && d.selected === null) {
+      let best: { uid: number; d: number } | null = null;
+      for (const f of home.placed) {
+        const dist = Math.hypot(f.x - pt.x, f.z - pt.z);
+        if (dist < 0.85 && (!best || dist < best.d)) best = { uid: f.uid, d: dist };
+      }
+      if (best) { this.selectFurniture(best.uid, e.clientX, e.clientY); return; }
+    }
     if (d.placing) {
       const snap = this.home.snap(d.placing, 0, pt.x, pt.z, home.placed);
       if (!snap.ok) { audio.gentleWrong(); return; }
@@ -961,7 +974,8 @@ export class Game {
     audio.select();
     const p = home.placed.find((x) => x.uid === uid)!;
     sayLex(item(p.item).lex);
-    const pop = h('div.sel-pop', { style: { left: sx + 'px', top: sy + 'px' } },
+    const left = Math.min(window.innerWidth - 110, Math.max(110, sx)), top = Math.max(120, sy);
+    const pop = h('div.sel-pop', { style: { left: left + 'px', top: top + 'px' } },
       button('btn.small', '↻ ' + t('rotate'), () => {
         const nr = (p.rot + 1) % 4;
         const snap = this.home.snap(p.item, nr, p.x, p.z, home.placed, p.uid);

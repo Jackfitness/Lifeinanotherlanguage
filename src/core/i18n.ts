@@ -103,6 +103,7 @@ const STR: Record<string, Record<LangCode, string>> = {
   autoplay: { en: 'Auto-play pronunciation', es: 'Pronunciación automática', ja: '発音を自動再生' },
   rate: { en: 'Speech speed', es: 'Velocidad de voz', ja: '読み上げ速度' },
   font: { en: 'Font', es: 'Letra', ja: 'フォント' },
+  font_cozy: { en: 'Cozy', es: 'Acogedora', ja: 'ほっこり' },
   font_pop: { en: 'Pop', es: 'Pop', ja: 'ポップ' },
   font_hand: { en: 'Handwritten', es: 'A mano', ja: '手書き' },
   font_classic: { en: 'Classic', es: 'Clásica', ja: 'クラシック' },

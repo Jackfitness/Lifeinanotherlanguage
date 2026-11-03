@@ -27,10 +27,10 @@ const TABS: { id: Tab; icon: string }[] = [
 
 const dots = (n: number) => h('div.dots', { 'aria-label': t('m' + n) }, ...[1, 2, 3, 4, 5].map((i) => h('i' + (i <= n ? '.on' : ''))));
 
-export function openNotebook(host: NotebookHost, start: Tab = 'quests') {
+export function openNotebook(host: NotebookHost, start: Tab = 'quests', onClose?: () => void) {
   const body = h('div');
   const tabs = h('nav.tabs');
-  const s = sheet('', body, { tabs });
+  const s = sheet('', body, { tabs, onClose });
   let cur: Tab = start;
   const render = () => {
     s.titleEl.textContent = t('tab_' + cur);
@@ -220,7 +220,7 @@ const PAGES: Record<Tab, (host: NotebookHost, rerender: () => void) => HTMLEleme
       rowEl('🗨️ ' + t('blips'), toggle(set.blips, (v) => { set.blips = v; apply(); })),
       rowEl('🔊 ' + t('autoplay'), toggle(set.autoplay, (v) => { set.autoplay = v; apply(); })),
       rowEl('🐢 ' + t('rate'), range(set.rate, 0.6, 1.15, 0.05, (x) => { set.rate = x; apply(); })),
-      rowEl('✏️ ' + t('font'), seg([{ v: 'pop', label: t('font_pop') }, { v: 'hand', label: t('font_hand') }, { v: 'classic', label: t('font_classic') }], set.font ?? 'pop', (v) => { set.font = v as 'pop' | 'hand' | 'classic'; apply(); })),
+      rowEl('✏️ ' + t('font'), seg([{ v: 'cozy', label: t('font_cozy') }, { v: 'pop', label: t('font_pop') }, { v: 'hand', label: t('font_hand') }, { v: 'classic', label: t('font_classic') }], set.font ?? 'cozy', (v) => { set.font = v as 'cozy' | 'pop' | 'hand' | 'classic'; d.flags.fontPicked = true; apply(); })),
       rowEl('🔠 ' + t('textSize'), seg([{ v: 'm', label: 'A' }, { v: 'l', label: 'A+' }, { v: 'xl', label: 'A++' }], set.textSize, (v) => { set.textSize = v; apply(); })),
       rowEl('🎚️ ' + t('proficiency'), seg<Level>([{ v: 'beginner', label: t('lvl_beginner') }, { v: 'intermediate', label: t('lvl_intermediate') }, { v: 'advanced', label: t('lvl_advanced') }], d.profile.level, (v) => { d.profile.level = v; apply(); })),
     );

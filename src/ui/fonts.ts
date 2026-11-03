@@ -1,14 +1,23 @@
 /**
  * Font presets. Each pairs a characterful display face (titles, names, buttons, shouted lines)
- * with a readable body face. Every family covers Latin (incl. Spanish accents) and Japanese.
+ * with a readable body face. Every preset covers Latin (incl. Spanish accents) and Japanese,
+ * either directly or through a Japanese fallback face in the same stack.
  */
-export type FontId = 'pop' | 'hand' | 'classic';
+export type FontId = 'cozy' | 'pop' | 'hand' | 'classic';
 
 interface FontPreset { display: string; body: string; displayWeight: number; css: string }
 
 const FALLBACK = "'Hiragino Maru Gothic ProN', 'Arial Rounded MT Bold', system-ui, sans-serif";
 
 export const FONTS: Record<FontId, FontPreset> = {
+  // Matches the logo: Fraunces at full "softness" is a Cooper-style soft serif; Kiwi Maru is a rounded
+  // Japanese serif used for kana/kanji, which Fraunces doesn't include.
+  cozy: {
+    display: `'Fraunces', 'Kiwi Maru', ${FALLBACK}`,
+    body: `'Zen Maru Gothic', ${FALLBACK}`,
+    displayWeight: 800,
+    css: 'https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,600..900,100,0&family=Kiwi+Maru:wght@500&family=Zen+Maru+Gothic:wght@500;700;900&display=swap',
+  },
   pop: {
     display: `'Mochiy Pop One', ${FALLBACK}`,
     body: `'Zen Maru Gothic', ${FALLBACK}`,
@@ -30,8 +39,8 @@ export const FONTS: Record<FontId, FontPreset> = {
 };
 
 /** Switch fonts: loads the stylesheet once, then swaps the CSS variables. Resolves when the faces are ready. */
-export async function applyFont(id: FontId = 'pop') {
-  const f = FONTS[id] ?? FONTS.pop;
+export async function applyFont(id: FontId = 'cozy') {
+  const f = FONTS[id] ?? FONTS.cozy;
   if (!document.querySelector(`link[data-font="${id}"]`)) {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
@@ -48,7 +57,8 @@ export async function applyFont(id: FontId = 'pop') {
     const family = (s: string) => s.split(',')[0].replace(/'/g, '');
     await Promise.race([
       Promise.all([
-        document.fonts.load(`${f.displayWeight} 20px "${family(f.display)}"`, 'Aaあア字ñ'),
+        document.fonts.load(`${f.displayWeight} 20px "${family(f.display)}"`, 'Aañ'),
+        document.fonts.load(`500 20px "Kiwi Maru"`, 'あア字'),
         document.fonts.load(`700 20px "${family(f.body)}"`, 'Aaあア字ñ'),
       ]),
       new Promise((r) => setTimeout(r, 3000)),

@@ -14,7 +14,7 @@ async function boot() {
   const game = new Game(canvas);
   Object.assign(window, { __game: game, __audio: audio }); // debug handles for automated tests
   const hasSave = await store.load();
-  void applyFont(hasSave ? store.data.settings.font : 'pop');
+  void applyFont(hasSave ? store.data.settings.font : 'cozy');
 
   if (hasSave) {
     setUiLang(store.data.profile.native);
@@ -36,6 +36,7 @@ async function boot() {
   await fadeThrough(() => game.startPlay(true));
 }
 
-window.addEventListener('pagehide', () => store.flush());
-document.addEventListener('visibilitychange', () => { if (document.hidden) store.flush(); });
+const persist = () => { (window as unknown as { __game?: Game }).__game?.persistPosition(); store.flush(); };
+window.addEventListener('pagehide', persist);
+document.addEventListener('visibilitychange', () => { if (document.hidden) persist(); });
 void boot();

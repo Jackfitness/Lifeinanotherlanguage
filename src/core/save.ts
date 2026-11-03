@@ -24,7 +24,7 @@ export interface SaveData {
     music: number; sfx: number; blips: boolean; autoplay: boolean;
     rate: number; textSize: 'm' | 'l' | 'xl'; jaScript: JaScript; romaji: boolean;
     timeMode: 'real' | 'day';
-    font: 'pop' | 'hand' | 'classic';
+    font: 'cozy' | 'pop' | 'hand' | 'classic';
   };
   player: { coins: number; xp: number; x: number; z: number; outfit: { hat?: string; neck?: string; face?: string } };
   inventory: Record<string, number>;
@@ -76,7 +76,7 @@ export function newSave(profile: SaveData['profile']): SaveData {
       rate: profile.level === 'beginner' ? 0.8 : profile.level === 'intermediate' ? 0.9 : 1,
       textSize: 'm',
       jaScript: profile.level === 'beginner' ? 'kana' : profile.level === 'intermediate' ? 'furigana' : 'kanji',
-      romaji: false, timeMode: 'real', font: 'pop',
+      romaji: false, timeMode: 'real', font: 'cozy',
     },
     player: { coins: 20, xp: 0, x: 1.2, z: 22.2, outfit: {} },
     inventory: {},
@@ -100,6 +100,8 @@ function migrate(d: SaveData): SaveData {
   const base = newSave(d.profile);
   const out = { ...base, ...d } as SaveData;
   out.settings = { ...base.settings, ...d.settings };
+  // Saves from before the Cozy font kept the old default unless the player picked one.
+  if (out.settings.font === 'pop' && !d.flags?.fontPicked) out.settings.font = 'cozy';
   out.player = { ...base.player, ...d.player, outfit: { ...(d.player?.outfit ?? {}) } };
   out.home = { ...base.home, ...d.home };
   out.daily = { ...base.daily, ...d.daily };
