@@ -29,6 +29,11 @@ export const PHRASES: Phrase[] = [
   P('yes_it_is', 1, [], 'Yes, it is!', '¡Sí, es verdad!', 'そう です ^ね！'),
   P('im_sleepy', 1, ['sleepy'], "I'm a little sleepy.", 'Tengo un poco de sueño.', 'ちょっと ねむい です。'),
 
+  // ---- First meeting: startled reactions (shown after the "!")
+  P('surprise_biscuit', 1, [], 'Oh my! A new face!', '¡Ay, qué sorpresa! ¡Una cara nueva!', 'あら！ はじめて {見|み}る {顔|かお} ^ね！'),
+  P('surprise_pip', 1, [], 'Whoa! Who are YOU?!', '¡Guau! ¿Y tú quién eres?', 'わっ！ きみ、 だれ？！'),
+  P('surprise_yuzu', 1, [], '...Oh! You surprised me.', '...¡Ay! Me asustaste.', '…わっ。 びっくり した。'),
+
   // ---- Introductions (Hello, Neighbors!)
   P('welcome_village', 1, [], 'Welcome to our village!', '¡Bienvenidos a nuestro pueblo!', 'わたしたち ^の {村|むら} ^へ ようこそ！'),
   P('im_biscuit', 1, [], 'My name is Biscuit.', 'Me llamo Bizcocho.', '{私|わたし} ^は ビスケット です。'),

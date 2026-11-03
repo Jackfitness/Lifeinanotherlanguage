@@ -393,6 +393,18 @@
    "text": "I'm a little sleepy."
   },
   {
+   "key": "p:surprise_biscuit",
+   "text": "Oh my! A new face!"
+  },
+  {
+   "key": "p:surprise_pip",
+   "text": "Whoa! Who are YOU?!"
+  },
+  {
+   "key": "p:surprise_yuzu",
+   "text": "...Oh! You surprised me."
+  },
+  {
    "key": "p:welcome_village",
    "text": "Welcome to our village!"
   },
@@ -1243,6 +1255,18 @@
    "text": "Tengo un poco de sueño."
   },
   {
+   "key": "p:surprise_biscuit",
+   "text": "¡Ay, qué sorpresa! ¡Una cara nueva!"
+  },
+  {
+   "key": "p:surprise_pip",
+   "text": "¡Guau! ¿Y tú quién eres?"
+  },
+  {
+   "key": "p:surprise_yuzu",
+   "text": "...¡Ay! Me asustaste."
+  },
+  {
    "key": "p:welcome_village",
    "text": "¡Bienvenidos a nuestro pueblo!"
   },
@@ -2091,6 +2115,18 @@
   {
    "key": "p:im_sleepy",
    "text": "ちょっとねむいです。"
+  },
+  {
+   "key": "p:surprise_biscuit",
+   "text": "あら！はじめてみるかおね！"
+  },
+  {
+   "key": "p:surprise_pip",
+   "text": "わっ！きみ、だれ？！"
+  },
+  {
+   "key": "p:surprise_yuzu",
+   "text": "…わっ。びっくりした。"
   },
   {
    "key": "p:welcome_village",

@@ -108,6 +108,10 @@ ruby rt { font-size: 0.5em; font-weight: 500; color: var(--cocoa-soft); }
 .say { font-size: 1.32em; font-weight: 800; line-height: 1.55; letter-spacing: 0.01em; min-height: 1.5em; word-break: break-word; }
 .say.narration { font-size: 1.05em; font-weight: 500; font-style: italic; color: var(--cocoa-soft); }
 .say .ch { opacity: 0; } .say .ch.on { opacity: 1; }
+/* Startled lines: big letters that pop in, then a little shake (Animal Crossing style). */
+.say.shout { font-size: 1.6em; line-height: 1.4; transform-origin: left center; animation: linePop 0.35s cubic-bezier(.2, 1.9, .4, 1) both, shake 0.45s 0.35s; }
+@keyframes linePop { from { transform: scale(0.55); } }
+@keyframes shake { 20%, 60% { transform: translateX(-4px) rotate(-1deg); } 40%, 80% { transform: translateX(4px) rotate(1deg); } }
 .gloss { margin-top: 6px; font-size: 0.95em; color: var(--cocoa-soft); line-height: 1.45; }
 .gloss.veiled { display: inline-block; padding: 4px 12px; border-radius: 999px; background: var(--paper-2); font-size: 0.82em; font-weight: 700; cursor: pointer; }
 .bubble-tools { display: flex; align-items: center; gap: 10px; margin-top: 12px; }

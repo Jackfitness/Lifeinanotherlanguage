@@ -23,6 +23,7 @@ export type Step =
 
 export const CONVOS: Record<string, Step[]> = {
   intro_biscuit: [
+    { t: 'say', p: 'surprise_biscuit', e: 'surprised' },
     { t: 'say', p: 'hello', e: 'happy' },
     { t: 'say', p: 'welcome_village', e: 'happy' },
     { t: 'say', p: 'im_biscuit' },
@@ -38,6 +39,7 @@ export const CONVOS: Record<string, Step[]> = {
     { t: 'do', fn: 'meet', arg: 'biscuit' },
   ],
   intro_pip: [
+    { t: 'say', p: 'surprise_pip', e: 'surprised' },
     { t: 'say', p: 'im_pip', e: 'happy' },
     { t: 'say', p: 'how_are_you', e: 'surprised' },
     { t: 'reply', ok: ['im_fine', 'im_sleepy'], bad: ['see_you', 'whats_your_name'] },
@@ -48,6 +50,7 @@ export const CONVOS: Record<string, Step[]> = {
     { t: 'do', fn: 'meet', arg: 'pip' },
   ],
   intro_yuzu: [
+    { t: 'say', p: 'surprise_yuzu', e: 'surprised' },
     { t: 'say', p: 'yuzu_hello', e: 'sleepy' },
     { t: 'reply', ok: ['hello'], bad: ['see_you', 'thanks'] },
     { t: 'say', p: 'im_yuzu' },

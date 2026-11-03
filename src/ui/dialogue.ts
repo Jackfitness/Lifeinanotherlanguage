@@ -226,6 +226,7 @@ export class Dialogue {
     this.lastSay = { p, item };
     this.express(e);
     const { sayEl, gloss } = this.sayLine(p, item);
+    if (e === 'surprised') sayEl.classList.add('shout');
     const next = h('div.next');
     next.style.visibility = 'hidden';
     const tools = h('div.bubble-tools', null, this.speakBtn(() => sayPhrase(p, item)), this.chips(phrase(p).words ?? []), next);
