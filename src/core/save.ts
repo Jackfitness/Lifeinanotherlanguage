@@ -24,6 +24,7 @@ export interface SaveData {
     music: number; sfx: number; blips: boolean; autoplay: boolean;
     rate: number; textSize: 'm' | 'l' | 'xl'; jaScript: JaScript; romaji: boolean;
     timeMode: 'real' | 'day';
+    font: 'pop' | 'hand' | 'classic';
   };
   player: { coins: number; xp: number; x: number; z: number; outfit: { hat?: string; neck?: string; face?: string } };
   inventory: Record<string, number>;
@@ -75,7 +76,7 @@ export function newSave(profile: SaveData['profile']): SaveData {
       rate: profile.level === 'beginner' ? 0.8 : profile.level === 'intermediate' ? 0.9 : 1,
       textSize: 'm',
       jaScript: profile.level === 'beginner' ? 'kana' : profile.level === 'intermediate' ? 'furigana' : 'kanji',
-      romaji: false, timeMode: 'real',
+      romaji: false, timeMode: 'real', font: 'pop',
     },
     player: { coins: 20, xp: 0, x: 1.2, z: 22.2, outfit: {} },
     inventory: {},

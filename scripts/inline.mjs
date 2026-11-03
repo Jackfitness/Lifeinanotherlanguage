@@ -13,7 +13,7 @@ for (const f of readdirSync(assets)) {
   else if (f.endsWith('.css')) css += body;
 }
 const script = `<script type="module">${js.replace(/<\/script/g, '<\\/script')}</script>`;
-const fonts = '<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap" rel="stylesheet">';
+const fonts = '<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n<link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">';
 
 let html = readFileSync(join(dist, 'index.html'), 'utf8');
 html = html.replace(/<script type="module" crossorigin src="[^"]+"><\/script>/, () => '')

@@ -545,12 +545,12 @@ export function buildVillage(season: Season): Village {
 }
 
 /** Update the shop signs so they read in the language being learned. */
-export function setSigns(v: Village, cafe: string, store: string) {
+export function setSigns(v: Village, cafe: string, store: string, family?: string, weight?: number) {
   const s = (v.group as any).signs as Record<string, THREE.Mesh>;
   const upd = (m: THREE.Mesh, text: string, bg: string, fg: string) => {
     const mat = m.material as THREE.MeshStandardMaterial;
     mat.map?.dispose();
-    mat.map = signTexture(text, bg, fg);
+    mat.map = signTexture(text, bg, fg, family, weight);
     mat.needsUpdate = true;
   };
   upd(s.cafe, cafe, '#FFF6EE', '#C2575F');

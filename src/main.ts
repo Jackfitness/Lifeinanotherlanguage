@@ -6,12 +6,14 @@ import { speech } from './learning/tts';
 import { Game } from './game';
 import { runOnboarding } from './ui/onboarding';
 import { fadeThrough, h, ui } from './ui/dom';
+import { applyFont } from './ui/fonts';
 
 async function boot() {
   const canvas = document.getElementById('scene') as HTMLCanvasElement;
   const game = new Game(canvas);
   Object.assign(window, { __game: game, __audio: audio }); // debug handles for automated tests
   const hasSave = await store.load();
+  void applyFont(hasSave ? store.data.settings.font : 'pop');
 
   if (hasSave) {
     setUiLang(store.data.profile.native);

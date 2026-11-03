@@ -32,6 +32,7 @@ import { openNotebook } from './ui/notebook';
 import { openShop } from './ui/shop';
 import { button, centerCard, confetti, fadeThrough, h, toast, ui } from './ui/dom';
 import { playerSpec } from './ui/onboarding';
+import { applyFont, displayFamily, FONTS } from './ui/fonts';
 import type { Season } from './world/textures';
 
 const params = new URLSearchParams(location.search);
@@ -212,7 +213,7 @@ export class Game {
       txt = txt.replace(/^(el|la|los|las|the) /i, '');
       return txt.charAt(0).toUpperCase() + txt.slice(1);
     };
-    setSigns(this.village, sign('cafe'), sign('store'));
+    void applyFont(s.font).then(() => setSigns(this.village, sign('cafe'), sign('store'), displayFamily(), FONTS[s.font ?? 'pop'].displayWeight));
     this.hud?.refresh();
   }
 

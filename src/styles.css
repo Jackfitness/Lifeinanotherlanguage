@@ -21,7 +21,9 @@
   --fs: 16px;
   --safe-t: env(safe-area-inset-top, 0px);
   --safe-b: env(safe-area-inset-bottom, 0px);
-  --font: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', 'Arial Rounded MT Bold', system-ui, sans-serif;
+  --font: 'Zen Maru Gothic', 'Hiragino Maru Gothic ProN', 'Arial Rounded MT Bold', system-ui, sans-serif;
+  --font-display: 'Mochiy Pop One', 'Hiragino Maru Gothic ProN', 'Arial Rounded MT Bold', system-ui, sans-serif;
+  --display-weight: 400;
   color-scheme: light;
 }
 :root[data-text='l'] { --fs: 18px; }
@@ -105,7 +107,7 @@ ruby rt { font-size: 0.5em; font-weight: 500; color: var(--cocoa-soft); }
 .nametag { position: absolute; top: -16px; left: 20px; padding: 6px 16px; border-radius: 999px; color: #fff; font-weight: 800; font-size: 0.9em; box-shadow: 0 4px 10px rgba(60, 40, 25, 0.18); }
 .nametag.narrator { background: var(--cocoa-soft); }
 .close-x { position: absolute; top: 10px; right: 12px; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; color: var(--cocoa-soft); font-size: 1.1em; }
-.say { font-size: 1.32em; font-weight: 800; line-height: 1.55; letter-spacing: 0.01em; min-height: 1.5em; word-break: break-word; }
+.say { font-size: 1.32em; font-weight: 700; line-height: 1.55; letter-spacing: 0.01em; min-height: 1.5em; word-break: break-word; }
 .say.narration { font-size: 1.05em; font-weight: 500; font-style: italic; color: var(--cocoa-soft); }
 .say .ch { opacity: 0; } .say .ch.on { opacity: 1; }
 /* Startled lines: big letters that pop in, then a little shake (Animal Crossing style). */
@@ -276,3 +278,13 @@ input[type=range] { accent-color: var(--leaf-deep); width: 130px; }
 @media (min-width: 700px) {
   .joy-hint { display: none; }
 }
+
+/* ---------- type roles: display face for titles, names, buttons and shouts; body face for reading */
+.logo h1, .tap-start, .onb-card h2, .sheet-head h2, .center-card h2, .nametag, .action-label, .tab, .btn, .pill,
+.lvl, .stat b, .fish-msg, .float-num, .say.shout, .menu-opts .opt, .choice > div, .tracker > div, .note-card h3, .quest-card h3 {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+}
+.tracker small, .choice small { font-family: var(--font); font-weight: 500; }
+.logo h1 { letter-spacing: 0.02em; }
+:root[data-font='hand'] .say, :root[data-font='hand'] .opt { font-weight: 600; }

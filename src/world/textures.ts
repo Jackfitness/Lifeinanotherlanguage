@@ -136,7 +136,7 @@ export function emojiTexture(emoji: string, size = 128, bg?: string) {
   return t;
 }
 
-export function signTexture(text: string, bg: string, fg: string) {
+export function signTexture(text: string, bg: string, fg: string, family = '"M PLUS Rounded 1c", sans-serif', weight = 800) {
   const [c, ctx] = canvas(512, 160);
   ctx.fillStyle = bg;
   ctx.beginPath(); (ctx as any).roundRect(8, 8, 496, 144, 40); ctx.fill();
@@ -145,8 +145,8 @@ export function signTexture(text: string, bg: string, fg: string) {
   ctx.globalAlpha = 1; ctx.setLineDash([]);
   ctx.fillStyle = fg;
   let fs = 84;
-  ctx.font = `800 ${fs}px "M PLUS Rounded 1c", sans-serif`;
-  while (ctx.measureText(text).width > 430 && fs > 30) { fs -= 4; ctx.font = `800 ${fs}px "M PLUS Rounded 1c", sans-serif`; }
+  ctx.font = `${weight} ${fs}px ${family}`;
+  while (ctx.measureText(text).width > 430 && fs > 30) { fs -= 4; ctx.font = `${weight} ${fs}px ${family}`; }
   ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
   ctx.fillText(text, 256, 84);
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4;
