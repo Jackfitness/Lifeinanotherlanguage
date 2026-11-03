@@ -11,6 +11,9 @@ import { openPass } from './pass';
 interface MapHost {
   player: () => { x: number; z: number };
   villagers: () => { icon: string; x: number; z: number }[];
+  place: string;
+  canTravel: (id: string) => boolean;
+  travel: (id: string) => void;
 }
 
 // Village bounds → SVG coordinates
@@ -55,7 +58,7 @@ function villageMap(host: MapHost) {
   return h('div', null, wrap, h('p.muted.map-hint', null, '🔊 ' + t('mapTapPlace')));
 }
 
-function worldMap() {
+function worldMap(host: MapHost, close: () => void) {
   const target = S().profile.target;
   const detail = h('div.region-detail');
   const showRegion = (r: Region | null) => {
@@ -63,7 +66,8 @@ function worldMap() {
       detail.replaceChildren(
         h('div.rd-head', null, h('span.lvl-badge.home', null, t('starter')), h('h3', null, pick(HOME_REGION.name))),
         h('p', null, t('homeTown')),
-        h('div.rd-animals', { html: ['bear', 'bunny', 'capybara'].map((a) => icon(a)).join('') }));
+        h('div.rd-animals', { html: ['bear', 'bunny', 'capybara'].map((a) => icon(a)).join('') }),
+        ...(host.place !== 'home' ? [button('btn.primary.rd-cta', [h('span', { html: icon('house') }), t('goHome')], () => { close(); host.travel('home'); })] : []));
       return;
     }
     detail.replaceChildren(
@@ -71,7 +75,12 @@ function worldMap() {
       h('p', null, pick(r.blurb)),
       h('div.section-title', { style: { margin: '10px 0 6px' } }, t('whoLives')),
       h('div.rd-animals', null, ...r.animals.map((a) => h('span.rd-animal', null, h('span', { html: icon(a.icon) }), pick(a.name)))),
-      button('btn.primary.rd-cta', [h('span', { html: icon('pass') }), t('unlockWithPass')], () => openPass()),
+      host.canTravel(r.id)
+        ? (host.place === r.id ? h('p.muted', null, '📍 ' + t('youAreHere'))
+          : button('btn.primary.rd-cta', [h('span', { html: icon('map') }), t('travelTo', { town: pick(r.name) })], () => { close(); host.travel(r.id); }))
+        : S().flags.villagePass || new URLSearchParams(location.search).get('pass') === '1'
+          ? h('p.muted', null, t('townSoon'))
+          : button('btn.primary.rd-cta', [h('span', { html: icon('pass') }), t('unlockWithPass')], () => openPass()),
     );
   };
   // Sea, islands and dotted ferry routes
@@ -88,7 +97,7 @@ function worldMap() {
     ${REGIONS.map((r) => isle(r.at[0] * 3.6, r.at[1] * 3.6, r.color, 36)).join('')}
   </svg>`;
   const wrap = h('div.wmap-wrap', { html: svg });
-  const home = button('wmap-pin.home', [h('span.wp-icon', { html: icon('house') }), h('span.wp-label', null, pick(HOME_REGION.name)), h('span.wp-here', null, t('youAreHere'))], () => showRegion(null), {
+  const home = button('wmap-pin.home', [h('span.wp-icon', { html: icon('house') }), h('span.wp-label', null, pick(HOME_REGION.name)), host.place === 'home' ? h('span.wp-here', null, t('youAreHere')) : null], () => showRegion(null), {
     style: { left: `${hx}%`, top: `${hy}%` },
   });
   wrap.append(home);
@@ -96,20 +105,24 @@ function worldMap() {
     wrap.append(button('wmap-pin', [
       h('span.wp-icon', { html: icon(r.animals[0].icon) }),
       h('span.wp-label', null, h('b', null, regionLevel(r, target)), ' ', pick(r.name)),
-      h('span.wp-lock', { html: icon('lock') }),
+      host.canTravel(r.id) ? null : h('span.wp-lock', { html: icon('lock') }),
+      host.place === r.id ? h('span.wp-here', null, t('youAreHere')) : null,
     ], () => { audio.select(); showRegion(r); }, { style: { left: `${r.at[0]}%`, top: `${r.at[1]}%` } }));
   }
-  showRegion(REGIONS[0]);
+  showRegion(host.place === 'home' ? REGIONS[0] : REGIONS.find((r) => r.id === host.place) ?? null);
   return h('div', null, wrap, detail);
 }
 
 export function openMap(host: MapHost, onClose?: () => void) {
   const body = h('div');
   let view: 'village' | 'world' = 'world';
+  let s: { close: () => void } | null = null;
+  const close = () => s?.close();
   const render = () => body.replaceChildren(
-    seg([{ v: 'world', label: '🗺️ ' + t('mapWorld') }, { v: 'village', label: '🏠 ' + t('mapVillage') }], view, (v) => { view = v as typeof view; audio.page(); render(); }, 'wide'),
-    view === 'world' ? worldMap() : villageMap(host),
+    ...(host.place === 'home' ? [seg([{ v: 'world', label: '🗺️ ' + t('mapWorld') }, { v: 'village', label: '🏠 ' + t('mapVillage') }], view, (v) => { view = v as typeof view; audio.page(); render(); }, 'wide')] : []),
+    view === 'world' || host.place !== 'home' ? worldMap(host, close) : villageMap(host),
   );
   render();
-  return sheet(t('map'), body, { onClose });
+  s = sheet(t('map'), body, { onClose });
+  return s;
 }

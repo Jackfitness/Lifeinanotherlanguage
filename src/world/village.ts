@@ -29,13 +29,13 @@ export const BOUNDS = { minX: -30, maxX: 30, minZ: -34, maxZ: 27 };
 
 // ------------------------------------------------------------ helpers
 const matCache = new Map<string, THREE.MeshStandardMaterial>();
-const C = (color: string) => {
+export const C = (color: string) => {
   if (!matCache.has(color)) matCache.set(color, new THREE.MeshStandardMaterial({ color }));
   return matCache.get(color)!;
 };
-const GLOW = '__glow';
+export const GLOW = '__glow';
 
-function mesh(geo: THREE.BufferGeometry, color: string, x = 0, y = 0, z = 0, opts: { rx?: number; ry?: number; rz?: number; s?: [number, number, number]; glow?: boolean } = {}) {
+export function mesh(geo: THREE.BufferGeometry, color: string, x = 0, y = 0, z = 0, opts: { rx?: number; ry?: number; rz?: number; s?: [number, number, number]; glow?: boolean } = {}) {
   const m = new THREE.Mesh(geo, C(color));
   m.position.set(x, y, z);
   m.rotation.set(opts.rx ?? 0, opts.ry ?? 0, opts.rz ?? 0);
@@ -43,11 +43,11 @@ function mesh(geo: THREE.BufferGeometry, color: string, x = 0, y = 0, z = 0, opt
   if (opts.glow) m.userData[GLOW] = true;
   return m;
 }
-const rbox = (w: number, h: number, d: number, r = 0.12) => new RoundedBoxGeometry(w, h, d, 3, Math.min(r, w / 2 - 0.001, h / 2 - 0.001, d / 2 - 0.001));
-const SPH = new THREE.IcosahedronGeometry(1, 2);
-const SPH_LO = new THREE.IcosahedronGeometry(1, 1);
-const SPH_SMALL = new THREE.SphereGeometry(1, 10, 8);
-const CYL = (rt: number, rb: number, h: number, seg = 16) => new THREE.CylinderGeometry(rt, rb, h, seg);
+export const rbox = (w: number, h: number, d: number, r = 0.12) => new RoundedBoxGeometry(w, h, d, 3, Math.min(r, w / 2 - 0.001, h / 2 - 0.001, d / 2 - 0.001));
+export const SPH = new THREE.IcosahedronGeometry(1, 2);
+export const SPH_LO = new THREE.IcosahedronGeometry(1, 1);
+export const SPH_SMALL = new THREE.SphereGeometry(1, 10, 8);
+export const CYL = (rt: number, rb: number, h: number, seg = 16) => new THREE.CylinderGeometry(rt, rb, h, seg);
 
 function prep(src: THREE.BufferGeometry, matrix: THREE.Matrix4, color: THREE.Color) {
   let g = src.index ? src.toNonIndexed() : src.clone();
@@ -64,7 +64,7 @@ function prep(src: THREE.BufferGeometry, matrix: THREE.Matrix4, color: THREE.Col
 }
 
 /** Merge every plain mesh under root into one vertex-colored mesh (plus one emissive "glow" mesh). */
-function bake(root: THREE.Group, glowMat: THREE.Material): THREE.Mesh[] {
+export function bake(root: THREE.Group, glowMat: THREE.Material): THREE.Mesh[] {
   root.updateMatrixWorld(true);
   const normal: THREE.BufferGeometry[] = [], glow: THREE.BufferGeometry[] = [];
   const doomed: THREE.Mesh[] = [];
@@ -87,15 +87,15 @@ function bake(root: THREE.Group, glowMat: THREE.Material): THREE.Mesh[] {
   return out;
 }
 
-function rng(seed: number) {
+export function rng(seed: number) {
   let s = seed >>> 0;
   return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296);
 }
 
 // ------------------------------------------------------------ props
-interface HouseOpts { w: number; d: number; h: number; wall: string; roof: string; trim: string; door: string; chimney?: boolean; round?: boolean }
+export interface HouseOpts { w: number; d: number; h: number; wall: string; roof: string; trim: string; door: string; chimney?: boolean; round?: boolean }
 
-function house(o: HouseOpts) {
+export function house(o: HouseOpts) {
   const g = new THREE.Group();
   const pitch = 0.62;
   g.add(mesh(rbox(o.w + 0.25, 0.35, o.d + 0.25, 0.1), o.trim, 0, 0.175, 0));
@@ -138,7 +138,7 @@ function house(o: HouseOpts) {
   return g;
 }
 
-function tree(r: () => number, season: Season, x: number, z: number, scale = 1, kind: 'round' | 'pine' | 'blossom' = 'round') {
+export function tree(r: () => number, season: Season, x: number, z: number, scale = 1, kind: 'round' | 'pine' | 'blossom' = 'round') {
   const g = new THREE.Group();
   const far = Math.abs(x) > 30 || z < -36 || z > 29;
   g.position.set(x, 0, z);
@@ -171,7 +171,7 @@ function tree(r: () => number, season: Season, x: number, z: number, scale = 1, 
   return g;
 }
 
-function flower(r: () => number, x: number, z: number, col?: string) {
+export function flower(r: () => number, x: number, z: number, col?: string) {
   const g = new THREE.Group();
   g.position.set(x, 0, z);
   g.add(mesh(CYL(0.02, 0.025, 0.36, 5), '#6FAE62', 0, 0.18, 0));
@@ -184,7 +184,7 @@ function flower(r: () => number, x: number, z: number, col?: string) {
   return g;
 }
 
-function bench(x: number, z: number, ry: number) {
+export function bench(x: number, z: number, ry: number) {
   const g = new THREE.Group(); g.position.set(x, 0, z); g.rotation.y = ry;
   g.add(mesh(rbox(1.8, 0.12, 0.55, 0.05), '#C98B5B', 0, 0.48, 0));
   g.add(mesh(rbox(1.8, 0.45, 0.1, 0.05), '#C98B5B', 0, 0.85, -0.25));
@@ -192,7 +192,7 @@ function bench(x: number, z: number, ry: number) {
   return g;
 }
 
-function lamp(x: number, z: number) {
+export function lamp(x: number, z: number) {
   const g = new THREE.Group(); g.position.set(x, 0, z);
   g.add(mesh(CYL(0.25, 0.3, 0.25, 12), '#6E6A7A', 0, 0.12, 0));
   g.add(mesh(CYL(0.07, 0.09, 2.6, 8), '#6E6A7A', 0, 1.4, 0));
@@ -201,7 +201,7 @@ function lamp(x: number, z: number) {
   return g;
 }
 
-function fence(x1: number, z1: number, x2: number, z2: number) {
+export function fence(x1: number, z1: number, x2: number, z2: number) {
   const g = new THREE.Group();
   const len = Math.hypot(x2 - x1, z2 - z1), n = Math.max(1, Math.round(len / 0.7));
   const ang = Math.atan2(x2 - x1, z2 - z1);
@@ -213,7 +213,7 @@ function fence(x1: number, z1: number, x2: number, z2: number) {
   return g;
 }
 
-function rock(r: () => number, x: number, z: number, s = 1) {
+export function rock(r: () => number, x: number, z: number, s = 1) {
   return mesh(SPH, ['#B9B4AC', '#C8C2B8', '#A9A49D'][Math.floor(r() * 3)], x, 0.1 * s, z, { s: [0.5 * s * (0.8 + r() * 0.5), 0.32 * s, 0.45 * s * (0.8 + r() * 0.5)], ry: r() * 3 });
 }
 

@@ -5,6 +5,8 @@ export interface QuestStep {
   talk?: Record<string, string>;
   /** Collect world pickups (item ids) placed at SPOTS.lost. */
   collect?: string[];
+  /** Finish a dojo lesson (or the exam) to complete this step. */
+  dojo?: string;
   objective: LText;
   /** Optional target-language hint phrase shown in the quest log (reading practice). */
   hints?: string[];
@@ -18,6 +20,9 @@ export interface QuestDef {
   after?: string[];
   steps: QuestStep[];
   reward: { coins: number; xp: number; items?: string[]; friend?: [string, number] };
+  /** Town this quest belongs to (absent = the starter village). */
+  town?: string;
+  chapter?: number;
 }
 
 export const QUESTS: QuestDef[] = [

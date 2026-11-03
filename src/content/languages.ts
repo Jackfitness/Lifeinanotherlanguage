@@ -18,4 +18,8 @@ export const LANGUAGES: LanguageInfo[] = [
   { code: 'ja', autonym: '日本語', tts: ['ja-JP', 'ja'], japaneseScripts: true, flag: '🌸' },
 ];
 
+/** This is a Japanese-learning game: everyone studies Japanese, with English or Spanish as their own language. */
+export const TARGET_LANG = 'ja';
+export const NATIVE_LANGS: LangCode[] = ['en', 'es'];
+
 export const langInfo = (code: LangCode) => LANGUAGES.find((l) => l.code === code) ?? LANGUAGES[0];

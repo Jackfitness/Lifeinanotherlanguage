@@ -90,7 +90,14 @@ export function centerCard(icon: string, title: string, lines: (string | HTMLEle
     );
     ui().append(scrim, card);
   };
-  if (cardOpen) cardQueue.push(show); else show();
+  if (cardOpen || cardsHeld) cardQueue.push(show); else show();
+}
+
+let cardsHeld = false;
+/** Hold celebration cards (level-ups…) during focused sessions; release shows any that waited. */
+export function holdCards(on: boolean, flush = true) {
+  cardsHeld = on;
+  if (!on && flush && !cardOpen) cardQueue.shift()?.();
 }
 
 /** In-page yes/no confirmation (native confirm() is unavailable in some embeds). */

@@ -11,13 +11,15 @@ import { logoBlock } from './ui/brand';
 import { installLexiconIcons } from './ui/icons';
 import { voicePack } from './audio/voicepack';
 import { LEXICON } from './content/lexicon';
+import { registerClover } from './content/towns/clover';
 
+registerClover();
 installLexiconIcons(LEXICON);
 
 async function boot() {
   const canvas = document.getElementById('scene') as HTMLCanvasElement;
   const game = new Game(canvas);
-  Object.assign(window, { __game: game, __audio: audio, __voice: voicePack }); // debug handles for automated tests
+  Object.assign(window, { __game: game, __audio: audio, __voice: voicePack, __store: store }); // debug handles for automated tests
   const hasSave = await store.load();
   void applyFont(hasSave ? store.data.settings.font : 'cozy');
 

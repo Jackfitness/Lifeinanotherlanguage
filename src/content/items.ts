@@ -69,6 +69,13 @@ export const ITEMS: ItemDef[] = [
   { id: 'key', lex: 'key', kind: 'quest' },
   { id: 'book', lex: 'book', kind: 'quest' },
   { id: 'umbrella', lex: 'umbrella', kind: 'quest' },
+  // Clover Meadow story items
+  { id: 'eggs_basket', lex: 'n5_tamago', kind: 'quest' },
+  { id: 'letter_hana', lex: 'n5_tegami', kind: 'quest' },
+  { id: 'letter_kuu', lex: 'n5_tegami', kind: 'quest' },
+  { id: 'letter_pon', lex: 'n5_tegami', kind: 'quest' },
+  { id: 'honey_jar', lex: 'honey', kind: 'quest' },
+  { id: 'lanterns', lex: 'n5_chouchin', kind: 'quest' },
 ];
 
 const byId = new Map(ITEMS.map((i) => [i.id, i]));

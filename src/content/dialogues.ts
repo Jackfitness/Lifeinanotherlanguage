@@ -19,6 +19,7 @@ export type Step =
   | { t: 'listen'; w: string; opts?: string[]; due?: boolean }
   | { t: 'meaning'; p: string }
   | { t: 'ask'; q: LText; w: string; opts: string[] }
+  | { t: 'quiz'; q: LText; options: string[]; answer: number }
   | { t: 'do'; fn: string; arg?: unknown };
 
 export const CONVOS: Record<string, Step[]> = {

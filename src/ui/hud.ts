@@ -17,6 +17,8 @@ export class Hud {
   private actionBtn: HTMLButtonElement;
   private actionLabel = h('div.action-label');
   private onAction: (() => void) | null = null;
+  /** Which area's story the tracker follows. */
+  place: string = 'home';
 
   constructor(private openMenu: (tab?: string) => void, openMap?: () => void) {
     const svgNS = 'http://www.w3.org/2000/svg';
@@ -67,7 +69,7 @@ export class Hud {
     this.lvlText.textContent = String(l);
     const frac = (d.player.xp - xpAt(l)) / (xpAt(l + 1) - xpAt(l));
     this.ring.setAttribute('stroke-dashoffset', String(113 * (1 - frac)));
-    const q = activeQuests()[0];
+    const q = activeQuests(this.place)[0];
     if (q) {
       const step = q.steps[qs(q.id).step];
       this.tracker.replaceChildren(h('span.q-icon', null, q.icon), h('div', null, pick(q.title), h('small', null, pick(step.objective))));

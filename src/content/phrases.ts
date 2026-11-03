@@ -140,3 +140,7 @@ export const phrase = (id: string): Phrase => {
   if (!p) throw new Error('Unknown phrase ' + id);
   return p;
 };
+/** Add town dialogue lines to the shared phrase bank. */
+export function registerPhrases(list: Phrase[]) {
+  for (const p of list) if (!byId.has(p.id)) { PHRASES.push(p); byId.set(p.id, p); }
+}

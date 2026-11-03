@@ -17,7 +17,7 @@ import { SPOTS } from './content/places';
 import { langInfo } from './content/languages';
 import { audio } from './audio/audio';
 import { speech } from './learning/tts';
-import { plainText } from './learning/text';
+import { plainText, renderTarget } from './learning/text';
 import { exposePhrase, expose, lexNative, lexTarget, loadVoicePack, renderOpts, sayLex, target, wordsForChat, levelNum } from './learning/engine';
 import { buildVillage, BOUNDS, setSigns, type Village } from './world/village';
 import { Ambience, Burst, Sky, Sparkle, markerSprite, seasonOf, weatherOf, type Weather } from './world/env';
@@ -30,9 +30,15 @@ import { Joystick } from './ui/joystick';
 import { Dialogue, type Speaker } from './ui/dialogue';
 import { openNotebook } from './ui/notebook';
 import { openShop } from './ui/shop';
-import { button, centerCard, confetti, fadeThrough, h, toast, ui } from './ui/dom';
+import { button, centerCard, confetti, holdCards, fadeThrough, h, toast, ui } from './ui/dom';
 import { playerSpec } from './ui/onboarding';
 import { openMap } from './ui/map';
+import { openDojo } from './ui/dojoui';
+import { buildClover, CLOVER_SPOTS, type Town } from './world/towns/clover';
+import { makeGraph } from './world/actors';
+import { CLOVER, registerClover } from './content/towns/clover';
+import { buildSession, grammarFor, townState, lessonsDone, type SessionKind } from './learning/dojo';
+import { activeQuests, finishDojo, startTown } from './core/progress';
 import { openPass } from './ui/pass';
 import { showBedtime } from './ui/bedtime';
 import { voicePack } from './audio/voicepack';
@@ -78,6 +84,12 @@ export class Game {
   private talkSlot: THREE.Vector3 | null = null;
   private seat: { x: number; z: number; ry: number } | null = null;
   private bedtime: { close: () => void } | null = null;
+  /** Which outdoor area the player is in: the starter village or a Village Pass town. */
+  place: 'home' | 'clover' = 'home';
+  private town: Town | null = null;
+  private townNpcs: Npc[] = [];
+  private townAmb: Ambience | null = null;
+  private bellSwing = 0;
   private playTick = 0;
 
   constructor(canvas: HTMLCanvasElement) {
@@ -160,14 +172,169 @@ export class Game {
     this.setBusy(true);
     openMap({
       player: () => ({ x: this.player!.pos.x, z: this.player!.pos.z }),
-      villagers: () => this.npcs.map((n) => ({ icon: n.def.species, x: n.pos.x, z: n.pos.z })),
+      villagers: () => (this.place === 'home' ? this.npcs : []).map((n) => ({ icon: n.def.species, x: n.pos.x, z: n.pos.z })),
+      place: this.place,
+      canTravel: (id) => id === 'clover' && this.hasPass(),
+      travel: (id) => { void this.travel(id as 'clover' | 'home'); },
     }, () => this.setBusy(false));
+  }
+
+  // ------------------------------------------------------------ towns
+  /** The outdoor area the player is standing in. */
+  area(): Village { return this.place === 'clover' && this.town ? this.town : this.village; }
+  activeNpcs(): Npc[] { return this.place === 'clover' ? this.townNpcs : this.npcs; }
+
+  private ensureClover() {
+    if (this.town) return this.town;
+    registerClover();
+    const kana = S().settings.jaScript === 'kana';
+    this.town = buildClover(this.season, kana
+      ? { hall: 'まちやくば', post: 'ゆうびんきょく', restaurant: 'レストラン', dojo: 'どうじょう', market: 'いちば' }
+      : { hall: '町役場', post: '郵便局', restaurant: 'レストラン', dojo: '道場', market: '市場' });
+    this.town.group.visible = false;
+    this.scene.add(this.town.group);
+    const graph = makeGraph(this.town.nodes, this.town.edges);
+    this.townNpcs = CLOVER.npcs.map((d) => { const n = new Npc(d, graph); n.snap(this.hour()); n.plush.root.visible = false; this.scene.add(n.plush.root); return n; });
+    this.townAmb = new Ambience(this.weather, this.season, this.town.fountainTop, this.town.chimneys);
+    this.townAmb.group.visible = false;
+    this.scene.add(this.townAmb.group);
+    for (const n of this.townNpcs) n.onGreet = (npc) => { if (S().settings.blips && !this.busy) audio.emote('hi', npc.def.voice.pitch, 0.7, (npc.pos.x - this.player!.pos.x) / 6); };
+    this.updateTownRoutines();
+    return this.town;
+  }
+
+  /** Mimi wanders off to the park during chapter 6, then goes home with you. */
+  private updateTownRoutines(mimiFound = false) {
+    const mimi = CLOVER.npcs.find((n) => n.id === 'mimi');
+    if (!mimi) return;
+    const st = qs('clover_6');
+    const lost = !mimiFound && st?.state === 'active' && st.step >= 1 && st.step <= 3;
+    mimi.routine = [{ from: 0, to: 24, node: lost ? 'park' : 'kitchenSide', activity: 'stroll' }];
+  }
+
+  /** Bus travel between the starter village and the pass towns. */
+  async travel(to: 'home' | 'clover', instant = false) {
+    if (to === 'clover' && !this.hasPass()) { openPass(); return; }
+    this.standUp();
+    this.setBusy(true);
+    const swap = () => {
+      const goingToTown = to === 'clover';
+      if (goingToTown) this.ensureClover();
+      this.place = to;
+      this.village.group.visible = !goingToTown;
+      for (const n of this.npcs) n.plush.root.visible = !goingToTown;
+      this.amb.group.visible = !goingToTown;
+      if (this.town) this.town.group.visible = goingToTown;
+      for (const n of this.townNpcs) n.plush.root.visible = goingToTown;
+      if (this.townAmb) this.townAmb.group.visible = goingToTown;
+      this.refreshPickups();
+      const [x, z] = goingToTown ? CLOVER_SPOTS.spawn : [1.2, 22.2];
+      this.player!.pos.set(x, 0, z);
+      this.player!.plush.targetYaw = Math.PI;
+      S().player.place = to; S().player.x = x; S().player.z = z;
+      store.touch('travel');
+      if (this.hud) this.hud.place = to;
+      this.hud?.refresh();
+      this.snapCamera();
+    };
+    if (instant) swap(); else { audio.door(); await fadeThrough(swap); }
+    this.setBusy(false);
+    if (to === 'clover' && startTown('clover')) {
+      this.updateTownRoutines();
+      setTimeout(() => this.narrate([t('arriveClover')], '🚌'), 400);
+    }
+  }
+
+  openDojoSheet() {
+    if (this.busy) return;
+    this.setBusy(true);
+    openDojo({
+      portrait: (id) => this.portrait(id),
+      run: (kind, unit) => void this.runDojo(kind, unit),
+      examOpen: () => lessonsDone() >= CLOVER.units || qs('clover_9')?.state === 'active' || townState().examBest > 0,
+    }, () => { if (!this.dojoRunning) this.setBusy(false); });
+  }
+  private dojoRunning = false;
+
+  /** Run a dojo lesson, practice set or the exam, then show results. */
+  private async runDojo(kind: SessionKind, unit = 1) {
+    this.dojoRunning = true;
+    this.setBusy(true);
+    holdCards(true);
+    const kero = this.townNpcs.find((n) => n.def.id === 'kero');
+    if (kero) { this.focusNpc = kero; kero.talking = true; }
+    const dlg = new Dialogue(kero ? this.speakerFor(kero) : null, { effect: () => {} }, { closable: true });
+    try {
+      if (kind === 'lesson') {
+        for (const gp of grammarFor(unit)) {
+          await dlg.noteCard(`${t('lessonKicker')} ${unit}`, pick(gp.title), pick(gp.note),
+            `${renderTarget(gp.example, 'ja', renderOpts())}<div class="muted" style="font-size:.85em">${pick(gp.exampleM)}</div>`);
+        }
+      }
+      const qs2 = buildSession(kind, unit);
+      const sections: Record<string, { c: number; n: number }> = {};
+      let correct = 0, answered = 0;
+      const label = kind === 'exam' ? t('examTitle') : kind === 'lesson' ? `${t('lessonKicker')} ${unit}` : '';
+      for (let i = 0; i < qs2.length; i++) {
+        const ok = await Promise.race([dlg.dojo(qs2[i], { i, n: qs2.length, label }), new Promise<null>((r) => { const iv = setInterval(() => { if (!dlg.root.isConnected) { clearInterval(iv); r(null); } }, 300); })]);
+        if (ok === null) break;
+        answered++;
+        const sec = (sections[qs2[i].section] ??= { c: 0, n: 0 });
+        sec.n++; if (ok) { sec.c++; correct++; }
+      }
+      dlg.finish();
+      if (answered < qs2.length) return; // quit early: no result
+      const pct = Math.round((correct / qs2.length) * 100);
+      const ts = townState();
+      ts.sessions++;
+      let title = t('sessionDone'), sub = t('correctOf', { c: correct, n: qs2.length }), big = '✨';
+      if (kind === 'lesson') {
+        const key = 'lesson_' + unit, first = !(ts.lessons[key] >= 60);
+        ts.lessons[key] = Math.max(ts.lessons[key] ?? 0, pct);
+        if (pct >= 60) { title = t('lessonPassed'); big = '🥋'; if (first) { addXP(30); addCoins(20); } finishDojo(key); }
+        else { title = t('lessonRetry'); big = '🌱'; }
+      }
+      if (kind === 'exam') {
+        ts.examBest = Math.max(ts.examBest, pct);
+        if (pct >= 80) { ts.examPassed = true; title = t('examPassed'); sub += ' · ' + t('examPassedSub'); big = '🏅'; finishDojo('exam'); }
+        else {
+          title = t('examFailed'); big = '🌱';
+          const names: Record<string, string> = { vocab: t('dojoVocab'), kanji: t('dojoKanji'), grammar: t('dojoGrammar'), reading: t('dojoReading'), listening: t('dojoListening') };
+          const weakest = Object.entries(sections).sort((a, b) => a[1].c / a[1].n - b[1].c / b[1].n)[0];
+          if (weakest) sub += ' · ' + t('practiceTip', { s: names[weakest[0]] });
+        }
+      }
+      store.touch('dojo');
+      const bars = h('div.result-bars', null, ...Object.entries(sections).map(([k, v]) =>
+        h('div.rb', null, h('span', null, ({ vocab: t('dojoVocab'), kanji: t('dojoKanji'), grammar: t('dojoGrammar'), reading: t('dojoReading'), listening: t('dojoListening') } as Record<string, string>)[k]),
+          h('div.rb-bar', null, h('i', { style: { width: `${(v.c / v.n) * 100}%` } })), h('b', null, `${v.c}/${v.n}`))));
+      if (pct >= 80 || (kind === 'lesson' && pct >= 60)) { audio.questDone(); confetti(50); }
+      holdCards(false, false);
+      centerCard(big, title, [h('div.result-score', null, `${pct}%`), sub, bars], t('gotIt'));
+    } finally {
+      if (kero) { kero.talking = false; this.focusNpc = null; kero.plush.setExpr('neutral'); }
+      this.dojoRunning = false;
+      holdCards(false);
+      this.setBusy(false);
+      this.hud?.refresh();
+    }
+  }
+
+  private ringBell() {
+    this.bellSwing = 6;
+    audio.levelUp();
+    setTimeout(() => audio.heart(), 500);
+    setTimeout(() => audio.questDone(), 1200);
+    confetti(120);
+    if (this.town) for (let i = 0; i < 4; i++) setTimeout(() => this.burst.emit('sparkle', new THREE.Vector3((Math.random() - 0.5) * 6, 9, (Math.random() - 0.5) * 4), 8), i * 400);
+    for (const n of this.townNpcs) n.plush.hop(2.4);
+    toast('🔔', t('bellRang'), t('bellRangSub'), 6000);
   }
 
   /** Copy the live player position into the save (called before the app is hidden or closed). */
   persistPosition() {
     if (!this.player || this.mode !== 'village' || !store.data) return;
-    S().player.x = this.player.pos.x; S().player.z = this.player.pos.z;
+    S().player.x = this.player.pos.x; S().player.z = this.player.pos.z; S().player.place = this.place;
   }
 
   hour() {
@@ -206,11 +373,13 @@ export class Game {
     };
     this.scene.add(this.player.plush.root);
     this.hud = new Hud((tab) => this.openMenu(tab), () => this.openMapSheet());
+    this.hud.place = this.place;
     this.joy = new Joystick(this.joyHint());
     this.applySettings();
     this.mode = 'village';
     this.snapCamera();
     if (playerLevel() >= 2) this.openForest(false);
+    if (S().player.place === 'clover' && this.hasPass()) void this.travel('clover', true);
     this.refreshPickups();
     this.wireEvents();
     speech.onMissing = (lang) => voicePack.ready() ? undefined : toast('🔇', t('noVoice', { lang: langInfo(lang).autonym }), undefined, 4500);
@@ -257,11 +426,13 @@ export class Game {
     });
     bus.on('achievement', (id: string) => { audio.achievement(); toast('🏅', t('ach_' + id), t('ach_' + id + '_d'), 3200); });
     bus.on('quest:new', (id: string) => { const q = questDef(id); toast(q.icon, t('newQuest'), pick(q.title), 3000); this.hud?.setMenuDot(true); });
-    bus.on('quest:step', () => { this.refreshPickups(); this.hud?.refresh(); });
+    bus.on('quest:step', () => { this.refreshPickups(); this.updateTownRoutines(); this.hud?.refresh(); });
     bus.on('quest:done', (id: string) => this.onQuestDone(id));
   }
 
-  npcName(d: NpcDef) { return pick(d.name, target()); }
+  npcName(d: NpcDef) {
+    return plainText(pick(d.name, target()), target(), renderOpts(), S().settings.jaScript === 'kana' ? 'kana' : 'kanji');
+  }
 
   // ------------------------------------------------------------ settings
   applySettings() {
@@ -287,6 +458,7 @@ export class Game {
     this.hud?.root.remove();
     document.querySelector('.action-wrap')?.remove();
     this.hud = new Hud((tab) => this.openMenu(tab), () => this.openMapSheet());
+    this.hud.place = this.place;
     this.joy?.remove();
     this.joy = new Joystick(this.joyHint());
     this.applySettings();
@@ -340,19 +512,24 @@ export class Game {
     const focus = this.player ? this.player.pos : new THREE.Vector3(0, 0, 0);
     this.sky.update(hour, this.weather, focus);
     const night = this.sky.night;
-    this.village.glowMat.emissiveIntensity = night * 1.4;
-    for (const l of this.village.lamps) l.intensity = night * 14;
-    for (const w of this.village.waters) { w.offset.x = t * 0.012; w.offset.y = t * 0.008; }
+    const area = this.area();
+    area.glowMat.emissiveIntensity = night * 1.4;
+    for (const l of area.lamps) l.intensity = night * 14;
+    for (const w of area.waters) { w.offset.x = t * 0.012; w.offset.y = t * 0.008; }
+    if (this.town && this.place === 'clover') {
+      this.town.windmill.rotation.z += dt * 0.6;
+      if (this.bellSwing > 0) { this.bellSwing -= dt; this.town.bell.rotation.z = Math.sin(t * 9) * 0.45 * Math.min(1, this.bellSwing); }
+    }
     audio.setMood(night > 0.7 ? 'night' : hour >= 17 ? 'evening' : 'day');
     audio.setRain(this.weather === 'rainy' && this.mode === 'village');
-    this.amb.update(dt, t, focus, night);
+    (this.place === 'clover' && this.townAmb ? this.townAmb : this.amb).update(dt, t, focus, night);
     this.burst.update(dt);
     for (const p of this.pickups) { p.sparkle.update(t); p.obj.position.y = 0.6 + Math.sin(t * 2.5) * 0.1; p.obj.rotation.y = t; }
 
     const walk: Walkable = {
-      colliders: this.village.colliders, isWater: this.village.isWater, bounds: BOUNDS,
-      ignoreTags: this.village.log.visible ? undefined : new Set(['log']),
-      dynamic: this.npcs.map((n) => ({ x: n.pos.x, z: n.pos.z, r: 0.45 })),
+      colliders: area.colliders, isWater: area.isWater, bounds: this.place === 'clover' && this.town ? this.town.bounds : BOUNDS,
+      ignoreTags: this.village.log.visible || this.place !== 'home' ? undefined : new Set(['log']),
+      dynamic: this.activeNpcs().map((n) => ({ x: n.pos.x, z: n.pos.z, r: 0.45 })),
     };
     if (this.player) {
       let input = this.busy || this.fishing ? { x: 0, z: 0 } : this.joy!.read();
@@ -375,7 +552,7 @@ export class Game {
       if (this.saveTimer > 4) { this.saveTimer = 0; S().player.x = this.player.pos.x; S().player.z = this.player.pos.z; store.touch('pos'); }
       this.hud?.setTime(hour, WEATHER_ICON[this.weather]);
     }
-    for (const n of this.npcs) {
+    for (const n of this.activeNpcs()) {
       n.update(dt, t, hour, this.player?.pos ?? new THREE.Vector3(0, 0, 999), walk);
       if (this.player && !n.talking) n.setMarker(questTalk(n.def.id) ? 'quest' : n.activity === 'rest' ? 'sleep' : '');
     }
@@ -423,9 +600,21 @@ export class Game {
       const p = this.player!.pos;
       return [{ icon: '🧍', label: t('standUp'), x: p.x, z: p.z, r: 5, use: () => this.standUp() }];
     }
-    for (const b of this.village.benches) {
+    for (const b of this.area().benches) {
       list.push({ icon: '🪑', label: t('sit'), x: b.x + Math.sin(b.ry) * 0.9, z: b.z + Math.cos(b.ry) * 0.9, r: 1.4, pri: -0.3, use: () => this.sitDown(b) });
     }
+    if (this.place === 'clover') {
+      for (const n of this.townNpcs) {
+        const q = !!questTalk(n.def.id);
+        list.push({ icon: q ? '❗' : '💬', label: `${t('talk')} · ${this.npcName(n.def)}`, x: n.pos.x, z: n.pos.z, r: 2.6, pri: q ? 2 : 0.8, use: () => this.talkTo(n) });
+      }
+      const [dx, dz] = CLOVER_SPOTS.dojoDoor;
+      list.push({ icon: '🥋', label: t('enterDojo'), x: dx, z: dz + 0.6, r: 2.0, pri: 1.5, use: () => this.openDojoSheet() });
+      const [bx, bz] = CLOVER_SPOTS.bus;
+      list.push({ icon: '🚌', label: t('goHome'), x: bx, z: bz, r: 1.8, use: () => void this.travel('home') });
+      return list;
+    }
+    list.push({ icon: '🚌', label: t('travel'), x: 3.2, z: 22.6, r: 1.8, use: () => this.openMapSheet() });
     for (const n of this.npcs) {
       const q = !!questTalk(n.def.id);
       list.push({ icon: q ? '❗' : '💬', label: `${t('talk')} · ${this.npcName(n.def)}`, x: n.pos.x, z: n.pos.z, r: 2.6, pri: q ? 2 : 0.8, use: () => this.talkTo(n) });
@@ -466,13 +655,13 @@ export class Game {
   }
 
   private objectivePos(): THREE.Vector3 | null {
-    for (const id of ['q_hello', 'q_tea', 'q_lost']) {
-      const st = qs(id);
-      if (!st || st.state !== 'active') continue;
+    for (const q of activeQuests(this.place)) {
+      const id = q.id, st = qs(id);
       const step = questDef(id).steps[st.step];
+      if (step.dojo && this.place === 'clover') return new THREE.Vector3(CLOVER_SPOTS.dojoDoor[0], 0, CLOVER_SPOTS.dojoDoor[1]);
       if (step.talk) {
         const who = Object.keys(step.talk).find((n) => !st.talked.includes(n));
-        const npc = this.npcs.find((n) => n.def.id === who);
+        const npc = this.activeNpcs().find((n) => n.def.id === who);
         if (npc) return npc.pos;
       }
       if (step.collect && this.pickups.length) {
@@ -505,9 +694,10 @@ export class Game {
     const side = pl.pos.x >= n.pos.x ? 1 : -1;
     for (const sx of [side, -side]) {
       const tx = n.pos.x + sx * 1.3, tz = n.pos.z + 0.45;
-      const walk: Walkable = { colliders: this.village.colliders, isWater: this.village.isWater, bounds: BOUNDS };
+      const ar = this.area();
+      const walk: Walkable = { colliders: ar.colliders, isWater: ar.isWater, bounds: BOUNDS };
       const [nx, nz] = moveCircle(tx, tz, 0, 0, 0.38, walk);
-      if (Math.hypot(nx - tx, nz - tz) < 0.3 && !this.village.isWater(tx, tz)) { this.talkSlot = new THREE.Vector3(tx, 0, tz); break; }
+      if (Math.hypot(nx - tx, nz - tz) < 0.3 && !ar.isWater(tx, tz)) { this.talkSlot = new THREE.Vector3(tx, 0, tz); break; }
     }
     pl.plush.faceToward(n.pos.x, n.pos.z);
     pl.plush.targetYaw = blendYaw(pl.plush.targetYaw, 0, 0.4);
@@ -711,6 +901,15 @@ export class Game {
       case 'meet': friend(arg as string).met = true; store.touch('meet'); checkAchievements(); break;
       case 'spawnLost': this.refreshPickups(); break;
       case 'story': if (n) { friend(n.def.id).story++; store.touch('story'); } break;
+      case 'askTime': {
+        const d = new Date();
+        const hh = d.getHours() % 12 || 12, mm = d.getMinutes();
+        const jaTime = `${hh}時${mm >= 30 ? '半' : ''}`;
+        toast('🕰️', t('timeNow', { t: jaTime }), `${hh}:${String(mm).padStart(2, '0')}`, 3500);
+        break;
+      }
+      case 'mimiHome': this.updateTownRoutines(true); break;
+      case 'ringBell': this.ringBell(); break;
       case 'chatDone': {
         if (!n) break;
         const f = friend(n.def.id);
@@ -726,7 +925,7 @@ export class Game {
     for (const p of this.pickups) { p.obj.removeFromParent(); p.sparkle.sprite.removeFromParent(); }
     this.pickups = [];
     const st = qs('q_lost');
-    if (st?.state === 'active' && st.step === 1) {
+    if (st?.state === 'active' && st.step === 1 && this.place === 'home') {
       for (const id of ['key', 'book', 'umbrella'] as const) {
         if (st.found.includes(id)) continue;
         const [x, z] = SPOTS.lost[id];

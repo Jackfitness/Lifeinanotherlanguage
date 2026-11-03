@@ -145,7 +145,15 @@ function advance(questId: string) {
   const st = qs(questId), q = questDef(questId);
   st.step++; st.talked = [];
   if (st.step >= q.steps.length) complete(questId);
+  else if (dojoAlreadyPassed(q.town, q.steps[st.step].dojo)) advance(questId); // lesson done ahead of the story
   else bus.emit('quest:step', questId);
+}
+
+function dojoAlreadyPassed(town: string | undefined, id: string | undefined) {
+  if (!town || !id) return false;
+  const ts = (S() as unknown as { towns?: Record<string, { lessons: Record<string, number>; examPassed: boolean }> }).towns?.[town];
+  if (!ts) return false;
+  return id === 'exam' ? ts.examPassed : (ts.lessons[id] ?? 0) >= 60;
 }
 
 function complete(questId: string) {
@@ -158,6 +166,7 @@ function complete(questId: string) {
   addXP(q.reward.xp);
   for (const nq of QUESTS) {
     if (S().quests[nq.id]) continue;
+    if (nq.town && !S().flags['visited_' + nq.town]) continue; // town stories start when you arrive
     if ((nq.after ?? []).every((a) => qs(a)?.state === 'done')) {
       S().quests[nq.id] = { state: 'active', step: 0, talked: [], found: [] };
       bus.emit('quest:new', nq.id);
@@ -167,4 +176,27 @@ function complete(questId: string) {
   checkAchievements();
 }
 
-export const activeQuests = () => QUESTS.filter((q) => qs(q.id)?.state === 'active');
+export const activeQuests = (town?: string) => QUESTS.filter((q) => qs(q.id)?.state === 'active' && (town === undefined || (q.town ?? 'home') === town));
+
+/** A dojo lesson or exam was passed: advance any story step waiting on it. */
+export function finishDojo(id: string) {
+  for (const q of QUESTS) {
+    const st = qs(q.id);
+    if (!st || st.state !== 'active') continue;
+    if (q.steps[st.step]?.dojo === id) advance(q.id);
+  }
+  store.touch('dojo');
+}
+
+/** First arrival in a town starts its story. */
+export function startTown(town: string) {
+  if (S().flags['visited_' + town]) return false;
+  S().flags['visited_' + town] = true;
+  for (const q of QUESTS) {
+    if (q.town !== town || S().quests[q.id] || (q.after ?? []).length) continue;
+    S().quests[q.id] = { state: 'active', step: 0, talked: [], found: [] };
+    bus.emit('quest:new', q.id);
+  }
+  store.touch('town');
+  return true;
+}

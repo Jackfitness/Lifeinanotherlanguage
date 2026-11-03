@@ -8,10 +8,12 @@ import { addXP, reviewReward } from '../core/progress';
 import { audio } from '../audio/audio';
 import { speech } from '../learning/tts';
 import {
-  card, distractors, stopSpeaking, expose, exposePhrase, glossVisible, levelNum, lexNative, lexPlain, lexTarget, markNote, noteFor,
+  card, distractors, stopSpeaking, renderOpts, expose, exposePhrase, glossVisible, levelNum, lexNative, lexPlain, lexTarget, markNote, noteFor,
   phraseNative, phraseSyllables, phraseTarget, phraseTiles, review, say, sayLex, sayPhrase, shuffle, target,
 } from '../learning/engine';
 import { button, floatText, h, toast, ui } from './dom';
+import type { DojoQ } from '../learning/dojo';
+import { renderTarget } from '../learning/text';
 
 export interface Speaker {
   name: string;
@@ -87,16 +89,17 @@ export class Dialogue {
 
   close() { this.closed = true; this.result.closed = true; this.resolveClose?.(); this.finish(); }
 
-  private async step(s: Step) {
+  private async step(s: Step): Promise<void> {
     switch (s.t) {
       case 'say': return this.say(s.p, s.e, s.item);
       case 'narrate': return this.narrate(pick(s.text), s.icon);
       case 'reply': return this.reply(s.ok, s.bad ?? [], s.item, s.e);
       case 'build': return this.build(s.p, s.item);
-      case 'name': return this.nameIt(s.w, s.opts, s.due);
-      case 'listen': return this.listen(s.w, s.opts, s.due);
+      case 'name': await this.nameIt(s.w, s.opts, s.due); return;
+      case 'listen': await this.listen(s.w, s.opts, s.due); return;
       case 'meaning': return this.meaning(s.p);
       case 'ask': return this.ask(pick(s.q), s.w, s.opts);
+      case 'quiz': return void (await this.quizStep(pick(s.q), s.options, s.answer));
       case 'do': return this.host.effect(s.fn, s.arg);
     }
   }
@@ -497,6 +500,68 @@ export class Dialogue {
       return reviewReward(wasDue, correct);
     });
     return correct;
+  }
+
+  /** Comprehension question in the player's language about what was just said, answered in Japanese. */
+  async quizStep(q: string, options: string[], answer: number) {
+    const opts = options.map((o) => ({ html: renderTarget(o, target(), renderOpts()), ja: true }));
+    const order = shuffle(opts.map((_, i) => i));
+    return this.dojo({
+      section: 'reading', prompt: '', promptJa: false, sub: q,
+      options: order.map((i) => opts[i]), answer: order.indexOf(answer),
+      explain: opts[answer].html, grade: () => {},
+    }, undefined, true);
+  }
+
+  /** One dojo / exam question. Resolves with whether it was answered correctly. */
+  async dojo(q: DojoQ, progress?: { i: number; n: number; label?: string }, keepContext = false): Promise<boolean> {
+    const parts: HTMLElement[] = [];
+    if (progress) {
+      parts.push(h('div.dojo-progress', null,
+        h('div.dp-bar', null, h('i', { style: { width: `${(progress.i / progress.n) * 100}%` } })),
+        h('span', null, `${progress.label ? progress.label + ' · ' : ''}${progress.i + 1} / ${progress.n}`)));
+    }
+    if (keepContext && this.lastSay) { const c = this.contextBubble(); if (c) parts.push(c); }
+    const card = h('div.dojo-card');
+    if (q.autoSpeak) {
+      card.append(button('btn.primary.listen-big', ['🔊', ' ', t('listen')], () => q.speak?.()));
+    } else if (q.prompt) {
+      const pr = h('div.dojo-prompt' + (q.promptJa ? '.ja' : ''), { lang: q.promptJa ? target() : undefined, html: q.prompt });
+      card.append(pr);
+      if (q.speak) card.append(button('icon-btn.dojo-spk', '🔊', () => q.speak?.(), { 'aria-label': t('listen') }));
+    }
+    if (q.sub) card.append(h('div.dojo-sub', { html: q.sub }));
+    parts.push(card);
+    const list = h('div.options');
+    const answered = new Promise<{ idx: number; el: HTMLElement }>((res) => {
+      q.options.forEach((o, idx) => {
+        const el = h('button.opt', { type: 'button' }, h('span.ot', { lang: o.ja ? target() : undefined, html: o.html }));
+        el.addEventListener('click', () => res({ idx, el }));
+        list.append(el);
+      });
+    });
+    parts.push(list);
+    this.root.replaceChildren(...parts);
+    (window as unknown as { __dojoAnswer?: number }).__dojoAnswer = q.answer; // test hook
+    if (q.autoSpeak) setTimeout(() => q.speak?.(), 300);
+    const { idx, el } = await answered;
+    list.querySelectorAll('.opt').forEach((o) => ((o as HTMLButtonElement).disabled = true));
+    const correct = idx === q.answer;
+    el.classList.add(correct ? 'right' : 'wrong');
+    if (!correct) list.querySelectorAll('.opt')[q.answer]?.classList.add('right');
+    if (q.speak && (q.section === 'kanji' || q.section === 'vocab')) q.speak();
+    await this.afterAnswer(correct, [q.explain], el, () => { q.grade(correct); if (correct) addXP(2); });
+    return correct;
+  }
+
+  /** A note card (grammar explanations in lessons). Resolves when dismissed. */
+  async noteCard(kicker: string, title: string, bodyHtml: string, exampleHtml?: string) {
+    const ok = button('btn.primary.small', t('gotIt'), () => {});
+    const nc = h('div.note-card', null, h('div.kicker', null, kicker), h('h3', null, title), h('div', { html: bodyHtml }),
+      exampleHtml ? h('div.note-example', { lang: target(), html: exampleHtml }) : null,
+      h('div.row.end', { style: { marginTop: '12px' } }, ok));
+    this.root.replaceChildren(nc);
+    await new Promise<void>((res) => ok.addEventListener('click', () => res()));
   }
 
   /** Pick something from a list of icon tiles (gifts). */

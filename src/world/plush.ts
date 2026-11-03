@@ -9,7 +9,9 @@ import { canvas, fabric, stitch } from './textures';
 export interface PlushSpec {
   species: Species;
   main: string; accent: string; belly: string; nose: string;
-  extra?: 'apron' | 'yuzu' | 'bow';
+  extra?: 'apron' | 'yuzu' | 'bow' | 'bowtie' | 'cap' | 'glasses' | 'none';
+  /** Overall size (ducklings are small). */
+  scale?: number;
 }
 
 const shade = (hex: string, amt: number) => {
@@ -290,6 +292,7 @@ export class Plush {
     const hm = (this.headMesh = sph(main, R));
     this.head.add(hm);
     if (spec.species === 'capybara') hm.scale.set(R * 1.02, R * 0.92, R * 1.08);
+    if (spec.species === 'frog') hm.scale.set(R * 1.12, R * 0.86, R * 1.0);
     // Seam over the top of the head
     const seamPts: THREE.Vector3[] = [];
     for (let i = 0; i <= 16; i++) {
@@ -319,6 +322,7 @@ export class Plush {
     this.bob.add(this.neckSlot);
 
     this.redrawFace();
+    if (spec.scale) this.root.scale.setScalar(spec.scale);
     this.root.traverse((o) => { if ((o as THREE.Mesh).isMesh) (o as THREE.Mesh).castShadow = true; });
   }
 
@@ -423,6 +427,32 @@ export class Plush {
         this.bob.add(tail); this.tail = tail;
         break;
       }
+      case 'duck': {
+        // Felt bill, a little tuft, and a perky tail.
+        const bill = sph(plushMat(spec.nose), 0.2, 0.065, 0.16);
+        bill.position.set(0, -0.07, 0.34);
+        this.head.add(bill);
+        this.mouth = new Decal(1.03, 1.2, Math.PI / 2 - 0.2, 0.9);
+        bill.add(this.mouth.mesh);
+        this.mouthOpts.y = 0.6;
+        for (const [x, y, r] of [[0, 0.41, 0.06], [-0.05, 0.38, 0.045], [0.05, 0.39, 0.045]] as [number, number, number][]) {
+          const tuft = sph(main, r, r * 1.3, r); tuft.position.set(x, y, 0.02); add(tuft);
+        }
+        const tail = sph(main, 0.09, 0.07, 0.12); tail.position.set(0, 0.38, -0.33); tail.rotation.x = -0.6;
+        this.bob.add(tail); this.tail = tail;
+        break;
+      }
+      case 'frog': {
+        // Eye domes on top of a wide head and a big smile.
+        for (const sx of [-1, 1]) {
+          const dome = sph(main, 0.12, 0.11, 0.11);
+          dome.position.set(sx * 0.17, 0.29, 0.1);
+          add(dome); this.ears.push(dome);
+        }
+        headDecalMouth(0.46);
+        this.mouthOpts.whiskers = false;
+        break;
+      }
       case 'capybara': {
         for (const sx of [-1, 1]) {
           const ear = sph(accent, 0.07, 0.06, 0.04);
@@ -461,6 +491,15 @@ export class Plush {
       const k = sph(plushMat('#79B887'), 0.03);
       g.add(l, r, k); add(g);
     }
+    if (spec.extra === 'bowtie') {
+      const g = new THREE.Group(); g.position.set(0, 0.74, 0.27);
+      const m = plushMat('#E8566C');
+      const l = sph(m, 0.07, 0.05, 0.03); l.position.x = -0.06;
+      const r = sph(m, 0.07, 0.05, 0.03); r.position.x = 0.06;
+      g.add(l, r, sph(plushMat('#C9435A'), 0.03)); this.bob.add(g);
+    }
+    if (spec.extra === 'cap') this.hatSlot.add(buildAccessory('cap'));
+    if (spec.extra === 'glasses') this.faceSlot.add(buildAccessory('glasses'));
     if (!this.mouth) headDecalMouth();
   }
 

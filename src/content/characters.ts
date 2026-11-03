@@ -9,7 +9,7 @@ export interface NpcDef {
   title: LText;
   personality: LText;
   colors: { main: string; accent: string; belly: string; nose: string };
-  extra: 'apron' | 'yuzu' | 'bow';
+  extra: 'apron' | 'yuzu' | 'bow' | 'bowtie' | 'cap' | 'glasses' | 'none';
   /** Voice blip base frequency (Hz) and speed multiplier. */
   voice: { pitch: number; speed: number };
   favorites: string[];
@@ -18,6 +18,8 @@ export interface NpcDef {
   stories: string[];
   routine: RoutineSlot[];
   tint: string;
+  /** Overall size (ducklings are small). */
+  scale?: number;
 }
 
 export const NPCS: NpcDef[] = [
@@ -90,7 +92,10 @@ export const NPCS: NpcDef[] = [
   },
 ];
 
-export const npcDef = (id: string) => NPCS.find((n) => n.id === id)!;
+/** Villagers from every town (the starter village's are in NPCS). */
+export const ALL_NPCS: NpcDef[] = [...NPCS];
+export const registerNpcs = (list: NpcDef[]) => { for (const n of list) if (!ALL_NPCS.some((x) => x.id === n.id)) ALL_NPCS.push(n); };
+export const npcDef = (id: string) => ALL_NPCS.find((n) => n.id === id)!;
 
 /** Friendship points needed for each heart (index = hearts). */
 export const HEART_THRESHOLDS = [0, 20, 50, 100, 170, 260];

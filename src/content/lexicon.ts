@@ -6,7 +6,8 @@ import type { LText } from '../core/types';
  */
 export type LexCat =
   | 'food' | 'fish' | 'nature' | 'object' | 'place' | 'color'
-  | 'furniture' | 'clothing' | 'feeling' | 'action';
+  | 'furniture' | 'clothing' | 'feeling' | 'action'
+  | 'people' | 'number' | 'time' | 'family';
 
 export interface Lexeme {
   id: string;
@@ -136,3 +137,7 @@ export const lex = (id: string): Lexeme => {
   return l;
 };
 export const hasLex = (id: string) => byId.has(id);
+/** Add town vocabulary to the shared lexicon. */
+export function registerLexemes(list: Lexeme[]) {
+  for (const l of list) if (!byId.has(l.id)) { LEXICON.push(l); byId.set(l.id, l); }
+}

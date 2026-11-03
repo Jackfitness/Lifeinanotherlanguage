@@ -69,13 +69,34 @@ export function nearestNode(x: number, z: number) {
   }
   return best;
 }
-function route(from: string, to: string): string[] {
+export interface PathGraph { nodes: Record<string, V2>; adj: Map<string, string[]> }
+export function makeGraph(nodes: Record<string, V2>, edges: [string, string][]): PathGraph {
+  const adj = new Map<string, string[]>();
+  for (const [a, b] of edges) {
+    if (!adj.has(a)) adj.set(a, []);
+    if (!adj.has(b)) adj.set(b, []);
+    adj.get(a)!.push(b); adj.get(b)!.push(a);
+  }
+  return { nodes, adj };
+}
+const HOME_GRAPH: PathGraph = { nodes: NODES, adj: ADJ };
+
+function nearestIn(g: PathGraph, x: number, z: number) {
+  let best = '', bd = Infinity;
+  for (const [k, [nx, nz]] of Object.entries(g.nodes)) {
+    const d = Math.hypot(nx - x, nz - z);
+    if (d < bd) { bd = d; best = k; }
+  }
+  return best;
+}
+
+function route(from: string, to: string, adjMap: Map<string, string[]> = ADJ): string[] {
   const prev = new Map<string, string>([[from, '']]);
   const q = [from];
   while (q.length) {
     const n = q.shift()!;
     if (n === to) break;
-    for (const m of ADJ.get(n) ?? []) if (!prev.has(m)) { prev.set(m, n); q.push(m); }
+    for (const m of adjMap.get(n) ?? []) if (!prev.has(m)) { prev.set(m, n); q.push(m); }
   }
   const path: string[] = [];
   for (let n: string | undefined = to; n; n = prev.get(n)) path.unshift(n);
@@ -122,8 +143,10 @@ export class Npc {
   /** Called when the villager notices the player walking up. */
   onGreet?: (n: Npc) => void;
 
-  constructor(public def: NpcDef) {
-    this.plush = new Plush({ species: def.species, ...def.colors, extra: def.extra });
+  graph: PathGraph = HOME_GRAPH;
+  constructor(public def: NpcDef, graph?: PathGraph) {
+    this.plush = new Plush({ species: def.species, ...def.colors, extra: def.extra, scale: def.scale });
+    if (graph) this.graph = graph;
   }
 
   slotFor(hour: number) {
@@ -134,7 +157,7 @@ export class Npc {
   snap(hour: number) {
     const s = this.slotFor(hour);
     this.node = s.node; this.activity = s.activity;
-    const [x, z] = NODES[s.node];
+    const [x, z] = this.graph.nodes[s.node];
     this.anchor = [x, z];
     this.pos.set(x, 0, z);
     this.path = [];
@@ -157,9 +180,9 @@ export class Npc {
     const slot = this.slotFor(hour);
     if (slot.node !== this.node && !this.talking) {
       this.node = slot.node; this.activity = slot.activity;
-      const from = nearestNode(this.pos.x, this.pos.z);
-      this.path = route(from, slot.node).map((n) => NODES[n]);
-      this.anchor = NODES[slot.node];
+      const from = nearestIn(this.graph, this.pos.x, this.pos.z);
+      this.path = route(from, slot.node, this.graph.adj).map((n) => this.graph.nodes[n]);
+      this.anchor = this.graph.nodes[slot.node];
     }
     const pd = Math.hypot(player.x - this.pos.x, player.z - this.pos.z);
     let moveX = 0, moveZ = 0;

@@ -4,8 +4,12 @@ import { LEXICON } from '../../src/content/lexicon.ts';
 import { PHRASES } from '../../src/content/phrases.ts';
 import { ITEMS } from '../../src/content/items.ts';
 import { NPCS } from '../../src/content/characters.ts';
+import { CLOVER_WORDS } from '../../src/content/towns/clover/vocab.ts';
+import { CLOVER_PHRASES } from '../../src/content/towns/clover/story.ts';
 
-const LANGS = ['en', 'es', 'ja'];
+const LANGS = (process.env.LANGS || 'ja').split(',');
+LEXICON.push(...CLOVER_WORDS);
+PHRASES.push(...CLOVER_PHRASES);
 const lexText = new Map(LEXICON.map((l) => [l.id, l.t]));
 
 /**

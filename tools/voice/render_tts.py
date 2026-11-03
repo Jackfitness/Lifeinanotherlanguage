@@ -66,7 +66,7 @@ def level(x, target_rms=0.09, peak=0.92):
 
 def main():
     lines = json.load(open(os.path.join(ROOT, 'tools', 'voice', 'lines.json')))
-    langs = sys.argv[1:] or list(VOICES)
+    langs = sys.argv[1:] or ['ja']  # Japanese-only game
     kokoro = load_kokoro()
     g2p = None
     os.makedirs(OUT, exist_ok=True)

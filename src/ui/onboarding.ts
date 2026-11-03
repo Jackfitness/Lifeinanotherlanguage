@@ -1,5 +1,5 @@
 import type { JaScript, Level, Species } from '../core/types';
-import { LANGUAGES } from '../content/languages';
+import { LANGUAGES, NATIVE_LANGS, TARGET_LANG } from '../content/languages';
 import { setUiLang, t } from '../core/i18n';
 import { audio } from '../audio/audio';
 import { speech } from '../learning/tts';
@@ -27,10 +27,9 @@ export function playerSpec(species: Species, color: string) {
 
 /** Title screen → language & level choices → make your plush. */
 export function runOnboarding(): Promise<OnboardResult> {
-  const res: OnboardResult = { name: '', species: 'cat', color: PLAYER_COLORS[0], native: 'en', target: 'es', level: 'beginner', jaScript: 'kana', romaji: false };
+  const res: OnboardResult = { name: '', species: 'cat', color: PLAYER_COLORS[0], native: 'en', target: TARGET_LANG, level: 'beginner', jaScript: 'kana', romaji: false };
   const browser = (navigator.language || 'en').slice(0, 2);
-  if (LANGUAGES.some((l) => l.code === browser)) res.native = browser;
-  res.target = LANGUAGES.find((l) => l.code !== res.native)!.code;
+  if (NATIVE_LANGS.includes(browser)) res.native = browser;
   setUiLang(res.native);
 
   return new Promise((resolve) => {
@@ -39,7 +38,7 @@ export function runOnboarding(): Promise<OnboardResult> {
     let step = 0;
     let previewStop: (() => void) | null = null;
 
-    const steps = () => (res.target === 'ja' ? ['native', 'target', 'level', 'script', 'plush'] : ['native', 'target', 'level', 'plush']);
+    const steps = () => ['native', 'level', 'script', 'plush'];
     const dotsEl = () => h('div.steps', null, ...steps().map((_, i) => h('i' + (i === step ? '.on' : ''))));
     const nav = (canNext: () => boolean, last = false) => {
       const next = button('btn.primary', last ? '🏡 ' + t('moveIn') : t('next'), () => {
@@ -68,7 +67,7 @@ export function runOnboarding(): Promise<OnboardResult> {
       card.append(dotsEl());
       if (kind === 'native') {
         card.append(h('h2', null, t('pickNative')));
-        for (const l of LANGUAGES) card.append(choice(res.native === l.code, l.flag, l.autonym, null, () => {
+        for (const l of LANGUAGES.filter((x) => NATIVE_LANGS.includes(x.code))) card.append(choice(res.native === l.code, l.flag, l.autonym, null, () => {
           res.native = l.code; setUiLang(l.code);
           if (res.target === l.code) res.target = LANGUAGES.find((x) => x.code !== l.code)!.code;
           render();

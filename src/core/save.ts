@@ -27,7 +27,7 @@ export interface SaveData {
     font: 'cozy' | 'pop' | 'hand' | 'classic';
     showMeanings: boolean;
   };
-  player: { coins: number; xp: number; x: number; z: number; outfit: { hat?: string; neck?: string; face?: string } };
+  player: { coins: number; xp: number; x: number; z: number; place?: 'home' | 'clover'; outfit: { hat?: string; neck?: string; face?: string } };
   inventory: Record<string, number>;
   home: { size: number; wallpaper: string; floor: string; placed: { uid: number; item: string; x: number; z: number; rot: number }[]; nextUid: number };
   learning: Record<string, PairProgress>;
@@ -101,6 +101,8 @@ function migrate(d: SaveData): SaveData {
   const base = newSave(d.profile);
   const out = { ...base, ...d } as SaveData;
   out.settings = { ...base.settings, ...d.settings };
+  // Japanese-only: everyone learns Japanese with English or Spanish as their own language.
+  out.profile = { ...d.profile, target: 'ja', native: d.profile.native === 'es' ? 'es' : 'en' };
   // Saves from before the Cozy font kept the old default unless the player picked one.
   if (out.settings.font === 'pop' && !d.flags?.fontPicked) out.settings.font = 'cozy';
   out.player = { ...base.player, ...d.player, outfit: { ...(d.player?.outfit ?? {}) } };

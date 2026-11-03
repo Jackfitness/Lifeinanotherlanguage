@@ -403,3 +403,43 @@ input[type=range] { accent-color: var(--leaf-deep); width: 130px; }
 
 /* Sheets and toasts stay above the bedtime overlay */
 .scrim { z-index: 45; } .sheet { z-index: 46; } .toasts { z-index: 60; } .center-card { z-index: 47; }
+
+/* ---------- dojo */
+.dojo-sheet { background: linear-gradient(180deg, #EEF5E6 0%, var(--cream) 30%); }
+.dojo-head { display: flex; gap: 14px; align-items: center; background: var(--paper); border-radius: 24px; padding: 12px 14px; }
+.belt-row { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 0.9em; margin: 2px 0 6px; }
+.belt { width: 34px; height: 12px; border-radius: 6px; box-shadow: inset 0 0 0 2px rgba(91, 70, 54, 0.4); }
+.mastery { display: flex; align-items: center; gap: 8px; font-size: 0.78em; color: var(--cocoa-soft); font-weight: 700; }
+.m-bar, .rb-bar, .dp-bar { flex: 1; height: 8px; border-radius: 4px; background: rgba(91, 70, 54, 0.1); overflow: hidden; }
+.m-bar i, .rb-bar i, .dp-bar i { display: block; height: 100%; border-radius: 4px; background: var(--leaf); }
+.lesson-list { display: flex; flex-direction: column; gap: 6px; }
+.lesson-row { display: flex; align-items: center; gap: 12px; text-align: left; background: var(--paper); border-radius: 18px; padding: 10px 12px; box-shadow: var(--press); }
+.lesson-row:active { transform: scale(0.99); }
+.lesson-row.locked { opacity: 0.55; }
+.lesson-row.done .lr-num { background: var(--leaf); color: #fff; }
+.lr-num { width: 34px; height: 34px; border-radius: 12px; display: grid; place-items: center; background: var(--cream); font-family: var(--font-display); font-weight: var(--display-weight); font-variation-settings: var(--display-variation, normal); flex: none; }
+.lr-text { flex: 1; min-width: 0; } .lr-text b { display: block; font-size: 0.95em; } .lr-text span { font-size: 0.78em; color: var(--cocoa-soft); }
+.lr-status .ic { width: 22px; height: 22px; } .lr-status b { color: var(--leaf-deep); }
+.new-pill { font-size: 0.72em; font-weight: 800; color: #fff; background: var(--berry); padding: 2px 8px; border-radius: 999px; }
+.practice-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.practice-tile { display: flex; flex-direction: column; align-items: center; gap: 4px; background: var(--paper); border-radius: 18px; padding: 12px 6px; font-weight: 700; font-size: 0.82em; box-shadow: var(--press); }
+.practice-tile .ic { width: 34px; height: 34px; }
+.exam-card { display: flex; gap: 12px; align-items: center; background: var(--butter-soft); border-radius: 22px; padding: 14px; }
+.exam-card.locked { background: var(--paper-2); }
+.exam-card .ec-icon .ic { width: 44px; height: 44px; }
+.exam-card b { display: block; font-family: var(--font-display); font-weight: var(--display-weight); font-variation-settings: var(--display-variation, normal); }
+.exam-card span { display: block; font-size: 0.8em; color: var(--cocoa-soft); line-height: 1.4; }
+.exam-card .ec-best { color: var(--leaf-deep); font-weight: 800; margin-top: 2px; }
+.dojo-progress { display: flex; align-items: center; gap: 10px; font-size: 0.78em; font-weight: 800; color: var(--cocoa-soft); background: rgba(255, 252, 246, 0.95); padding: 8px 14px; border-radius: 999px; box-shadow: var(--shadow); }
+.dojo-card { position: relative; background: var(--paper); border-radius: 26px; padding: 20px 18px 16px; box-shadow: var(--shadow); text-align: center; }
+.dojo-prompt { font-size: 1.1em; font-weight: 700; line-height: 1.6; }
+.dojo-prompt.ja { font-size: 1.45em; font-weight: 800; }
+.dojo-spk { position: absolute; top: 10px; right: 10px; }
+.dojo-sub { margin-top: 8px; color: var(--cocoa-soft); font-size: 0.92em; line-height: 1.45; }
+.listen-big { min-height: 64px; font-size: 1.2em; padding: 0 30px; }
+.blank { display: inline-block; min-width: 2.4em; border-bottom: 3px solid var(--peach); color: transparent; }
+.note-example { margin-top: 10px; padding: 10px 12px; border-radius: 14px; background: var(--cream); font-size: 1.1em; font-weight: 700; }
+.result-score { font-family: var(--font-display); font-weight: var(--display-weight); font-variation-settings: var(--display-variation, normal); font-size: 2.6em; line-height: 1; margin: 4px 0 6px; color: var(--leaf-deep); }
+.result-bars { display: flex; flex-direction: column; gap: 6px; margin: 12px 0 4px; text-align: left; }
+.rb { display: grid; grid-template-columns: 92px 1fr 40px; gap: 8px; align-items: center; font-size: 0.82em; font-weight: 700; }
+.rb b { text-align: right; }

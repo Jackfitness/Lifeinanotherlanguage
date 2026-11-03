@@ -321,5 +321,9 @@ export function emoText(text: string): string | null {
 
 /** Vocabulary icons share names with their words; swap the emoji in the lexicon for custom icons. */
 export function installLexiconIcons(lexicon: { id: string; icon: string }[]) {
-  for (const l of lexicon) if (hasIcon(l.id)) l.icon = icon(l.id);
+  for (const l of lexicon) {
+    const name = hasIcon(l.id) ? l.id : hasIcon(l.icon) ? l.icon : '';
+    (l as { iconName?: string }).iconName = name;
+    l.icon = name ? icon(name) : '';
+  }
 }

@@ -1,15 +1,16 @@
 import { S, store } from '../core/save';
 import { pick, t } from '../core/i18n';
 import type { JaScript, Level } from '../core/types';
-import { LANGUAGES } from '../content/languages';
+import { LANGUAGES, NATIVE_LANGS, TARGET_LANG } from '../content/languages';
 import { LEXICON, lex, type LexCat } from '../content/lexicon';
 import { phrase } from '../content/phrases';
 import { ITEMS, item } from '../content/items';
-import { NPCS, heartsFor, HEART_THRESHOLDS } from '../content/characters';
+import { ALL_NPCS, NPCS, heartsFor, HEART_THRESHOLDS } from '../content/characters';
 import { QUESTS } from '../content/quests';
 import { ACHIEVEMENTS, count, friend, playerLevel, qs, xpAt } from '../core/progress';
-import { card, dueWords, lexNative, lexTarget, masteryOf, metWords, phraseNative, phraseTarget, progress, sayLex, sayPhrase, target } from '../learning/engine';
+import { renderOpts, card, dueWords, lexNative, lexTarget, masteryOf, metWords, phraseNative, phraseTarget, progress, sayLex, sayPhrase, target } from '../learning/engine';
 import { button, confirmCard, h, seg, sheet, toast, toggle } from './dom';
+import { renderTarget } from '../learning/text';
 import { audio } from '../audio/audio';
 
 export interface NotebookHost {
@@ -85,7 +86,7 @@ const PAGES: Record<Tab, (host: NotebookHost, rerender: () => void) => HTMLEleme
     ));
     wrap.append(h('p.muted', { style: { fontSize: '0.85em', margin: '12px 4px', lineHeight: 1.5 } }, '💬 ' + t('reviewTip')));
     if (!met.length) { wrap.append(h('div.card', null, t('noWords'))); return wrap; }
-    const cats: LexCat[] = ['food', 'fish', 'nature', 'object', 'place', 'color', 'furniture', 'clothing', 'feeling', 'action'];
+    const cats: LexCat[] = ['people', 'number', 'time', 'family', 'food', 'fish', 'nature', 'object', 'place', 'color', 'furniture', 'clothing', 'feeling', 'action'];
     for (const cat of cats) {
       const ws = LEXICON.filter((l) => l.cat === cat && card('lex', l.id));
       if (!ws.length) continue;
@@ -156,7 +157,7 @@ const PAGES: Record<Tab, (host: NotebookHost, rerender: () => void) => HTMLEleme
 
   friends: (host) => {
     const wrap = h('div');
-    for (const n of NPCS) {
+    for (const n of ALL_NPCS.filter((x) => NPCS.includes(x) || friend(x.id).met)) {
       const f = friend(n.id);
       const hearts = heartsFor(f.pts);
       const c = h('div.card');
@@ -167,7 +168,7 @@ const PAGES: Record<Tab, (host: NotebookHost, rerender: () => void) => HTMLEleme
       }
       const next = HEART_THRESHOLDS[hearts + 1];
       c.append(h('div.friend', null, img, h('div', { style: { flex: 1 } },
-        h('b', { style: { fontSize: '1.1em' } }, pick(n.name, target()), ' ', h('span.muted', { style: { fontWeight: 500, fontSize: '0.8em' } }, pick(n.title))),
+        h('b', { style: { fontSize: '1.1em' }, html: renderTarget(pick(n.name, target()), target(), { ...renderOpts(), romaji: false }) + ' ' }), h('span.muted', { style: { fontWeight: 500, fontSize: '0.8em' } }, pick(n.title)),
         h('div.hearts', { 'aria-label': `${hearts}/5` }, '💛'.repeat(hearts) + '🤍'.repeat(5 - hearts)),
         next ? h('div.muted', { style: { fontSize: '0.75em' } }, `${f.pts} / ${next}`) : null)));
       c.append(h('p', { style: { fontSize: '0.9em', lineHeight: 1.5, margin: '10px 0 6px' } }, pick(n.personality)));
@@ -236,14 +237,11 @@ const PAGES: Record<Tab, (host: NotebookHost, rerender: () => void) => HTMLEleme
     // Languages
     wrap.append(h('div.section-title', null, t('languages')));
     const lc = h('div.card');
-    const langSeg = (val: string, on: (v: string) => void, exclude?: string) =>
-      seg(LANGUAGES.filter((x) => x.code !== exclude).map((x) => ({ v: x.code, label: x.autonym })), val, on);
     lc.append(
-      rowEl('🗣️ ' + t('pickNative').replace(/[?？¿]/g, ''), langSeg(d.profile.native, (v) => {
-        const tgt = v === d.profile.target ? LANGUAGES.find((x) => x.code !== v)!.code : d.profile.target;
-        host.changeLanguages(v, tgt); rerender();
-      })),
-      rowEl('🌱 ' + t('learning'), langSeg(d.profile.target, (v) => { host.changeLanguages(d.profile.native, v); rerender(); }, d.profile.native)),
+      rowEl('🗣️ ' + t('pickNative').replace(/[?？¿]/g, ''),
+        seg(LANGUAGES.filter((x) => NATIVE_LANGS.includes(x.code)).map((x) => ({ v: x.code, label: x.autonym })), d.profile.native, (v) => {
+          host.changeLanguages(v, TARGET_LANG); rerender();
+        })),
     );
     wrap.append(lc);
     wrap.append(h('div', { style: { textAlign: 'center', margin: '18px 0 8px' } }, button('btn.soft.small', '🌱 ' + t('resetSave'), async () => { if (await confirmCard(t('confirmReset'), t('resetSave'), t('back'))) host.resetSave(); })));
