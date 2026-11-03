@@ -1,8 +1,8 @@
 # Cozy Language Village
 
-A mobile-first cozy life game where you learn a language by living in it. You move into a little village of
-stuffed-animal neighbors and pick up English, Spanish, or Japanese through conversations, errands, fishing,
-shopping, and decorating. There are no lessons.
+A mobile-first cozy life game where you learn Japanese by living in it. You move into a little village of
+stuffed-animal neighbors and pick up Japanese (from English or Spanish) through conversations, errands, fishing,
+shopping, and decorating. Five Village Pass towns, one per JLPT level from N5 to N1, add a story, a dojo and an exam each.
 
 This is the MVP: a polished, playable slice of the full gameplay loop.
 
@@ -85,8 +85,26 @@ python3 tools/sound/render.py
 ## Free play and the Village Pass
 
 - **Free play:** 15 minutes per day, counted only while the game is open and visible, and reset at local midnight. A warning appears two minutes before the end. After that, a bedtime screen shows today's progress, a countdown to tomorrow, word review, and the Village Pass.
-- **The Village Pass** (`src/ui/pass.ts`) unlocks unlimited play and five new towns on the map (`src/content/regions.ts`). The towns are labeled N5–N1 for Japanese learners and A1–C1 for English and Spanish.
+- **The Village Pass** (`src/ui/pass.ts`) unlocks unlimited play and the five towns on the map (`src/content/regions.ts`). Any town can be visited once you have the pass.
 - **Payments are not connected.** The call to action records interest ("Notify me"), and entitlement is the `flags.villagePass` save flag. For testing, `?pass=1` simulates the pass and `?playlimit=60` shortens the limit.
+
+## The towns (N5 → N1)
+
+| Town | Level | Villagers | Story |
+| --- | --- | --- | --- |
+| Clover Meadow | N5 | ducks, frogs | The Clover Bell: the old bell won't ring before the spring festival |
+| Maple Harbor | N4 | penguins, otters | The Harbor Light: the lighthouse goes dark before the first summer ferry |
+| Lantern Hills | N3 | foxes, raccoons | The Thousand Lights: lanterns vanish before the lantern festival |
+| Snowcap Peaks | N2 | owls, deer | The Year-End Bell: a cracked belfry, a village debate and a blizzard |
+| Starlight City | N1 | cats, dogs | Curtain Call: a century-old theater's final season |
+
+Each town has 9 story chapters, 6 villagers, about 110–180 words, 24–28 grammar points and 8 reading passages, which comes to roughly 2–3 hours of play.
+
+- **Dojo:** 8 lessons (one per chapter, unlocked by the story; 60% to pass), six practice modes, and belts from white to black.
+- **Exam:** 30 questions across vocabulary, kanji, grammar, reading and listening. 80% passes, and the last chapter's finale (ringing the town bell) follows.
+- **Layout:** every town shares one street plan (`world/towns/build.ts`) with its own theme: ground, landmark, buildings, water, edges and props.
+- **Adding a town:** create `src/content/towns/<id>/` (vocab, grammar, reading, story, index), add it to `TOWNS` in `src/content/towns/index.ts`, add a theme in `world/towns/build.ts`, then run `npm run validate:towns` (checks kanji readings and every word, phrase, item, villager and quest reference).
+- **Voices:** `npm run voice:lines` exports one pack per town; `tools/voice/render_tts.py` renders them with Kokoro. The base pack is always loaded, and town packs load only while you're there.
 
 ## Icons
 
@@ -129,7 +147,7 @@ Missing translations fall back to English, so you can add a language incremental
 
 ## Known limits / next steps
 
-- Pronunciation uses the device's speech voices. Quality varies by device, and some phones may lack a voice for a language (the game shows a notice). Recorded voice lines would be the upgrade.
+- Pronunciation uses pre-rendered neural voice packs (Kokoro), with the device voice as a fallback for lines that include the player's name.
 - Response evaluation is choice-based (replies, tiles, pictures). Typed answers and speech recognition are natural next steps.
-- Content: 3 villagers, about 90 words, about 100 phrases. The data model is ready for more villagers, quests, and locations, such as the forest clearing that unlocks at level 2.
+- Content: each town is about 2–3 hours. More chapters per town (toward 3–5 hours) are planned.
 - Ideas: cooking with recipes, a weekly market, mail from villagers (reading practice), seasonal events, cloud sync and accounts.

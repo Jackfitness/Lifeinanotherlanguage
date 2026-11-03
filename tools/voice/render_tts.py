@@ -12,7 +12,7 @@ Setup (one time):
     onnx/model.onnx  and  voices/{af_heart,ef_dora,jf_alpha}.bin
 
 Run:
-  node --experimental-strip-types tools/voice/export-lines.mjs > tools/voice/lines.json
+  npm run voice:lines
   ~/.venvs/tts/bin/python tools/voice/render_tts.py
 """
 import json
@@ -66,17 +66,19 @@ def level(x, target_rms=0.09, peak=0.92):
 
 def main():
     lines = json.load(open(os.path.join(ROOT, 'tools', 'voice', 'lines.json')))
-    langs = sys.argv[1:] or ['ja']  # Japanese-only game
+    # Packs: "ja" (village + Clover) and "ja-<town>". Pass pack names to render only some.
+    langs = sys.argv[1:] or list(lines.keys())
     kokoro = load_kokoro()
     g2p = None
     os.makedirs(OUT, exist_ok=True)
     for lang in langs:
+        pack, lang = lang, lang.split('-')[0]
         if lang == 'ja' and g2p is None:
             from misaki import ja
             g2p = ja.JAG2P()
         for speed_name, speed in SPEEDS.items():
             clips, sprite, cursor, sr = [], {}, GAP, 24000
-            for i, line in enumerate(lines[lang]):
+            for i, line in enumerate(lines[pack]):
                 text = line['text']
                 if lang == 'ja':
                     out = g2p(text)
@@ -89,16 +91,16 @@ def main():
                 clips += [audio, np.zeros(int(GAP * sr), dtype=np.float32)]
                 cursor += len(audio) / sr + GAP
                 if i % 40 == 0:
-                    print(f'  {lang}-{speed_name}: {i}/{len(lines[lang])}', flush=True)
+                    print(f'  {pack}-{speed_name}: {i}/{len(lines[pack])}', flush=True)
             full = np.concatenate([np.zeros(int(GAP * sr), dtype=np.float32), *clips])
-            base = os.path.join(OUT, f'{lang}-{speed_name}')
+            base = os.path.join(OUT, f'{pack}-{speed_name}')
             with tempfile.NamedTemporaryFile(suffix='.wav') as tmp:
                 sf.write(tmp.name, full, sr)
                 subprocess.run(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-i', tmp.name,
                                 '-ac', '1', '-codec:a', 'libmp3lame', '-b:a', '48k', base + '.mp3'], check=True)
             json.dump(sprite, open(base + '.json', 'w'), separators=(',', ':'), ensure_ascii=False)
             size = os.path.getsize(base + '.mp3') / 1024
-            print(f'{lang}-{speed_name}: {len(sprite)} clips, {cursor:.0f}s, {size:.0f} KB')
+            print(f'{pack}-{speed_name}: {len(sprite)} clips, {cursor:.0f}s, {size:.0f} KB')
 
 
 if __name__ == '__main__':

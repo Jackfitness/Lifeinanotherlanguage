@@ -87,8 +87,21 @@ class Decal {
 
 const THREAD = '#2E211B';
 
-function drawEyes(ctx: CanvasRenderingContext2D, s: number, expr: Expr, blink: boolean, gap: number) {
+function drawEyes(ctx: CanvasRenderingContext2D, s: number, expr: Expr, blink: boolean, gap: number, mask?: { color: string; kind: 'band' | 'discs' }) {
   const ey = s * 0.5, lx = s * (0.5 - gap), rx = s * (0.5 + gap);
+  if (mask) {
+    // Felt face patches stitched under the eyes (raccoon mask, owl eye discs)
+    ctx.fillStyle = mask.color;
+    if (mask.kind === 'band') {
+      for (const x of [lx, rx]) { ctx.beginPath(); ctx.ellipse(x, ey + s * 0.01, s * 0.15, s * 0.12, x < s / 2 ? 0.35 : -0.35, 0, Math.PI * 2); ctx.fill(); }
+      ctx.fillRect(lx, ey - s * 0.05, rx - lx, s * 0.1);
+    } else {
+      for (const x of [lx, rx]) { ctx.beginPath(); ctx.arc(x, ey, s * 0.15, 0, Math.PI * 2); ctx.fill(); }
+      ctx.strokeStyle = 'rgba(90,70,54,.35)'; ctx.lineWidth = s * 0.012; ctx.setLineDash([s * 0.02, s * 0.018]);
+      for (const x of [lx, rx]) { ctx.beginPath(); ctx.arc(x, ey, s * 0.14, 0, Math.PI * 2); ctx.stroke(); }
+      ctx.setLineDash([]);
+    }
+  }
   // Blush
   for (const x of [s * (0.5 - gap * 1.55), s * (0.5 + gap * 1.55)]) {
     const g = ctx.createRadialGradient(x, s * 0.66, 0, x, s * 0.66, s * 0.09);
@@ -243,6 +256,7 @@ export class Plush {
   private phase = 0; private seed = Math.random() * 10;
   private blinkIn = 2; private blinkT = 0; private mouthT = 0; private mouthOpen = false;
   private hopY = 0; private hopV = 0; private waveT = 0; private gap = 0.16;
+  private eyeMask?: { color: string; kind: 'band' | 'discs' };
   private mouthOpts: { nose?: string; whiskers?: boolean; y?: number } = {};
 
   constructor(spec: PlushSpec) {
@@ -293,6 +307,7 @@ export class Plush {
     this.head.add(hm);
     if (spec.species === 'capybara') hm.scale.set(R * 1.02, R * 0.92, R * 1.08);
     if (spec.species === 'frog') hm.scale.set(R * 1.12, R * 0.86, R * 1.0);
+    if (spec.species === 'owl') hm.scale.set(R * 1.08, R * 0.96, R * 1.0);
     // Seam over the top of the head
     const seamPts: THREE.Vector3[] = [];
     for (let i = 0; i <= 16; i++) {
@@ -453,6 +468,80 @@ export class Plush {
         this.mouthOpts.whiskers = false;
         break;
       }
+      case 'penguin': {
+        // Little orange beak, white face patches and orange felt feet.
+        this.eyeMask = { color: spec.belly, kind: 'discs' };
+        const beak = new THREE.Mesh(new THREE.ConeGeometry(0.07, 0.16, 12), plushMat(spec.nose));
+        beak.rotation.x = Math.PI / 2; beak.position.set(0, -0.06, 0.43); this.head.add(beak);
+        headDecalMouth(0.6);
+        this.mouthOpts.whiskers = false;
+        for (const g of [this.legL, this.legR]) { const foot = sph(plushMat(spec.nose), 0.09, 0.035, 0.12); foot.position.set(0, -0.2, 0.08); g.add(foot); }
+        const tail = sph(main, 0.1, 0.05, 0.1); tail.position.set(0, 0.22, -0.32); tail.rotation.x = -0.4; this.bob.add(tail); this.tail = tail;
+        break;
+      }
+      case 'otter': {
+        for (const sx of [-1, 1]) {
+          const ear = sph(main, 0.07, 0.065, 0.04);
+          ear.position.set(sx * 0.3, 0.16, -0.04);
+          add(ear); this.ears.push(ear);
+        }
+        muzzle(0.19, 0.12, 0.13, -0.12, 0.29, belly);
+        nose3d(0, -0.06, 0.415, 0.05);
+        this.mouthOpts.y = 0.56;
+        const pts = [new THREE.Vector3(0, 0.22, -0.28), new THREE.Vector3(0, 0.12, -0.5), new THREE.Vector3(0, 0.05, -0.72)];
+        const tail = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 16, 0.075, 10), main);
+        tail.scale.x = 1.4; this.bob.add(tail); this.tail = tail;
+        break;
+      }
+      case 'raccoon': {
+        this.eyeMask = { color: spec.accent, kind: 'band' };
+        for (const sx of [-1, 1]) {
+          const ear = sph(main, 0.11, 0.12, 0.06);
+          ear.position.set(sx * 0.24, 0.3, -0.03);
+          const inner = sph(belly, 0.06, 0.07, 0.03); inner.position.set(0, -0.01, 0.6); inner.scale.set(0.55, 0.55, 0.55);
+          ear.add(inner); add(ear); this.ears.push(ear);
+        }
+        muzzle(0.14, 0.1, 0.13, -0.12, 0.31, belly);
+        nose3d(0, -0.065, 0.44, 0.04);
+        this.mouthOpts.y = 0.55;
+        const g = new THREE.Group(); g.position.set(0, 0.26, -0.3); g.rotation.x = -0.8;
+        for (let i = 0; i < 5; i++) { const seg = sph(i % 2 ? plushMat(spec.accent) : main, 0.11 - i * 0.008, 0.08, 0.11 - i * 0.008); seg.position.y = 0.08 + i * 0.1; g.add(seg); }
+        this.bob.add(g); this.tail = g;
+        break;
+      }
+      case 'owl': {
+        this.eyeMask = { color: spec.belly, kind: 'discs' };
+        for (const sx of [-1, 1]) {
+          const tuft = new THREE.Mesh(new THREE.ConeGeometry(0.07, 0.17, 12), main);
+          tuft.position.set(sx * 0.24, 0.33, -0.02); tuft.rotation.z = sx * -0.5;
+          add(tuft); this.ears.push(tuft);
+        }
+        const beak = new THREE.Mesh(new THREE.ConeGeometry(0.05, 0.12, 10), plushMat(spec.nose));
+        beak.rotation.x = Math.PI / 2 + 0.5; beak.position.set(0, -0.04, 0.42); this.head.add(beak);
+        headDecalMouth(0.66);
+        this.mouthOpts.whiskers = false;
+        const tail = new THREE.Mesh(new THREE.ConeGeometry(0.12, 0.2, 4), main);
+        tail.position.set(0, 0.25, -0.32); tail.rotation.x = -2.3; this.bob.add(tail); this.tail = tail;
+        break;
+      }
+      case 'deer': {
+        for (const sx of [-1, 1]) {
+          const g = new THREE.Group(); g.position.set(sx * 0.3, 0.2, -0.02); g.rotation.z = sx * -1.05;
+          const ear = sph(main, 0.06, 0.13, 0.035); ear.position.y = 0.1;
+          const inner = sph(belly, 0.035, 0.09, 0.02); inner.position.set(0, 0.1, 0.02);
+          g.add(ear, inner); add(g); this.ears.push(g);
+          const ant = new THREE.Group(); ant.position.set(sx * 0.13, 0.36, -0.04); ant.rotation.z = sx * -0.25;
+          const am = plushMat(spec.accent);
+          const stem = capsule(am, 0.025, 0.14); stem.position.y = 0.08; ant.add(stem);
+          const br = capsule(am, 0.02, 0.07); br.position.set(sx * 0.05, 0.12, 0); br.rotation.z = sx * -0.9; ant.add(br);
+          add(ant);
+        }
+        muzzle(0.14, 0.11, 0.14, -0.11, 0.3, belly);
+        nose3d(0, -0.06, 0.44, 0.042);
+        this.mouthOpts.y = 0.55;
+        const tail = sph(plushMat('#FFFFFF'), 0.07, 0.09, 0.05); tail.position.set(0, 0.4, -0.33); this.bob.add(tail); this.tail = tail;
+        break;
+      }
       case 'capybara': {
         for (const sx of [-1, 1]) {
           const ear = sph(accent, 0.07, 0.06, 0.04);
@@ -504,7 +593,7 @@ export class Plush {
   }
 
   redrawFace() {
-    this.eyes.draw((c, s) => drawEyes(c, s, this.expr, this.blinkT > 0, this.gap));
+    this.eyes.draw((c, s) => drawEyes(c, s, this.expr, this.blinkT > 0, this.gap, this.eyeMask));
     this.mouth.draw((c, s) => drawMouth(c, s, this.expr, this.mouthOpen, this.mouthOpts));
   }
 

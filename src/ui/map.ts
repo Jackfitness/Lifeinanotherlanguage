@@ -71,7 +71,7 @@ function worldMap(host: MapHost, close: () => void) {
       return;
     }
     detail.replaceChildren(
-      h('div.rd-head', null, h('span.lvl-badge', null, regionLevel(r, target)), h('h3', null, pick(r.name)), h('span.rd-lock', { html: icon('lock') })),
+      h('div.rd-head', null, h('span.lvl-badge', null, regionLevel(r, target)), h('h3', null, pick(r.name)), host.canTravel(r.id) ? null : h('span.rd-lock', { html: icon('lock') })),
       h('p', null, pick(r.blurb)),
       h('div.section-title', { style: { margin: '10px 0 6px' } }, t('whoLives')),
       h('div.rd-animals', null, ...r.animals.map((a) => h('span.rd-animal', null, h('span', { html: icon(a.icon) }), pick(a.name)))),

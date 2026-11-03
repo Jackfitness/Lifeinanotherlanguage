@@ -2140,5 +2140,3397 @@
    "key": "p:c_pon_bell_rang",
    "text": "ベルがなりました！おまつりをはじめましょう！"
   }
+ ],
+ "ja-harbor": [
+  {
+   "key": "w:n4_minato",
+   "text": "みなと"
+  },
+  {
+   "key": "w:n4_fune",
+   "text": "ふね"
+  },
+  {
+   "key": "w:n4_toudai",
+   "text": "とうだい"
+  },
+  {
+   "key": "w:n4_kouchou",
+   "text": "こうちょう"
+  },
+  {
+   "key": "w:n4_keiken",
+   "text": "けいけん"
+  },
+  {
+   "key": "w:n4_hajimete",
+   "text": "はじめて"
+  },
+  {
+   "key": "w:n4_ryokou",
+   "text": "りょこう"
+  },
+  {
+   "key": "w:n4_tsuku",
+   "text": "つく"
+  },
+  {
+   "key": "w:n4_sumu",
+   "text": "すむ"
+  },
+  {
+   "key": "w:n4_shiru",
+   "text": "しる"
+  },
+  {
+   "key": "w:n4_shoukai",
+   "text": "しょうかい"
+  },
+  {
+   "key": "w:n4_umi",
+   "text": "うみ"
+  },
+  {
+   "key": "w:n4_kaze",
+   "text": "かぜ"
+  },
+  {
+   "key": "w:n4_shima",
+   "text": "しま"
+  },
+  {
+   "key": "w:n4_sakana",
+   "text": "さかな"
+  },
+  {
+   "key": "w:n4_ichiba",
+   "text": "うおいちば"
+  },
+  {
+   "key": "w:n4_shinsen",
+   "text": "しんせん"
+  },
+  {
+   "key": "w:n4_nedan",
+   "text": "ねだん"
+  },
+  {
+   "key": "w:n4_takai",
+   "text": "たかい"
+  },
+  {
+   "key": "w:n4_yasui",
+   "text": "やすい"
+  },
+  {
+   "key": "w:n4_ooi",
+   "text": "おおい"
+  },
+  {
+   "key": "w:n4_sukunai",
+   "text": "すくない"
+  },
+  {
+   "key": "w:n4_erabu",
+   "text": "えらぶ"
+  },
+  {
+   "key": "w:n4_chuumon",
+   "text": "ちゅうもん"
+  },
+  {
+   "key": "w:n4_aji",
+   "text": "あじ"
+  },
+  {
+   "key": "w:n4_sashimi",
+   "text": "さしみ"
+  },
+  {
+   "key": "w:n4_ebi",
+   "text": "えび"
+  },
+  {
+   "key": "w:n4_tako",
+   "text": "たこ"
+  },
+  {
+   "key": "w:n4_ferii",
+   "text": "フェリー"
+  },
+  {
+   "key": "w:n4_kippu",
+   "text": "きっぷ"
+  },
+  {
+   "key": "w:n4_jikokuhyou",
+   "text": "じこくひょう"
+  },
+  {
+   "key": "w:n4_shuppatsu",
+   "text": "しゅっぱつ"
+  },
+  {
+   "key": "w:n4_touchaku",
+   "text": "とうちゃく"
+  },
+  {
+   "key": "w:n4_okureru",
+   "text": "おくれる"
+  },
+  {
+   "key": "w:n4_mamoru",
+   "text": "まもる"
+  },
+  {
+   "key": "w:n4_kisoku",
+   "text": "きそく"
+  },
+  {
+   "key": "w:n4_abunai",
+   "text": "あぶない"
+  },
+  {
+   "key": "w:n4_anzen",
+   "text": "あんぜん"
+  },
+  {
+   "key": "w:n4_noru",
+   "text": "のる"
+  },
+  {
+   "key": "w:n4_oriru",
+   "text": "おりる"
+  },
+  {
+   "key": "w:n4_isogu",
+   "text": "いそぐ"
+  },
+  {
+   "key": "w:n4_hayaku",
+   "text": "はやく"
+  },
+  {
+   "key": "w:n4_michi",
+   "text": "みち"
+  },
+  {
+   "key": "w:n4_kado",
+   "text": "かど"
+  },
+  {
+   "key": "w:n4_massugu",
+   "text": "まっすぐ"
+  },
+  {
+   "key": "w:n4_magaru",
+   "text": "まがる"
+  },
+  {
+   "key": "w:n4_wataru",
+   "text": "わたる"
+  },
+  {
+   "key": "w:n4_chikaku",
+   "text": "ちかく"
+  },
+  {
+   "key": "w:n4_mukou",
+   "text": "むこう"
+  },
+  {
+   "key": "w:n4_ageru",
+   "text": "あげる"
+  },
+  {
+   "key": "w:n4_kureru",
+   "text": "くれる"
+  },
+  {
+   "key": "w:n4_morau",
+   "text": "もらう"
+  },
+  {
+   "key": "w:n4_purezento",
+   "text": "プレゼント"
+  },
+  {
+   "key": "w:n4_omiyage",
+   "text": "おみやげ"
+  },
+  {
+   "key": "w:n4_kaigan",
+   "text": "かいがん"
+  },
+  {
+   "key": "w:n4_hashi",
+   "text": "はし"
+  },
+  {
+   "key": "w:n4_tenkiyohou",
+   "text": "てんきよほう"
+  },
+  {
+   "key": "w:n4_arashi",
+   "text": "あらし"
+  },
+  {
+   "key": "w:n4_nami",
+   "text": "なみ"
+  },
+  {
+   "key": "w:n4_kumoru",
+   "text": "くもる"
+  },
+  {
+   "key": "w:n4_hareru",
+   "text": "はれる"
+  },
+  {
+   "key": "w:n4_yamu",
+   "text": "やむ"
+  },
+  {
+   "key": "w:n4_yotei",
+   "text": "よてい"
+  },
+  {
+   "key": "w:n4_tsumori",
+   "text": "つもり"
+  },
+  {
+   "key": "w:n4_omou",
+   "text": "おもう"
+  },
+  {
+   "key": "w:n4_kimeru",
+   "text": "きめる"
+  },
+  {
+   "key": "w:n4_shinpai",
+   "text": "しんぱい"
+  },
+  {
+   "key": "w:n4_daijoubu",
+   "text": "だいじょうぶ"
+  },
+  {
+   "key": "w:n4_raishuu",
+   "text": "らいしゅう"
+  },
+  {
+   "key": "w:n4_kondo",
+   "text": "こんど"
+  },
+  {
+   "key": "w:n4_mayou",
+   "text": "まよう"
+  },
+  {
+   "key": "w:n4_sagasu",
+   "text": "さがす"
+  },
+  {
+   "key": "w:n4_mitsukeru",
+   "text": "みつける"
+  },
+  {
+   "key": "w:n4_mitsukaru",
+   "text": "みつかる"
+  },
+  {
+   "key": "w:n4_naku",
+   "text": "なく"
+  },
+  {
+   "key": "w:n4_warau",
+   "text": "わらう"
+  },
+  {
+   "key": "w:n4_oyogu",
+   "text": "およぐ"
+  },
+  {
+   "key": "w:n4_asobu",
+   "text": "あそぶ"
+  },
+  {
+   "key": "w:n4_kaigara",
+   "text": "かいがら"
+  },
+  {
+   "key": "w:n4_suna",
+   "text": "すな"
+  },
+  {
+   "key": "w:n4_hayashi",
+   "text": "はやし"
+  },
+  {
+   "key": "w:n4_kodomo",
+   "text": "こども"
+  },
+  {
+   "key": "w:n4_oya",
+   "text": "おや"
+  },
+  {
+   "key": "w:n4_anshin",
+   "text": "あんしん"
+  },
+  {
+   "key": "w:n4_naosu",
+   "text": "なおす"
+  },
+  {
+   "key": "w:n4_kowareru",
+   "text": "こわれる"
+  },
+  {
+   "key": "w:n4_kowasu",
+   "text": "こわす"
+  },
+  {
+   "key": "w:n4_dougu",
+   "text": "どうぐ"
+  },
+  {
+   "key": "w:n4_buhin",
+   "text": "ぶひん"
+  },
+  {
+   "key": "w:n4_denki",
+   "text": "でんき"
+  },
+  {
+   "key": "w:n4_hikari",
+   "text": "ひかり"
+  },
+  {
+   "key": "w:n4_hikaru",
+   "text": "ひかる"
+  },
+  {
+   "key": "w:n4_kurai",
+   "text": "くらい"
+  },
+  {
+   "key": "w:n4_akarui",
+   "text": "あかるい"
+  },
+  {
+   "key": "w:n4_tetsudau",
+   "text": "てつだう"
+  },
+  {
+   "key": "w:n4_dekiru",
+   "text": "できる"
+  },
+  {
+   "key": "w:n4_kantan",
+   "text": "かんたん"
+  },
+  {
+   "key": "w:n4_muzukashii",
+   "text": "むずかしい"
+  },
+  {
+   "key": "w:n4_shoutai",
+   "text": "しょうたい"
+  },
+  {
+   "key": "w:n4_sasou",
+   "text": "さそう"
+  },
+  {
+   "key": "w:n4_kotowaru",
+   "text": "ことわる"
+  },
+  {
+   "key": "w:n4_junbi",
+   "text": "じゅんび"
+  },
+  {
+   "key": "w:n4_kazaru",
+   "text": "かざる"
+  },
+  {
+   "key": "w:n4_atsumaru",
+   "text": "あつまる"
+  },
+  {
+   "key": "w:n4_hanabi",
+   "text": "はなび"
+  },
+  {
+   "key": "w:n4_riyuu",
+   "text": "りゆう"
+  },
+  {
+   "key": "w:n4_tsugou",
+   "text": "つごう"
+  },
+  {
+   "key": "w:n4_zannen",
+   "text": "ざんねん"
+  },
+  {
+   "key": "w:n4_tanoshimi",
+   "text": "たのしみ"
+  },
+  {
+   "key": "w:n4_kansha",
+   "text": "かんしゃ"
+  },
+  {
+   "key": "w:n4_kane",
+   "text": "かね"
+  },
+  {
+   "key": "w:n4_naru",
+   "text": "なる"
+  },
+  {
+   "key": "p:h_kaito_s1",
+   "text": "まいあさ、いちばんはやくみなとにきます。"
+  },
+  {
+   "key": "p:h_kaito_s2",
+   "text": "わかいころ、おおきいふねのせんちょうでした。"
+  },
+  {
+   "key": "p:h_nagi_s1",
+   "text": "こどものころからきかいをなおすのがすきでした。"
+  },
+  {
+   "key": "p:h_nagi_s2",
+   "text": "ことばもどうぐとおなじ。つかえばつかうほどじょうずになります。"
+  },
+  {
+   "key": "p:h_sawa_s1",
+   "text": "うちのさかなはみなとでいちばんしんせんですよ！"
+  },
+  {
+   "key": "p:h_sawa_s2",
+   "text": "チャプがうまれて、まいにちがたのしくなりました。"
+  },
+  {
+   "key": "p:h_pen_s1",
+   "text": "じつは、よくみちにまよいます…"
+  },
+  {
+   "key": "p:h_pen_s2",
+   "text": "いつかみなみのしまへてがみをとどけたいです。"
+  },
+  {
+   "key": "p:h_lulu_s1",
+   "text": "りょうりをつくりながらうたうのがすきです。"
+  },
+  {
+   "key": "p:h_lulu_s2",
+   "text": "おきゃくさんがわらうと、わたしもうれしくなります。"
+  },
+  {
+   "key": "p:h_chapu_s1",
+   "text": "ぼく、かいがらをひゃっこもっているよ！"
+  },
+  {
+   "key": "p:h_chapu_s2",
+   "text": "おおきくなったら、とうだいのひとになりたい！"
+  },
+  {
+   "key": "p:h_kai_hello",
+   "text": "おっと！あたらしいかおですね。はじめまして。"
+  },
+  {
+   "key": "p:h_kai_im",
+   "text": "わたしはカイト。このみなとのこうちょうです。"
+  },
+  {
+   "key": "p:h_kai_boat_q",
+   "text": "ふねにのったことがありますか。"
+  },
+  {
+   "key": "p:h_me_boat_yes",
+   "text": "はい、いちどのったことがあります。"
+  },
+  {
+   "key": "p:h_me_boat_no",
+   "text": "いいえ、いちどものったことがありません。"
+  },
+  {
+   "key": "p:h_me_boat_will",
+   "text": "あしたふねにのります。"
+  },
+  {
+   "key": "p:h_kai_light",
+   "text": "じつは、こまっています。とうだいのひかりがきえてしまいました。"
+  },
+  {
+   "key": "p:h_kai_ferry",
+   "text": "ひかりがないと、なつのさいしょのフェリーがみなとにはいれません。"
+  },
+  {
+   "key": "p:h_kai_nagi",
+   "text": "どうじょうのナギせんせいにあってください。せんせいはなんでもしっています。"
+  },
+  {
+   "key": "p:h_nagi_hello",
+   "text": "あら、いらっしゃい。ナギです。どうじょうのせんせいをしています。"
+  },
+  {
+   "key": "p:h_nagi_where_q",
+   "text": "どこにすんでいるの？"
+  },
+  {
+   "key": "p:h_me_live_village",
+   "text": "ほっこりむらにすんでいます。"
+  },
+  {
+   "key": "p:h_me_live_will",
+   "text": "ほっこりむらにすみたいです。"
+  },
+  {
+   "key": "p:h_nagi_light",
+   "text": "とうだいのことはききました。わたしがなおしたいけど、ぶひんがたりないの。"
+  },
+  {
+   "key": "p:h_nagi_study",
+   "text": "そのあいだ、いっしょににほんごをべんきょうしましょう。みなとのことばをおしえますね。"
+  },
+  {
+   "key": "p:h_pen_hello",
+   "text": "わっ！ごめんなさい、いそいでいて…ペンです！"
+  },
+  {
+   "key": "p:h_pen_first_q",
+   "text": "みなとははじめてですか。"
+  },
+  {
+   "key": "p:h_me_first_yes",
+   "text": "はい、はじめてです。うみがきれいですね。"
+  },
+  {
+   "key": "p:h_me_first_wind",
+   "text": "かぜがつよいですね。"
+  },
+  {
+   "key": "p:h_pen_want",
+   "text": "ぼくはいつかしまへいきたいんです。でも、とうだいがくらいとあぶない…"
+  },
+  {
+   "key": "p:h_sawa_hello",
+   "text": "いらっしゃい！しんせんなさかなはいかが？サワのみせだよ！"
+  },
+  {
+   "key": "p:h_sawa_lulu",
+   "text": "ルルのしょくどうのちゅうもんだね？どれをえらぶ？"
+  },
+  {
+   "key": "p:h_me_this_fresh",
+   "text": "このさかなはしんせんそうですね。これにします。"
+  },
+  {
+   "key": "p:h_me_too_many",
+   "text": "さかながおおすぎます。"
+  },
+  {
+   "key": "p:h_sawa_tako_q",
+   "text": "たこもどう？ちょっとたかいけどね。"
+  },
+  {
+   "key": "p:h_me_too_expensive",
+   "text": "ちょっとたかすぎます。えびはやすいですか。"
+  },
+  {
+   "key": "p:h_sawa_shrimp",
+   "text": "えびはきょうやすいよ！でもすくないから、はやいものがちだよ。"
+  },
+  {
+   "key": "p:h_lulu_hello",
+   "text": "ふんふん♪あら、はじめまして。ルルです。"
+  },
+  {
+   "key": "p:h_me_fish_for_you",
+   "text": "サワさんからさかなをもってきました。"
+  },
+  {
+   "key": "p:h_lulu_taste",
+   "text": "わあ、おいしそう！あじをみてみて。"
+  },
+  {
+   "key": "p:h_me_easy_eat",
+   "text": "ほねがなくて、たべやすいです！"
+  },
+  {
+   "key": "p:h_me_hard_eat",
+   "text": "たべにくいです。"
+  },
+  {
+   "key": "p:h_lulu_festival",
+   "text": "おまつりのひには、もっとたくさんつくるつもりです。"
+  },
+  {
+   "key": "p:h_kai_rules",
+   "text": "フェリーがくるまえに、きそくをおぼえなければなりません。"
+  },
+  {
+   "key": "p:h_kai_rule1",
+   "text": "しゅっぱつのじゅっぷんまえにのらなければなりません。"
+  },
+  {
+   "key": "p:h_kai_rule2",
+   "text": "ふねのうえではしってはいけません。あぶないですから。"
+  },
+  {
+   "key": "p:h_kai_rule3",
+   "text": "でも、しゃしんはとってもいいですよ。"
+  },
+  {
+   "key": "p:h_kai_photo_q",
+   "text": "しゃしんをとりたいときは？"
+  },
+  {
+   "key": "p:h_me_may_photo",
+   "text": "しゃしんをとってもいいですか。"
+  },
+  {
+   "key": "p:h_me_must_run",
+   "text": "はしらなければなりません。"
+  },
+  {
+   "key": "p:h_kai_good",
+   "text": "よろしい！あんぜんがいちばんです。"
+  },
+  {
+   "key": "p:h_pen_timetable",
+   "text": "あたらしいじこくひょうができました！みてください。"
+  },
+  {
+   "key": "p:h_pen_late",
+   "text": "ぼくはいつもおくれちゃうんです。おくれちゃだめですよね…"
+  },
+  {
+   "key": "p:h_me_dont_hurry",
+   "text": "だいじょうぶ。はやくでれば、いそがなくてもいいですよ。"
+  },
+  {
+   "key": "p:h_pen_thanks",
+   "text": "そうですね！ありがとう！"
+  },
+  {
+   "key": "p:h_pen_parcel",
+   "text": "このこづつみをサワさんにとどけてくれませんか。ぼく、またみちにまよいそうで…"
+  },
+  {
+   "key": "p:h_pen_way",
+   "text": "はしをわたって、かどをみぎにまがるとうおいちばがあります。"
+  },
+  {
+   "key": "p:h_me_parcel_for_you",
+   "text": "ペンさんからこづつみをあずかりました。"
+  },
+  {
+   "key": "p:h_sawa_gift",
+   "text": "ありがとう！これはいもうとがくれたおみやげだよ。"
+  },
+  {
+   "key": "p:h_sawa_share",
+   "text": "あなたにもひとつあげるね。しまのおかしだよ。"
+  },
+  {
+   "key": "p:h_me_got_sweet",
+   "text": "サワさんにおかしをもらいました。うれしいです！"
+  },
+  {
+   "key": "p:h_me_gave_sweet",
+   "text": "サワさんにおかしをあげました。"
+  },
+  {
+   "key": "p:h_lulu_rumor",
+   "text": "ペンさんがいっていましたよ。あなたがてつだってくれたって。"
+  },
+  {
+   "key": "p:h_me_pen_taught",
+   "text": "ペンさんがみちをおしえてくれました。"
+  },
+  {
+   "key": "p:h_lulu_lunch",
+   "text": "じゃあ、おひるをつくってあげますね。"
+  },
+  {
+   "key": "p:h_kai_forecast",
+   "text": "てんきよほうによると、こんやはあらしになるそうです。"
+  },
+  {
+   "key": "p:h_kai_think_q",
+   "text": "フェリーはだいじょうぶだとおもいますか。"
+  },
+  {
+   "key": "p:h_me_think_danger",
+   "text": "なみがたかいので、あぶないとおもいます。"
+  },
+  {
+   "key": "p:h_me_think_swim",
+   "text": "およぎたいとおもいます。"
+  },
+  {
+   "key": "p:h_kai_decide",
+   "text": "そうですね。きょうはふねをださないことにきめました。"
+  },
+  {
+   "key": "p:h_kai_plan_q",
+   "text": "あなたはあらしのあいだ、なにをするつもりですか。"
+  },
+  {
+   "key": "p:h_me_plan_study",
+   "text": "どうじょうでべんきょうするつもりです。"
+  },
+  {
+   "key": "p:h_me_plan_boat",
+   "text": "ふねでしまへいくつもりです。"
+  },
+  {
+   "key": "p:h_kai_good_plan",
+   "text": "いいかんがえです。あしたははれるといいですね。"
+  },
+  {
+   "key": "p:h_nagi_storm",
+   "text": "あらしのよるは、とうだいがいちばんたいせつなのに…"
+  },
+  {
+   "key": "p:h_nagi_after",
+   "text": "あめがやんだら、いっしょにぶひんをさがそう。"
+  },
+  {
+   "key": "p:h_me_lets_look",
+   "text": "はい、さがしましょう！しんぱいしないでください。"
+  },
+  {
+   "key": "p:h_sawa_lost",
+   "text": "たいへん！チャプがいないの！あらしのあと、そとへあそびにいったみたい…"
+  },
+  {
+   "key": "p:h_sawa_looks",
+   "text": "ちいさいカワウソで、あかいかいがらをもっているよ。"
+  },
+  {
+   "key": "p:h_me_will_find",
+   "text": "だいじょうぶ。わたしがみつけます。"
+  },
+  {
+   "key": "p:h_me_chapu_q",
+   "text": "チャプをみませんでしたか。"
+  },
+  {
+   "key": "p:h_lulu_heard",
+   "text": "ペンさんによると、こうえんのはやしのほうへいったそうですよ。"
+  },
+  {
+   "key": "p:h_lulu_singing",
+   "text": "うたいながらあるいていたそうです。"
+  },
+  {
+   "key": "p:h_chapu_hi",
+   "text": "わっ！だれ？"
+  },
+  {
+   "key": "p:h_me_mom_worried",
+   "text": "おかあさんがしんぱいしていますよ。"
+  },
+  {
+   "key": "p:h_chapu_shells",
+   "text": "ごめん…かいがらをさがしたり、すなであそんだりしていたの。"
+  },
+  {
+   "key": "p:h_chapu_found",
+   "text": "でもね、みて！ひかるいしをみつけたよ！"
+  },
+  {
+   "key": "p:h_sawa_relief",
+   "text": "チャプ！よかった…ほんとうにあんしんした。"
+  },
+  {
+   "key": "p:h_sawa_thank",
+   "text": "あなたがみつけてくれたんだね。ありがとう。"
+  },
+  {
+   "key": "p:h_me_lens",
+   "text": "チャプがこれをみつけました。"
+  },
+  {
+   "key": "p:h_nagi_lens",
+   "text": "これは…とうだいのレンズ！あらしでとばされたのね。"
+  },
+  {
+   "key": "p:h_nagi_can_fix",
+   "text": "これがあれば、なおせるとおもう。でもどうぐがいるの。"
+  },
+  {
+   "key": "p:h_nagi_pen_tool",
+   "text": "ペンさんがふるいどうぐばこをもっているはず。かりてきてくれる？"
+  },
+  {
+   "key": "p:h_me_borrow_tool",
+   "text": "どうぐをかしてくれませんか。"
+  },
+  {
+   "key": "p:h_pen_tool",
+   "text": "もちろん！おもいけど、もてますか。"
+  },
+  {
+   "key": "p:h_me_can_carry",
+   "text": "はい、もてます。"
+  },
+  {
+   "key": "p:h_me_cant_swim",
+   "text": "およげません。"
+  },
+  {
+   "key": "p:h_nagi_try",
+   "text": "さあ、スイッチをおしてみて。"
+  },
+  {
+   "key": "p:h_nagi_shines",
+   "text": "やった！またひかるようになった！"
+  },
+  {
+   "key": "p:h_nagi_you_too",
+   "text": "あなたも、もうむずかしいはなしがわかるようになりましたね。"
+  },
+  {
+   "key": "p:h_kai_ferry_ok",
+   "text": "とうだいがあかるくなったので、フェリーがこられます！"
+  },
+  {
+   "key": "p:h_kai_festival",
+   "text": "どようびにおまつりをします。みんなをさそってくれますか。"
+  },
+  {
+   "key": "p:h_me_will_invite",
+   "text": "はい、みんなをさそいます！"
+  },
+  {
+   "key": "p:h_me_invite_sat",
+   "text": "どようびのおまつりにきませんか。"
+  },
+  {
+   "key": "p:h_sawa_yes",
+   "text": "いくいく！はなびもあるし、チャプもたのしみにしているし！"
+  },
+  {
+   "key": "p:h_pen_busy",
+   "text": "ざんねん…そのひはてがみがおおいので、いそがしいんです。"
+  },
+  {
+   "key": "p:h_pen_if_done",
+   "text": "でも、しごとがはやくおわったら、いきます！"
+  },
+  {
+   "key": "p:h_lulu_cook",
+   "text": "もちろん！みんながあつまるなら、たくさんりょうりをじゅんびしなきゃ！"
+  },
+  {
+   "key": "p:h_nagi_ready_q",
+   "text": "おまつりのじゅんびはどう？"
+  },
+  {
+   "key": "p:h_me_all_invited",
+   "text": "みんなをさそいました。じゅんびができました！"
+  },
+  {
+   "key": "p:h_nagi_exam",
+   "text": "それなら、さいごにみなとのしけんをうけて。ごうかくしたら、みなとのかねをならすやくをあなたにおねがいします。"
+  },
+  {
+   "key": "p:h_kai_speak",
+   "text": "さあ、あなたのことばでみんなにはなしてください。"
+  },
+  {
+   "key": "p:h_me_thanks_all",
+   "text": "みんなのおかげで、みなとがあかるくなりました。"
+  },
+  {
+   "key": "p:h_kai_rang",
+   "text": "かねがなりました！フェリーがつきますよ！"
+  }
+ ],
+ "ja-lantern": [
+  {
+   "key": "w:n3_oka",
+   "text": "おか"
+  },
+  {
+   "key": "w:n3_chouchin",
+   "text": "ちょうちん"
+  },
+  {
+   "key": "w:n3_chourou",
+   "text": "ちょうろう"
+  },
+  {
+   "key": "w:n3_dentou",
+   "text": "でんとう"
+  },
+  {
+   "key": "w:n3_mokuhyou",
+   "text": "もくひょう"
+  },
+  {
+   "key": "w:n3_kesshin",
+   "text": "けっしん"
+  },
+  {
+   "key": "w:n3_shuukan",
+   "text": "しゅうかん"
+  },
+  {
+   "key": "w:n3_tsuzukeru",
+   "text": "つづける"
+  },
+  {
+   "key": "w:n3_yameru",
+   "text": "やめる"
+  },
+  {
+   "key": "w:n3_doryoku",
+   "text": "どりょく"
+  },
+  {
+   "key": "w:n3_jibun",
+   "text": "じぶん"
+  },
+  {
+   "key": "w:n3_kitsune",
+   "text": "きつね"
+  },
+  {
+   "key": "w:n3_tanuki",
+   "text": "たぬき"
+  },
+  {
+   "key": "w:n3_yoru",
+   "text": "よる"
+  },
+  {
+   "key": "w:n3_yoichi",
+   "text": "よいち"
+  },
+  {
+   "key": "w:n3_yatai",
+   "text": "やたい"
+  },
+  {
+   "key": "w:n3_shouhin",
+   "text": "しょうひん"
+  },
+  {
+   "key": "w:n3_nebiki",
+   "text": "ねびき"
+  },
+  {
+   "key": "w:n3_kakaku",
+   "text": "かかく"
+  },
+  {
+   "key": "w:n3_otoku",
+   "text": "おとく"
+  },
+  {
+   "key": "w:n3_kuraberu",
+   "text": "くらべる"
+  },
+  {
+   "key": "w:n3_kosuu",
+   "text": "こすう"
+  },
+  {
+   "key": "w:n3_zenbu",
+   "text": "ぜんぶ"
+  },
+  {
+   "key": "w:n3_hinshitsu",
+   "text": "ひんしつ"
+  },
+  {
+   "key": "w:n3_mezurashii",
+   "text": "めずらしい"
+  },
+  {
+   "key": "w:n3_tegaru",
+   "text": "てがる"
+  },
+  {
+   "key": "w:n3_urikire",
+   "text": "うりきれ"
+  },
+  {
+   "key": "w:n3_okyaku",
+   "text": "おきゃく"
+  },
+  {
+   "key": "w:n3_uwasa",
+   "text": "うわさ"
+  },
+  {
+   "key": "w:n3_kieru",
+   "text": "きえる"
+  },
+  {
+   "key": "w:n3_nusumu",
+   "text": "ぬすむ"
+  },
+  {
+   "key": "w:n3_mokugeki",
+   "text": "もくげき"
+  },
+  {
+   "key": "w:n3_kage",
+   "text": "かげ"
+  },
+  {
+   "key": "w:n3_kehai",
+   "text": "けはい"
+  },
+  {
+   "key": "w:n3_kowai",
+   "text": "こわい"
+  },
+  {
+   "key": "w:n3_fushigi",
+   "text": "ふしぎ"
+  },
+  {
+   "key": "w:n3_yousu",
+   "text": "ようす"
+  },
+  {
+   "key": "w:n3_hontou",
+   "text": "ほんとう"
+  },
+  {
+   "key": "w:n3_shinjiru",
+   "text": "しんじる"
+  },
+  {
+   "key": "w:n3_yuurei",
+   "text": "ゆうれい"
+  },
+  {
+   "key": "w:n3_kinjo",
+   "text": "きんじょ"
+  },
+  {
+   "key": "w:n3_sawagu",
+   "text": "さわぐ"
+  },
+  {
+   "key": "w:n3_nazo",
+   "text": "なぞ"
+  },
+  {
+   "key": "w:n3_tegakari",
+   "text": "てがかり"
+  },
+  {
+   "key": "w:n3_ashiato",
+   "text": "あしあと"
+  },
+  {
+   "key": "w:n3_shiraberu",
+   "text": "しらべる"
+  },
+  {
+   "key": "w:n3_hannin",
+   "text": "はんにん"
+  },
+  {
+   "key": "w:n3_shouko",
+   "text": "しょうこ"
+  },
+  {
+   "key": "w:n3_utagau",
+   "text": "うたがう"
+  },
+  {
+   "key": "w:n3_kakusu",
+   "text": "かくす"
+  },
+  {
+   "key": "w:n3_kakureru",
+   "text": "かくれる"
+  },
+  {
+   "key": "w:n3_kizuku",
+   "text": "きづく"
+  },
+  {
+   "key": "w:n3_riyuu",
+   "text": "りゆう"
+  },
+  {
+   "key": "w:n3_tashika",
+   "text": "たしか"
+  },
+  {
+   "key": "w:n3_guuzen",
+   "text": "ぐうぜん"
+  },
+  {
+   "key": "w:n3_kaiketsu",
+   "text": "かいけつ"
+  },
+  {
+   "key": "w:n3_raamen",
+   "text": "ラーメン"
+  },
+  {
+   "key": "w:n3_tenchou",
+   "text": "てんちょう"
+  },
+  {
+   "key": "w:n3_zairyou",
+   "text": "ざいりょう"
+  },
+  {
+   "key": "w:n3_nikomu",
+   "text": "にこむ"
+  },
+  {
+   "key": "w:n3_kogasu",
+   "text": "こがす"
+  },
+  {
+   "key": "w:n3_koboreru",
+   "text": "こぼれる"
+  },
+  {
+   "key": "w:n3_katazukeru",
+   "text": "かたづける"
+  },
+  {
+   "key": "w:n3_yoyaku",
+   "text": "よやく"
+  },
+  {
+   "key": "w:n3_shitaku",
+   "text": "したく"
+  },
+  {
+   "key": "w:n3_ajimi",
+   "text": "あじみ"
+  },
+  {
+   "key": "w:n3_nioi",
+   "text": "におい"
+  },
+  {
+   "key": "w:n3_atsui",
+   "text": "あつい"
+  },
+  {
+   "key": "w:n3_sameru",
+   "text": "さめる"
+  },
+  {
+   "key": "w:n3_chuubou",
+   "text": "ちゅうぼう"
+  },
+  {
+   "key": "w:n3_tanomu",
+   "text": "たのむ"
+  },
+  {
+   "key": "w:n3_shigoto",
+   "text": "しごと"
+  },
+  {
+   "key": "w:n3_tsukau",
+   "text": "つかう"
+  },
+  {
+   "key": "w:n3_hakobu",
+   "text": "はこぶ"
+  },
+  {
+   "key": "w:n3_souji",
+   "text": "そうじ"
+  },
+  {
+   "key": "w:n3_renshuu",
+   "text": "れんしゅう"
+  },
+  {
+   "key": "w:n3_shikaru",
+   "text": "しかる"
+  },
+  {
+   "key": "w:n3_homeru",
+   "text": "ほめる"
+  },
+  {
+   "key": "w:n3_yurusu",
+   "text": "ゆるす"
+  },
+  {
+   "key": "w:n3_jiyuu",
+   "text": "じゆう"
+  },
+  {
+   "key": "w:n3_gaman",
+   "text": "がまん"
+  },
+  {
+   "key": "w:n3_mago",
+   "text": "まご"
+  },
+  {
+   "key": "w:n3_sobo",
+   "text": "そぼ"
+  },
+  {
+   "key": "w:n3_me",
+   "text": "め"
+  },
+  {
+   "key": "w:n3_kurayami",
+   "text": "くらやみ"
+  },
+  {
+   "key": "w:n3_akari",
+   "text": "あかり"
+  },
+  {
+   "key": "w:n3_tomosu",
+   "text": "ともす"
+  },
+  {
+   "key": "w:n3_kurakunaru",
+   "text": "くらくなる"
+  },
+  {
+   "key": "w:n3_mayonaka",
+   "text": "まよなか"
+  },
+  {
+   "key": "w:n3_yuugata",
+   "text": "ゆうがた"
+  },
+  {
+   "key": "w:n3_totsuzen",
+   "text": "とつぜん"
+  },
+  {
+   "key": "w:n3_aida",
+   "text": "あいだ"
+  },
+  {
+   "key": "w:n3_michibiku",
+   "text": "みちびく"
+  },
+  {
+   "key": "w:n3_sakamichi",
+   "text": "さかみち"
+  },
+  {
+   "key": "w:n3_kaidan",
+   "text": "かいだん"
+  },
+  {
+   "key": "w:n3_korobu",
+   "text": "ころぶ"
+  },
+  {
+   "key": "w:n3_kega",
+   "text": "けが"
+  },
+  {
+   "key": "w:n3_mimamoru",
+   "text": "みまもる"
+  },
+  {
+   "key": "w:n3_matsuri",
+   "text": "まつり"
+  },
+  {
+   "key": "w:n3_gyouretsu",
+   "text": "ぎょうれつ"
+  },
+  {
+   "key": "w:n3_kaijou",
+   "text": "かいじょう"
+  },
+  {
+   "key": "w:n3_sanka",
+   "text": "さんか"
+  },
+  {
+   "key": "w:n3_kyouryoku",
+   "text": "きょうりょく"
+  },
+  {
+   "key": "w:n3_ninki",
+   "text": "にんき"
+  },
+  {
+   "key": "w:n3_kansou",
+   "text": "かんそう"
+  },
+  {
+   "key": "w:n3_iken",
+   "text": "いけん"
+  },
+  {
+   "key": "w:n3_kimaru",
+   "text": "きまる"
+  },
+  {
+   "key": "w:n3_hajimaru",
+   "text": "はじまる"
+  },
+  {
+   "key": "w:n3_tou",
+   "text": "とう"
+  },
+  {
+   "key": "w:n3_kane",
+   "text": "かね"
+  },
+  {
+   "key": "w:n3_kagayaku",
+   "text": "かがやく"
+  },
+  {
+   "key": "w:n3_kinen",
+   "text": "きねん"
+  },
+  {
+   "key": "p:l_kon_s1",
+   "text": "せんとうさいはわたしのそふのじだいからつづいている。"
+  },
+  {
+   "key": "p:l_kon_s2",
+   "text": "じつは、くらいところがすこしこわいのじゃ。"
+  },
+  {
+   "key": "p:l_gin_s1",
+   "text": "なぞをとくのとことばをまなぶのはにているわ。"
+  },
+  {
+   "key": "p:l_gin_s2",
+   "text": "しょうこさえあれば、なにでもしんじるわよ。"
+  },
+  {
+   "key": "p:l_poko_s1",
+   "text": "ちょうちんはぜんぶじぶんでつくっているんだよ。"
+  },
+  {
+   "key": "p:l_poko_s2",
+   "text": "ねびきはにがてだけど、ともだちならとくべつだ！"
+  },
+  {
+   "key": "p:l_tsune_s1",
+   "text": "よるのおかをはしるのがだいすき！"
+  },
+  {
+   "key": "p:l_tsune_s2",
+   "text": "うわさははんぶんだけしんじてね。"
+  },
+  {
+   "key": "p:l_tama_s1",
+   "text": "スープはみっかにこむのがひみつなの。"
+  },
+  {
+   "key": "p:l_tama_s2",
+   "text": "コロにはきびしくしているけど、ほんとうはじまんのおいよ。"
+  },
+  {
+   "key": "p:l_koro_s1",
+   "text": "ぼく、おばあちゃんがだいすきなんだ。"
+  },
+  {
+   "key": "p:l_koro_s2",
+   "text": "おおきくなったら、いちばんあかるいちょうちんをつくる！"
+  },
+  {
+   "key": "p:l_kon_hello",
+   "text": "おお…！たびのかたか。おどろいたわい。"
+  },
+  {
+   "key": "p:l_kon_im",
+   "text": "わしはコン。このおかのちょうろうじゃ。"
+  },
+  {
+   "key": "p:l_kon_festival",
+   "text": "らいしゅうはせんとうさい。せんのちょうちんをともすでんとうのまつりじゃ。"
+  },
+  {
+   "key": "p:l_kon_problem",
+   "text": "ところが、まいばんちょうちんがひとつずつきえてしまうのじゃ。"
+  },
+  {
+   "key": "p:l_kon_goal_q",
+   "text": "おぬしはなにをしにきたのかな？"
+  },
+  {
+   "key": "p:l_me_came_study",
+   "text": "にほんごをべんきょうするためにきました。"
+  },
+  {
+   "key": "p:l_me_came_ghost",
+   "text": "ゆうれいをみることにしました。"
+  },
+  {
+   "key": "p:l_kon_gin",
+   "text": "それなら、どうじょうのギンせんせいをたずねるとよい。"
+  },
+  {
+   "key": "p:l_gin_hello",
+   "text": "あら、あたらしいせいとかしら。ギンよ。"
+  },
+  {
+   "key": "p:l_gin_ghost",
+   "text": "ちょうろうはゆうれいのしわざだとおもっているけど、わたしはしんじないわ。"
+  },
+  {
+   "key": "p:l_gin_resolve_q",
+   "text": "このおかで、なにをもくひょうにする？"
+  },
+  {
+   "key": "p:l_me_resolve",
+   "text": "まいにちれんしゅうするようにします。"
+  },
+  {
+   "key": "p:l_me_quit",
+   "text": "すぐやめることにしました。"
+  },
+  {
+   "key": "p:l_gin_good",
+   "text": "いいこころがけね。どりょくをつづければ、なぞもことばもとけるわ。"
+  },
+  {
+   "key": "p:l_poko_hello",
+   "text": "へい、らっしゃい！ポコのちょうちんはおかでいちばんだよ！"
+  },
+  {
+   "key": "p:l_poko_need",
+   "text": "ちょうろうからのちゅうもんだね？きえたぶんをかいたすんだろう？"
+  },
+  {
+   "key": "p:l_poko_price",
+   "text": "ひとつはっぴゃくえん。でもみっつならにせんえんにしてあげるよ。"
+  },
+  {
+   "key": "p:l_me_haggle",
+   "text": "みっつならおとくですね。ぜんぶください。"
+  },
+  {
+   "key": "p:l_me_only_red",
+   "text": "あかいのばかりかいます。"
+  },
+  {
+   "key": "p:l_poko_sold",
+   "text": "まいど！きのうつくったばかりのしんぴんだよ。"
+  },
+  {
+   "key": "p:l_me_bought",
+   "text": "ポコさんのみせでちょうちんをみっつかってきました。"
+  },
+  {
+   "key": "p:l_kon_thanks",
+   "text": "ありがたい。ちょうちんさえそろえば、まつりはだいじょうぶじゃ。"
+  },
+  {
+   "key": "p:l_tsune_hello",
+   "text": "ねえねえ！きいた？あ、はじめまして、ツネだよ！"
+  },
+  {
+   "key": "p:l_tsune_rumor",
+   "text": "きのうのよる、おかのうえでちいさいかげをみたひとがいるらしいよ。"
+  },
+  {
+   "key": "p:l_tsune_fox",
+   "text": "みんな「きつねのゆうれいだ」ってさわいでるの。"
+  },
+  {
+   "key": "p:l_tsune_think_q",
+   "text": "あなたはどうおもう？"
+  },
+  {
+   "key": "p:l_me_child_maybe",
+   "text": "かげがちいさいなら、こどもみたいですね。"
+  },
+  {
+   "key": "p:l_me_ghost_sure",
+   "text": "ゆうれいにちがいないとしんじます。"
+  },
+  {
+   "key": "p:l_tsune_hmm",
+   "text": "へえ、なるほど！ギンせんせいみたいなことをいうね。"
+  },
+  {
+   "key": "p:l_me_rumor_report",
+   "text": "おかのうえでちいさいかげをみたといううわさをききました。"
+  },
+  {
+   "key": "p:l_gin_interesting",
+   "text": "おもしろいわね。ゆうれいにかげはないはずよ。"
+  },
+  {
+   "key": "p:l_gin_investigate",
+   "text": "こんや、いっしょにおかをしらべましょう。"
+  },
+  {
+   "key": "p:l_gin_footprints",
+   "text": "みて。ちいさいあしあと。はんにんはこどもにちがいないわ。"
+  },
+  {
+   "key": "p:l_gin_where_q",
+   "text": "あしあとはどこへつづいている？"
+  },
+  {
+   "key": "p:l_me_to_house",
+   "text": "おかのうえのふるいいえのほうへつづいています。"
+  },
+  {
+   "key": "p:l_me_to_river",
+   "text": "かわにきえています。"
+  },
+  {
+   "key": "p:l_gin_house",
+   "text": "あそこはタマさんのおかあさんのいえよ。なにかりゆうがあるはずね。"
+  },
+  {
+   "key": "p:l_me_show_clue",
+   "text": "このあしあとについてなにかしっていますか。"
+  },
+  {
+   "key": "p:l_poko_koro",
+   "text": "う〜ん…そういえば、コロがまいばんよいちのちかくをうろうろしているな。"
+  },
+  {
+   "key": "p:l_poko_not_bad",
+   "text": "でも、あのこがわるいことをするわけがないよ。"
+  },
+  {
+   "key": "p:l_tama_hello",
+   "text": "あら、いらっしゃい！ちょうどみせをあけるところだったの。"
+  },
+  {
+   "key": "p:l_tama_busy",
+   "text": "まつりのまえにざいりょうをじゅんびしておかないと…"
+  },
+  {
+   "key": "p:l_tama_burnt",
+   "text": "あっ！スープをこがしてしまった！"
+  },
+  {
+   "key": "p:l_me_help_cook",
+   "text": "てつだいます。なにをしておけばいいですか。"
+  },
+  {
+   "key": "p:l_me_ate_all",
+   "text": "ぜんぶたべてしまいました。"
+  },
+  {
+   "key": "p:l_tama_thanks",
+   "text": "じゃあ、やさいをきっておいて。わたしはあたらしくスープをつくるわ。"
+  },
+  {
+   "key": "p:l_me_ask_koro",
+   "text": "コロくんはまいばんどこへいっているんですか。"
+  },
+  {
+   "key": "p:l_tama_koro",
+   "text": "じつはわたしもしんぱいしていたの。よる、みんながねているあいだにでかけているみたい…"
+  },
+  {
+   "key": "p:l_tama_mother",
+   "text": "さいきん、ははのめがわるくなってね。コロはおばあちゃんっこだから…"
+  },
+  {
+   "key": "p:l_koro_hi",
+   "text": "わっ！な、なに？"
+  },
+  {
+   "key": "p:l_me_saw_prints",
+   "text": "おかでちいさいあしあとをみつけたんだ。"
+  },
+  {
+   "key": "p:l_koro_confess",
+   "text": "…ごめんなさい。ちょうちんをもっていったのはぼくです。"
+  },
+  {
+   "key": "p:l_koro_why",
+   "text": "おばあちゃんにまつりをみてほしかったんだ。でもよるのさかみちはくらくてあぶないから…"
+  },
+  {
+   "key": "p:l_koro_path",
+   "text": "ちょっとずつちょうちんをあつめて、おばあちゃんのいえからのみちをあかるくしたかったの。"
+  },
+  {
+   "key": "p:l_me_lets_tell",
+   "text": "いっしょにタマさんにはなそう。きっとわかってくれるよ。"
+  },
+  {
+   "key": "p:l_tama_scold",
+   "text": "コロ！よるひとりででかけちゃだめっていったでしょう！"
+  },
+  {
+   "key": "p:l_me_forgive",
+   "text": "コロくんはおばあちゃんのためにがんばっていたんです。ゆるしてあげてください。"
+  },
+  {
+   "key": "p:l_me_make_clean",
+   "text": "コロくんにそうじをさせましょう。"
+  },
+  {
+   "key": "p:l_tama_soft",
+   "text": "…そうだったの。しかってごめんね、コロ。"
+  },
+  {
+   "key": "p:l_tama_but",
+   "text": "でもちょうちんはちょうろうにかえさなきゃ。それから、みんなにきょうりょくしてもらいましょう。"
+  },
+  {
+   "key": "p:l_me_return",
+   "text": "コロくんがちょうちんをかえしにきました。おばあちゃんのためだったんです。"
+  },
+  {
+   "key": "p:l_kon_moved",
+   "text": "なんと…まよったひとをいえへみちびく。それこそせんとうさいのこころじゃ。"
+  },
+  {
+   "key": "p:l_kon_plan",
+   "text": "くらくならないうちに、さかみちにちょうちんをならべよう。ツネにしらせてくれ。"
+  },
+  {
+   "key": "p:l_me_tell_tsune",
+   "text": "くらくなるまえに、さかみちにちょうちんをならべることになりました。"
+  },
+  {
+   "key": "p:l_tsune_go",
+   "text": "まかせて！まちのみんなにすぐしらせるよ！"
+  },
+  {
+   "key": "p:l_koro_grandma",
+   "text": "おばあちゃんがね、「ほしのみちみたい」っていったよ！"
+  },
+  {
+   "key": "p:l_koro_thanks",
+   "text": "ありがとう。あなたがいてくれてよかった。"
+  },
+  {
+   "key": "p:l_me_proud",
+   "text": "コロくんのゆうきのおかげだよ。"
+  },
+  {
+   "key": "p:l_kon_decided",
+   "text": "ことしのまつりは、コロがぎょうれつのせんとうをあるくことになったぞ。"
+  },
+  {
+   "key": "p:l_kon_opinion_q",
+   "text": "おぬしのいけんはどうじゃ？"
+  },
+  {
+   "key": "p:l_me_great_idea",
+   "text": "すばらしいかんがえだとおもいます。"
+  },
+  {
+   "key": "p:l_kon_invite",
+   "text": "では、みんなにさんかをよびかけてくれるか。"
+  },
+  {
+   "key": "p:l_me_join_fest",
+   "text": "せんとうさいにさんかしてくれませんか。"
+  },
+  {
+   "key": "p:l_poko_join",
+   "text": "もちろん！ちょうちんはおおければおおいほどいいからね。とくべつにぜんぶむりょうだ！"
+  },
+  {
+   "key": "p:l_tsune_join",
+   "text": "うん！まつりについてのおしらせはわたしがくばるね！"
+  },
+  {
+   "key": "p:l_tama_join",
+   "text": "ぎょうれつのあとは、みんなにとくせいラーメンをつくっておくわね。"
+  },
+  {
+   "key": "p:l_gin_ready_q",
+   "text": "じゅんびはできた？"
+  },
+  {
+   "key": "p:l_me_everyone_joins",
+   "text": "みんながさんかしてくれることになりました！"
+  },
+  {
+   "key": "p:l_gin_exam",
+   "text": "みごとね。さいごにおかのしけんをうけなさい。ごうかくすれば、とうのかねをならすやくはあなたよ。"
+  },
+  {
+   "key": "p:l_kon_speak",
+   "text": "さあ、おぬしのことばでまつりをはじめておくれ。"
+  },
+  {
+   "key": "p:l_me_open_fest",
+   "text": "ちょうちんのひかりが、みんなをいえへみちびきますように。"
+  },
+  {
+   "key": "p:l_kon_rang",
+   "text": "かねがなった！せんとうさいのはじまりじゃ！"
+  }
+ ],
+ "ja-snowcap": [
+  {
+   "key": "w:n2_yukiguni",
+   "text": "ゆきぐに"
+  },
+  {
+   "key": "w:n2_shourou",
+   "text": "しょうろう"
+  },
+  {
+   "key": "w:n2_sonchou",
+   "text": "そんちょう"
+  },
+  {
+   "key": "w:n2_hibi",
+   "text": "ひび"
+  },
+  {
+   "key": "w:n2_hari",
+   "text": "はり"
+  },
+  {
+   "key": "w:n2_joyanokane",
+   "text": "じょやのかね"
+  },
+  {
+   "key": "w:n2_oomisoka",
+   "text": "おおみそか"
+  },
+  {
+   "key": "w:n2_sekinin",
+   "text": "せきにん"
+  },
+  {
+   "key": "w:n2_gimu",
+   "text": "ぎむ"
+  },
+  {
+   "key": "w:n2_houchi",
+   "text": "ほうち"
+  },
+  {
+   "key": "w:n2_shuuri",
+   "text": "しゅうり"
+  },
+  {
+   "key": "w:n2_yamuwoenai",
+   "text": "やむをえない"
+  },
+  {
+   "key": "w:n2_kibishii",
+   "text": "きびしい"
+  },
+  {
+   "key": "w:n2_tsumoru",
+   "text": "つもる"
+  },
+  {
+   "key": "w:n2_shinbunsha",
+   "text": "しんぶんしゃ"
+  },
+  {
+   "key": "w:n2_kiji",
+   "text": "きじ"
+  },
+  {
+   "key": "w:n2_henshuu",
+   "text": "へんしゅう"
+  },
+  {
+   "key": "w:n2_chousa",
+   "text": "ちょうさ"
+  },
+  {
+   "key": "w:n2_kekka",
+   "text": "けっか"
+  },
+  {
+   "key": "w:n2_deeta",
+   "text": "データ"
+  },
+  {
+   "key": "w:n2_kiroku",
+   "text": "きろく"
+  },
+  {
+   "key": "w:n2_jijitsu",
+   "text": "じじつ"
+  },
+  {
+   "key": "w:n2_kikkake",
+   "text": "きっかけ"
+  },
+  {
+   "key": "w:n2_henka",
+   "text": "へんか"
+  },
+  {
+   "key": "w:n2_zouka",
+   "text": "ぞうか"
+  },
+  {
+   "key": "w:n2_genshou",
+   "text": "げんしょう"
+  },
+  {
+   "key": "w:n2_eikyou",
+   "text": "えいきょう"
+  },
+  {
+   "key": "w:n2_happyou",
+   "text": "はっぴょう"
+  },
+  {
+   "key": "w:n2_kaigi",
+   "text": "かいぎ"
+  },
+  {
+   "key": "w:n2_giron",
+   "text": "ぎろん"
+  },
+  {
+   "key": "w:n2_sansei",
+   "text": "さんせい"
+  },
+  {
+   "key": "w:n2_hantai",
+   "text": "はんたい"
+  },
+  {
+   "key": "w:n2_teian",
+   "text": "ていあん"
+  },
+  {
+   "key": "w:n2_shuchou",
+   "text": "しゅちょう"
+  },
+  {
+   "key": "w:n2_nattoku",
+   "text": "なっとく"
+  },
+  {
+   "key": "w:n2_tairitsu",
+   "text": "たいりつ"
+  },
+  {
+   "key": "w:n2_kyoumi",
+   "text": "きょうみ"
+  },
+  {
+   "key": "w:n2_juumin",
+   "text": "じゅうみん"
+  },
+  {
+   "key": "w:n2_ryokan",
+   "text": "りょかん"
+  },
+  {
+   "key": "w:n2_onsen",
+   "text": "おんせん"
+  },
+  {
+   "key": "w:n2_okami",
+   "text": "おかみ"
+  },
+  {
+   "key": "w:n2_ketsuron",
+   "text": "けつろん"
+  },
+  {
+   "key": "w:n2_toshokan",
+   "text": "としょかん"
+  },
+  {
+   "key": "w:n2_shiryou",
+   "text": "しりょう"
+  },
+  {
+   "key": "w:n2_rekishi",
+   "text": "れきし"
+  },
+  {
+   "key": "w:n2_sekkeizu",
+   "text": "せっけいず"
+  },
+  {
+   "key": "w:n2_kenchiku",
+   "text": "けんちく"
+  },
+  {
+   "key": "w:n2_daiku",
+   "text": "だいく"
+  },
+  {
+   "key": "w:n2_gijutsu",
+   "text": "ぎじゅつ"
+  },
+  {
+   "key": "w:n2_dentouteki",
+   "text": "でんとうてき"
+  },
+  {
+   "key": "w:n2_kichou",
+   "text": "きちょう"
+  },
+  {
+   "key": "w:n2_hakken",
+   "text": "はっけん"
+  },
+  {
+   "key": "w:n2_shuuzen",
+   "text": "しゅうぜん"
+  },
+  {
+   "key": "w:n2_kakunin",
+   "text": "かくにん"
+  },
+  {
+   "key": "w:n2_kodai",
+   "text": "こだい"
+  },
+  {
+   "key": "w:n2_mokuzai",
+   "text": "もくざい"
+  },
+  {
+   "key": "w:n2_hiyou",
+   "text": "ひよう"
+  },
+  {
+   "key": "w:n2_yosan",
+   "text": "よさん"
+  },
+  {
+   "key": "w:n2_kifu",
+   "text": "きふ"
+  },
+  {
+   "key": "w:n2_futan",
+   "text": "ふたん"
+  },
+  {
+   "key": "w:n2_setsuyaku",
+   "text": "せつやく"
+  },
+  {
+   "key": "w:n2_mitsumori",
+   "text": "みつもり"
+  },
+  {
+   "key": "w:n2_neage",
+   "text": "ねあげ"
+  },
+  {
+   "key": "w:n2_keiei",
+   "text": "けいえい"
+  },
+  {
+   "key": "w:n2_shoubai",
+   "text": "しょうばい"
+  },
+  {
+   "key": "w:n2_rieki",
+   "text": "りえき"
+  },
+  {
+   "key": "w:n2_kakugo",
+   "text": "かくご"
+  },
+  {
+   "key": "w:n2_jouken",
+   "text": "じょうけん"
+  },
+  {
+   "key": "w:n2_yoyuu",
+   "text": "よゆう"
+  },
+  {
+   "key": "w:n2_asaichi",
+   "text": "あさいち"
+  },
+  {
+   "key": "w:n2_fubuki",
+   "text": "ふぶき"
+  },
+  {
+   "key": "w:n2_nadare",
+   "text": "なだれ"
+  },
+  {
+   "key": "w:n2_kiken",
+   "text": "きけん"
+  },
+  {
+   "key": "w:n2_keikoku",
+   "text": "けいこく"
+  },
+  {
+   "key": "w:n2_hinan",
+   "text": "ひなん"
+  },
+  {
+   "key": "w:n2_higai",
+   "text": "ひがい"
+  },
+  {
+   "key": "w:n2_shizen",
+   "text": "しぜん"
+  },
+  {
+   "key": "w:n2_kion",
+   "text": "きおん"
+  },
+  {
+   "key": "w:n2_kyuugeki",
+   "text": "きゅうげき"
+  },
+  {
+   "key": "w:n2_kaifuku",
+   "text": "かいふく"
+  },
+  {
+   "key": "w:n2_fusegu",
+   "text": "ふせぐ"
+  },
+  {
+   "key": "w:n2_sonaeru",
+   "text": "そなえる"
+  },
+  {
+   "key": "w:n2_yuudan",
+   "text": "ゆだん"
+  },
+  {
+   "key": "w:n2_tasukaru",
+   "text": "たすかる"
+  },
+  {
+   "key": "w:n2_kouji",
+   "text": "こうじ"
+  },
+  {
+   "key": "w:n2_sagyou",
+   "text": "さぎょう"
+  },
+  {
+   "key": "w:n2_tejun",
+   "text": "てじゅん"
+  },
+  {
+   "key": "w:n2_koukan",
+   "text": "こうかん"
+  },
+  {
+   "key": "w:n2_hokyou",
+   "text": "ほきょう"
+  },
+  {
+   "key": "w:n2_kansei",
+   "text": "かんせい"
+  },
+  {
+   "key": "w:n2_susumiguai",
+   "text": "すすみぐあい"
+  },
+  {
+   "key": "w:n2_jouhou",
+   "text": "じょうほう"
+  },
+  {
+   "key": "w:n2_renraku",
+   "text": "れんらく"
+  },
+  {
+   "key": "w:n2_taiou",
+   "text": "たいおう"
+  },
+  {
+   "key": "w:n2_jiki",
+   "text": "じき"
+  },
+  {
+   "key": "w:n2_shidai",
+   "text": "しだい"
+  },
+  {
+   "key": "w:n2_ganjou",
+   "text": "がんじょう"
+  },
+  {
+   "key": "w:n2_shinchou",
+   "text": "しんちょう"
+  },
+  {
+   "key": "w:n2_toshikoshi",
+   "text": "としこし"
+  },
+  {
+   "key": "w:n2_shinnen",
+   "text": "しんねん"
+  },
+  {
+   "key": "w:n2_bonnou",
+   "text": "ぼんのう"
+  },
+  {
+   "key": "w:n2_inoru",
+   "text": "いのる"
+  },
+  {
+   "key": "w:n2_negai",
+   "text": "ねがい"
+  },
+  {
+   "key": "w:n2_kansha",
+   "text": "かんしゃ"
+  },
+  {
+   "key": "w:n2_hibiku",
+   "text": "ひびく"
+  },
+  {
+   "key": "w:n2_shizuka",
+   "text": "しずか"
+  },
+  {
+   "key": "w:n2_kagiru",
+   "text": "かぎる"
+  },
+  {
+   "key": "w:n2_ippou",
+   "text": "いっぽう"
+  },
+  {
+   "key": "w:n2_kanarazu",
+   "text": "かならず"
+  },
+  {
+   "key": "w:n2_kokoro",
+   "text": "こころ"
+  },
+  {
+   "key": "w:n2_kizuna",
+   "text": "きずな"
+  },
+  {
+   "key": "w:n2_shiawase",
+   "text": "しあわせ"
+  },
+  {
+   "key": "p:s_yuki_s1",
+   "text": "そんちょうになってじゅうねん、まいとしじょやのかねをきいてきました。"
+  },
+  {
+   "key": "p:s_yuki_s2",
+   "text": "せきにんはおもいけれど、むらのひとがすきだからこそがんばれるの。"
+  },
+  {
+   "key": "p:s_hou_s1",
+   "text": "ほんはじかんをこえてはなしかけてくる。"
+  },
+  {
+   "key": "p:s_hou_s2",
+   "text": "ことばをまなぶとは、あたらしいまどをひらくことにほかならない。"
+  },
+  {
+   "key": "p:s_momi_s1",
+   "text": "あさいちはゆきのひでもやすみませんよ。"
+  },
+  {
+   "key": "p:s_momi_s2",
+   "text": "せつやくはだいじ。でもつかうべきときにはつかうの。"
+  },
+  {
+   "key": "p:s_haku_s1",
+   "text": "きじはじじつにもとづいてかく。それがわたしのしんねんだ。"
+  },
+  {
+   "key": "p:s_haku_s2",
+   "text": "わかいころはとかいのしんぶんしゃにいたんだ。"
+  },
+  {
+   "key": "p:s_koharu_s1",
+   "text": "うちのおんせんはさんびゃくねんわきつづけているのよ。"
+  },
+  {
+   "key": "p:s_koharu_s2",
+   "text": "おきゃくさまのえがおがいちばんのごほうびです。"
+  },
+  {
+   "key": "p:s_popo_s1",
+   "text": "ぼく、としょかんのひみつのへやをしっているよ！"
+  },
+  {
+   "key": "p:s_popo_s2",
+   "text": "いつかホウせんせいみたいに、なんでもしっているフクロウになりたい。"
+  },
+  {
+   "key": "p:s_yuki_hello",
+   "text": "まあ…！このゆきのなか、よくいらっしゃいました。"
+  },
+  {
+   "key": "p:s_yuki_im",
+   "text": "ユキともうします。このさとのそんちょうをつとめております。"
+  },
+  {
+   "key": "p:s_yuki_crack",
+   "text": "じつはせんしゅう、しょうろうのはりにひびがみつかったのです。"
+  },
+  {
+   "key": "p:s_yuki_cant_leave",
+   "text": "おおみそかまでひとつき。このままほうちするわけにはいきません。"
+  },
+  {
+   "key": "p:s_yuki_q",
+   "text": "あなたなら、どうおもいますか。"
+  },
+  {
+   "key": "p:s_me_must_repair",
+   "text": "きけんなら、しゅうりせざるをえないとおもいます。"
+  },
+  {
+   "key": "p:s_me_ignore",
+   "text": "ほうちしてもかまわないとおもいます。"
+  },
+  {
+   "key": "p:s_yuki_hou",
+   "text": "どうじょうのホウせんせいはものしりです。ぜひあってください。"
+  },
+  {
+   "key": "p:s_hou_hello",
+   "text": "ほう…めずらしい。ゆきぐににたびびととは。"
+  },
+  {
+   "key": "p:s_hou_im",
+   "text": "ホウだ。どうじょうととしょかんをあずかっている。"
+  },
+  {
+   "key": "p:s_hou_can_q",
+   "text": "きみは、むずかしいにほんごもよめるのかね？"
+  },
+  {
+   "key": "p:s_me_cant_not",
+   "text": "よめないことはないですが、まだじかんがかかります。"
+  },
+  {
+   "key": "p:s_me_perfect",
+   "text": "かんぺきによめます。"
+  },
+  {
+   "key": "p:s_hou_honest",
+   "text": "しょうじきでよろしい。では、いっしょにまなぼう。しょうろうのなぞもな。"
+  },
+  {
+   "key": "p:s_haku_hello",
+   "text": "おっと、しめきりまえでいそがしいんだ。…きみがうわさのたびびとか！"
+  },
+  {
+   "key": "p:s_haku_survey",
+   "text": "じゅうみんひゃくにんにちょうさをした。そのけっかにもとづいてきじをかいているところだ。"
+  },
+  {
+   "key": "p:s_haku_trigger",
+   "text": "きょねんのなだれをきっかけに、あんぜんをしんぱいするひとがふえたんだ。"
+  },
+  {
+   "key": "p:s_me_based_facts",
+   "text": "じじつにもとづいたきじなら、みんなもなっとくするとおもいます。"
+  },
+  {
+   "key": "p:s_me_make_up",
+   "text": "おもしろくなるようにけっかをかえましょう。"
+  },
+  {
+   "key": "p:s_haku_draft",
+   "text": "そのとおり。このげんこうをそんちょうにとどけてくれないか。"
+  },
+  {
+   "key": "p:s_me_deliver_draft",
+   "text": "ハクさんからきじのげんこうをあずかってきました。"
+  },
+  {
+   "key": "p:s_yuki_read",
+   "text": "ろくわりがしゅうりにさんせい…じゅうみんのいけんがかわりつつあるのね。"
+  },
+  {
+   "key": "p:s_yuki_meeting",
+   "text": "りょかんでむらのかいぎをひらきましょう。あなたもきてください。"
+  },
+  {
+   "key": "p:s_koharu_hello",
+   "text": "あら、ようこそゆきづきりょかんへ。おかみのコハルです。"
+  },
+  {
+   "key": "p:s_koharu_storm",
+   "text": "ふぶきにもかかわらず、こんなにおおぜいあつまってくださって…"
+  },
+  {
+   "key": "p:s_koharu_no_end",
+   "text": "はなしあったものの、けつろんはでませんでしたね。"
+  },
+  {
+   "key": "p:s_koharu_view_q",
+   "text": "あなたはどちらにさんせいですか。"
+  },
+  {
+   "key": "p:s_me_old_precious",
+   "text": "ふるいからこそたいせつにしたい。しゅうりにさんせいです。"
+  },
+  {
+   "key": "p:s_me_dont_care",
+   "text": "どちらでもきょうみがありません。"
+  },
+  {
+   "key": "p:s_koharu_agree",
+   "text": "わたしもです。いけんがちがうからこそ、はなしあいをつづけましょう。"
+  },
+  {
+   "key": "p:s_me_meeting_report",
+   "text": "かいぎではいけんがたいりつして、けつろんがでませんでした。"
+  },
+  {
+   "key": "p:s_hou_records",
+   "text": "ふむ。ひつようなのはいけんではなく、きろくかもしれんな。"
+  },
+  {
+   "key": "p:s_hou_popo",
+   "text": "ポポがとしょかんでなにかみつけたとさわいでいた。はなしをきいてみなさい。"
+  },
+  {
+   "key": "p:s_popo_hi",
+   "text": "わあっ！あ、あなたがたびびとさん？"
+  },
+  {
+   "key": "p:s_popo_found",
+   "text": "としょかんのちかで、ふるいかみをみつけたの！じがむずかしくてよめないけど…"
+  },
+  {
+   "key": "p:s_me_blueprint",
+   "text": "これはしょうろうのせっけいずどころか、だいくのにっきまである！"
+  },
+  {
+   "key": "p:s_me_just_paper",
+   "text": "ただのふるいかみですね。"
+  },
+  {
+   "key": "p:s_popo_proud",
+   "text": "すごい！ぼく、やくにたった？"
+  },
+  {
+   "key": "p:s_me_popo_great",
+   "text": "とてもきちょうなはっけんだよ。ありがとう！"
+  },
+  {
+   "key": "p:s_me_show_blueprint",
+   "text": "ポポくんがしょうろうのせっけいずをみつけました。"
+  },
+  {
+   "key": "p:s_hou_amazing",
+   "text": "なんと…くぎをいっぽんもつかわないでんとうてきなぎじゅつだ。"
+  },
+  {
+   "key": "p:s_hou_not_only",
+   "text": "これがあれば、しゅうりができるばかりか、むかしよりがんじょうにできる。"
+  },
+  {
+   "key": "p:s_me_can_repair",
+   "text": "せっけいずにもとづけば、しょうろうをしゅうりできます！"
+  },
+  {
+   "key": "p:s_yuki_hope",
+   "text": "これはむらにかぎらず、ゆきぐにぜんたいのたからですわ。"
+  },
+  {
+   "key": "p:s_momi_hello",
+   "text": "あら、あさいちへようこそ！モミです。"
+  },
+  {
+   "key": "p:s_momi_worry",
+   "text": "しゅうりのはなしはきいたけど…ひようはどうするの？むらのよさんはすくないのに。"
+  },
+  {
+   "key": "p:s_momi_cheap",
+   "text": "あら、こうじのおおきさのわりにやすいのね！"
+  },
+  {
+   "key": "p:s_momi_still",
+   "text": "でも、たりないぶんはどうする？"
+  },
+  {
+   "key": "p:s_me_donate",
+   "text": "きふをあつめるのはどうですか。ひとりでふたんすることはありません。"
+  },
+  {
+   "key": "p:s_me_raise_price",
+   "text": "あさいちのねだんをねあげしましょう。"
+  },
+  {
+   "key": "p:s_momi_resolve",
+   "text": "そうね。やるからには、わたしもきょうりょくするわ！"
+  },
+  {
+   "key": "p:s_me_ask_donation",
+   "text": "しょうろうのしゅうりのために、きふをあつめています。"
+  },
+  {
+   "key": "p:s_koharu_donate",
+   "text": "もちろん！りょかんのうりあげのいちぶをきふしますわ。"
+  },
+  {
+   "key": "p:s_koharu_no_worry",
+   "text": "おかねのことでしんぱいすることはないわよ。"
+  },
+  {
+   "key": "p:s_haku_warning",
+   "text": "ごうがいだ！こんやはおおきなふぶきになるおそれがある。"
+  },
+  {
+   "key": "p:s_haku_avalanche",
+   "text": "きたのしゃめんではなだれがおきかねない。しょうろうへのみちもきけんだ。"
+  },
+  {
+   "key": "p:s_haku_popo",
+   "text": "それなのに、ポポが「しょうろうをまもる」といってでかけようとしているんだ！"
+  },
+  {
+   "key": "p:s_popo_go",
+   "text": "しょうろうがたおれちゃうかも！ぼくがみにいく！"
+  },
+  {
+   "key": "p:s_me_stop_popo",
+   "text": "いまいくときけんだよ。ふぶきがよわまりつつあるから、あさまでまとう。"
+  },
+  {
+   "key": "p:s_me_go_together",
+   "text": "いっしょにいますぐいこう！"
+  },
+  {
+   "key": "p:s_popo_ok",
+   "text": "…うん。わかった。ゆだんしちゃだめだよね。"
+  },
+  {
+   "key": "p:s_popo_thanks",
+   "text": "とめてくれてありがとう。ほんとうにたすかったよ。"
+  },
+  {
+   "key": "p:s_hou_thanks",
+   "text": "ポポをとめてくれたそうだな。れいをいう。"
+  },
+  {
+   "key": "p:s_hou_nature",
+   "text": "しぜんのまえでは、しんちょうすぎるくらいがちょうどいい。"
+  },
+  {
+   "key": "p:s_yuki_start",
+   "text": "ふぶきがさりました。もくざいがとどきしだい、こうじをはじめます。"
+  },
+  {
+   "key": "p:s_yuki_momi",
+   "text": "モミさんがもくざいをてはいしてくれたの。うけとってきてくれますか。"
+  },
+  {
+   "key": "p:s_me_pickup_timber",
+   "text": "そんちょうにたのまれて、もくざいをうけとりにきました。"
+  },
+  {
+   "key": "p:s_momi_timber",
+   "text": "はい、どうぞ！ゆきのりょうにおうじて、はこびかたをかえてね。きょうはソリがいいわ。"
+  },
+  {
+   "key": "p:s_hou_procedure",
+   "text": "てじゅんをかくにんしたうえで、さぎょうにはいろう。"
+  },
+  {
+   "key": "p:s_hou_done",
+   "text": "かんせいだ。むかしよりがんじょうになった。"
+  },
+  {
+   "key": "p:s_me_no_words",
+   "text": "ことばではいいようがないほどうれしいです。"
+  },
+  {
+   "key": "p:s_yuki_ready",
+   "text": "おおみそかにまにあいました。みなさんをじょやのかねにさそってくれますか。"
+  },
+  {
+   "key": "p:s_me_will_invite_all",
+   "text": "はい、かならずみんなをさそいます。"
+  },
+  {
+   "key": "p:s_me_invite_bell",
+   "text": "おおみそかのよる、しょうろうにきてください。"
+  },
+  {
+   "key": "p:s_momi_come",
+   "text": "いくわ！いそがしいいっぽうで、としこしはかぞくとすごしたいもの。"
+  },
+  {
+   "key": "p:s_haku_come",
+   "text": "いこう。しんぶんのいちめんはきまりだな。「かね、ふたたびひびく」！"
+  },
+  {
+   "key": "p:s_koharu_come",
+   "text": "ええ、かねのあとはおんせんでとしこしそばをごよういしますね。"
+  },
+  {
+   "key": "p:s_hou_ready_q",
+   "text": "じゅんびはととのったかね？"
+  },
+  {
+   "key": "p:s_me_all_coming",
+   "text": "みんなきてくれるそうです！"
+  },
+  {
+   "key": "p:s_hou_exam",
+   "text": "ではさいごにゆきやまのしけんをうけなさい。ごうかくすれば、さいしょのいちだはきみにまかせよう。"
+  },
+  {
+   "key": "p:s_yuki_speak",
+   "text": "さあ、あなたのことばであたらしいとしをむかえてください。"
+  },
+  {
+   "key": "p:s_me_new_year",
+   "text": "みんなのきずなにかんしゃして、あたらしいとしをむかえます。"
+  },
+  {
+   "key": "p:s_yuki_rang",
+   "text": "かねがひびきました！あけましておめでとうございます！"
+  }
+ ],
+ "ja-starlight": [
+  {
+   "key": "w:n1_gekijou",
+   "text": "げきじょう"
+  },
+  {
+   "key": "w:n1_shichou",
+   "text": "しちょう"
+  },
+  {
+   "key": "w:n1_heisa",
+   "text": "へいさ"
+  },
+  {
+   "key": "w:n1_enkaku",
+   "text": "えんかく"
+  },
+  {
+   "key": "w:n1_shinise",
+   "text": "しにせ"
+  },
+  {
+   "key": "w:n1_iyoku",
+   "text": "いよく"
+  },
+  {
+   "key": "w:n1_zentei",
+   "text": "ぜんてい"
+  },
+  {
+   "key": "w:n1_honshitsu",
+   "text": "ほんしつ"
+  },
+  {
+   "key": "w:n1_dokuji",
+   "text": "どくじ"
+  },
+  {
+   "key": "w:n1_miryoku",
+   "text": "みりょく"
+  },
+  {
+   "key": "w:n1_yoin",
+   "text": "よいん"
+  },
+  {
+   "key": "w:n1_butai",
+   "text": "ぶたい"
+  },
+  {
+   "key": "w:n1_kyakuhon",
+   "text": "きゃくほん"
+  },
+  {
+   "key": "w:n1_ikinuku",
+   "text": "いきぬく"
+  },
+  {
+   "key": "w:n1_akutenkou",
+   "text": "あくてんこう"
+  },
+  {
+   "key": "w:n1_hantaiha",
+   "text": "はんたいは"
+  },
+  {
+   "key": "w:n1_chuukoku",
+   "text": "ちゅうこく"
+  },
+  {
+   "key": "w:n1_mushi",
+   "text": "むし"
+  },
+  {
+   "key": "w:n1_konnan",
+   "text": "こんなん"
+  },
+  {
+   "key": "w:n1_norikoeru",
+   "text": "のりこえる"
+  },
+  {
+   "key": "w:n1_kyakuashi",
+   "text": "きゃくあし"
+  },
+  {
+   "key": "w:n1_zattou",
+   "text": "ざっとう"
+  },
+  {
+   "key": "w:n1_hanataba",
+   "text": "はなたば"
+  },
+  {
+   "key": "w:n1_saigo",
+   "text": "さいご"
+  },
+  {
+   "key": "w:n1_kouen",
+   "text": "こうえん"
+  },
+  {
+   "key": "w:n1_mankai",
+   "text": "まんかい"
+  },
+  {
+   "key": "w:n1_ketsui",
+   "text": "けつい"
+  },
+  {
+   "key": "w:n1_kouki",
+   "text": "こうき"
+  },
+  {
+   "key": "w:n1_hihyou",
+   "text": "ひひょう"
+  },
+  {
+   "key": "w:n1_shuppansha",
+   "text": "しゅっぱんしゃ"
+  },
+  {
+   "key": "w:n1_henshuuchou",
+   "text": "へんしゅうちょう"
+  },
+  {
+   "key": "w:n1_kankyaku",
+   "text": "かんきゃく"
+  },
+  {
+   "key": "w:n1_hakushu",
+   "text": "はくしゅ"
+  },
+  {
+   "key": "w:n1_hankyou",
+   "text": "はんきょう"
+  },
+  {
+   "key": "w:n1_kakusan",
+   "text": "かくさん"
+  },
+  {
+   "key": "w:n1_sokuza",
+   "text": "そくざに"
+  },
+  {
+   "key": "w:n1_mamonaku",
+   "text": "まもなく"
+  },
+  {
+   "key": "w:n1_urikireru",
+   "text": "うりきれる"
+  },
+  {
+   "key": "w:n1_kyouretsu",
+   "text": "きょうれつ"
+  },
+  {
+   "key": "w:n1_kanmei",
+   "text": "かんめい"
+  },
+  {
+   "key": "w:n1_zessan",
+   "text": "ぜっさん"
+  },
+  {
+   "key": "w:n1_kochou",
+   "text": "こちょう"
+  },
+  {
+   "key": "w:n1_haikan",
+   "text": "はいかん"
+  },
+  {
+   "key": "w:n1_roukyuuka",
+   "text": "ろうきゅうか"
+  },
+  {
+   "key": "w:n1_chuushi",
+   "text": "ちゅうし"
+  },
+  {
+   "key": "w:n1_enki",
+   "text": "えんき"
+  },
+  {
+   "key": "w:n1_yoginai",
+   "text": "よぎない"
+  },
+  {
+   "key": "w:n1_tettai",
+   "text": "てったい"
+  },
+  {
+   "key": "w:n1_sponsaa",
+   "text": "スポンサー"
+  },
+  {
+   "key": "w:n1_shien",
+   "text": "しえん"
+  },
+  {
+   "key": "w:n1_uttaeru",
+   "text": "うったえる"
+  },
+  {
+   "key": "w:n1_nesshin",
+   "text": "ねっしん"
+  },
+  {
+   "key": "w:n1_negau",
+   "text": "ねがう"
+  },
+  {
+   "key": "w:n1_zetsubou",
+   "text": "ぜつぼう"
+  },
+  {
+   "key": "w:n1_kiseki",
+   "text": "きせき"
+  },
+  {
+   "key": "w:n1_kiki",
+   "text": "きき"
+  },
+  {
+   "key": "w:n1_bisutoro",
+   "text": "ビストロ"
+  },
+  {
+   "key": "w:n1_ryourichou",
+   "text": "りょうりちょう"
+  },
+  {
+   "key": "w:n1_shunnoshokuzai",
+   "text": "しゅんのしょくざい"
+  },
+  {
+   "key": "w:n1_kodawari",
+   "text": "こだわり"
+  },
+  {
+   "key": "w:n1_jouren",
+   "text": "じょうれん"
+  },
+  {
+   "key": "w:n1_nigiwai",
+   "text": "にぎわい"
+  },
+  {
+   "key": "w:n1_gyoukai",
+   "text": "ぎょうかい"
+  },
+  {
+   "key": "w:n1_yakusha",
+   "text": "やくしゃ"
+  },
+  {
+   "key": "w:n1_tokai",
+   "text": "とかい"
+  },
+  {
+   "key": "w:n1_kyousou",
+   "text": "きょうそう"
+  },
+  {
+   "key": "w:n1_bukka",
+   "text": "ぶっか"
+  },
+  {
+   "key": "w:n1_gyakkyou",
+   "text": "ぎゃっきょう"
+  },
+  {
+   "key": "w:n1_shiren",
+   "text": "しれん"
+  },
+  {
+   "key": "w:n1_kaku",
+   "text": "かく"
+  },
+  {
+   "key": "w:n1_yume",
+   "text": "ゆめ"
+  },
+  {
+   "key": "w:n1_joyuu",
+   "text": "じょゆう"
+  },
+  {
+   "key": "w:n1_tachiiri",
+   "text": "たちいり"
+  },
+  {
+   "key": "w:n1_kinshi",
+   "text": "きんし"
+  },
+  {
+   "key": "w:n1_kodou",
+   "text": "こうどう"
+  },
+  {
+   "key": "w:n1_kokorogamae",
+   "text": "こころがまえ"
+  },
+  {
+   "key": "w:n1_reigi",
+   "text": "れいぎ"
+  },
+  {
+   "key": "w:n1_tsutsushimu",
+   "text": "つつしむ"
+  },
+  {
+   "key": "w:n1_tassei",
+   "text": "たっせい"
+  },
+  {
+   "key": "w:n1_kiwameru",
+   "text": "きわめる"
+  },
+  {
+   "key": "w:n1_soudai",
+   "text": "そうだい"
+  },
+  {
+   "key": "w:n1_jishin",
+   "text": "じしん"
+  },
+  {
+   "key": "w:n1_kinchou",
+   "text": "きんちょう"
+  },
+  {
+   "key": "w:n1_keiko",
+   "text": "けいこ"
+  },
+  {
+   "key": "w:n1_kakinaosu",
+   "text": "かきなおす"
+  },
+  {
+   "key": "w:n1_sakuhin",
+   "text": "さくひん"
+  },
+  {
+   "key": "w:n1_hyougen",
+   "text": "ひょうげん"
+  },
+  {
+   "key": "w:n1_kanjou",
+   "text": "かんじょう"
+  },
+  {
+   "key": "w:n1_kousei",
+   "text": "こうせい"
+  },
+  {
+   "key": "w:n1_shudai",
+   "text": "しゅだい"
+  },
+  {
+   "key": "w:n1_imi",
+   "text": "いみ"
+  },
+  {
+   "key": "w:n1_shinrai",
+   "text": "しんらい"
+  },
+  {
+   "key": "w:n1_hyouka",
+   "text": "ひょうか"
+  },
+  {
+   "key": "w:n1_kuchou",
+   "text": "くちょう"
+  },
+  {
+   "key": "w:n1_kirai",
+   "text": "きらい"
+  },
+  {
+   "key": "w:n1_ketten",
+   "text": "けってん"
+  },
+  {
+   "key": "w:n1_kachi",
+   "text": "かち"
+  },
+  {
+   "key": "w:n1_kanpeki",
+   "text": "かんぺき"
+  },
+  {
+   "key": "w:n1_maku",
+   "text": "まく"
+  },
+  {
+   "key": "w:n1_kaien",
+   "text": "かいえん"
+  },
+  {
+   "key": "w:n1_kaatenkooru",
+   "text": "カーテンコール"
+  },
+  {
+   "key": "w:n1_kansei",
+   "text": "かんせい"
+  },
+  {
+   "key": "w:n1_kandou",
+   "text": "かんどう"
+  },
+  {
+   "key": "w:n1_namida",
+   "text": "なみだ"
+  },
+  {
+   "key": "w:n1_hokori",
+   "text": "ほこり"
+  },
+  {
+   "key": "w:n1_kuyamu",
+   "text": "くやむ"
+  },
+  {
+   "key": "w:n1_shuuen",
+   "text": "しゅうえん"
+  },
+  {
+   "key": "w:n1_fukkatsu",
+   "text": "ふっかつ"
+  },
+  {
+   "key": "w:n1_denpatou",
+   "text": "でんぱとう"
+  },
+  {
+   "key": "w:n1_mabayui",
+   "text": "まばゆい"
+  },
+  {
+   "key": "w:n1_shukufuku",
+   "text": "しゅくふく"
+  },
+  {
+   "key": "w:n1_kane",
+   "text": "かね"
+  },
+  {
+   "key": "p:x_kuro_s1",
+   "text": "こどものころ、はじめてみたしばいがほしあかりざだった。"
+  },
+  {
+   "key": "p:x_kuro_s2",
+   "text": "しちょうといえども、ひとりのかんきゃくにすぎないのです。"
+  },
+  {
+   "key": "p:x_shiba_s1",
+   "text": "ことばはけずればけずるほどつよくなる。"
+  },
+  {
+   "key": "p:x_shiba_s2",
+   "text": "あのきゃくほんは、わかいころのみじゅくさにほかならない。"
+  },
+  {
+   "key": "p:x_mike_s1",
+   "text": "はなたばには、ことばにできないきもちをこめるの。"
+  },
+  {
+   "key": "p:x_mike_s2",
+   "text": "あめのひもかぜのひも、みせはあけてきたわ。"
+  },
+  {
+   "key": "p:x_pochi_s1",
+   "text": "みだしはさんびょうできめる。それがプロだ！"
+  },
+  {
+   "key": "p:x_pochi_s2",
+   "text": "おおげさにかくきらいがあるって、よくいわれるんだよな。"
+  },
+  {
+   "key": "p:x_leo_s1",
+   "text": "しゅんのしょくざいしかつかわない。それがぼくのこだわりだ。"
+  },
+  {
+   "key": "p:x_leo_s2",
+   "text": "はらがへっていては、いいしばいはできないからね。"
+  },
+  {
+   "key": "p:x_coco_s1",
+   "text": "いつかほしあかりざのぶたいにたつのがゆめなの！"
+  },
+  {
+   "key": "p:x_coco_s2",
+   "text": "きんちょうすると、しっぽがかってにうごいちゃうの。"
+  },
+  {
+   "key": "p:x_kuro_hello",
+   "text": "おや…！しつれい、みなれないかただったもので。"
+  },
+  {
+   "key": "p:x_kuro_im",
+   "text": "しちょうのクロともうします。ほしあかりのまちへようこそ。"
+  },
+  {
+   "key": "p:x_kuro_closing",
+   "text": "ざんねんながら、ひゃくねんつづいたほしあかりざがこんきでへいさされるのです。"
+  },
+  {
+   "key": "p:x_kuro_unique",
+   "text": "あのげきじょうならではのよいんは、ほかのどこにもない。"
+  },
+  {
+   "key": "p:x_kuro_q",
+   "text": "しばいはおすきですか。"
+  },
+  {
+   "key": "p:x_me_love_theater",
+   "text": "はい。なまのぶたいならではのかんどうがすきです。"
+  },
+  {
+   "key": "p:x_me_theater_boring",
+   "text": "げきじょうはへいさされてとうぜんです。"
+  },
+  {
+   "key": "p:x_kuro_shiba",
+   "text": "では、どうじょうのシバせんせいをたずねてください。あのげきじょうのめいさくをかいたかたです。"
+  },
+  {
+   "key": "p:x_shiba_hello",
+   "text": "む…きゃくか。めずらしいな。"
+  },
+  {
+   "key": "p:x_shiba_play",
+   "text": "ほしあかりざがしまるときいた。しにせといえども、じだいにはかてんか。"
+  },
+  {
+   "key": "p:x_shiba_q",
+   "text": "きみはなにをもとめてここへきた？"
+  },
+  {
+   "key": "p:x_me_seek_essence",
+   "text": "ことばのほんしつをまなびたくてきました。"
+  },
+  {
+   "key": "p:x_me_seek_nothing",
+   "text": "とくにいよくはありません。"
+  },
+  {
+   "key": "p:x_shiba_ok",
+   "text": "ふん、おおきくでたな。おもしろい。きたえてやろう。"
+  },
+  {
+   "key": "p:x_mike_hello",
+   "text": "いらっしゃい！あら、しんがおね。ミケよろしく！"
+  },
+  {
+   "key": "p:x_mike_typhoon",
+   "text": "たいふうがきているのに、げきじょうのまえにはながいれつができているのよ。"
+  },
+  {
+   "key": "p:x_mike_last",
+   "text": "さいごのこうえんとあって、みんなひっしなのね。"
+  },
+  {
+   "key": "p:x_me_undaunted",
+   "text": "みんなたいふうをものともせずならんでいるんですね。"
+  },
+  {
+   "key": "p:x_me_go_home",
+   "text": "あぶないから、みんなかえるべきです。"
+  },
+  {
+   "key": "p:x_mike_bouquet",
+   "text": "このはなたばをげきじょうにとどけてくれる？まいとしのやくそくなの。"
+  },
+  {
+   "key": "p:x_me_bring_bouquet",
+   "text": "ミケさんからげきじょうへのはなたばをあずかってきました。"
+  },
+  {
+   "key": "p:x_kuro_moved",
+   "text": "しゅういのしんぱいをよそに、かのじょはにじゅうねんかかさずはなをとどけてくれる。"
+  },
+  {
+   "key": "p:x_kuro_hope",
+   "text": "このねっき…もしかしたら、まだのぞみはあるかもしれません。"
+  },
+  {
+   "key": "p:x_pochi_hello",
+   "text": "うおっ！きみか、げきじょうにはなをとどけたのは！ポチだ、しゅうかんほしあかりの！"
+  },
+  {
+   "key": "p:x_pochi_viral",
+   "text": "ぼくのひひょうがでるやいなや、だいはんきょうだ！「みのがすべからず」とかいたからな！"
+  },
+  {
+   "key": "p:x_pochi_sold",
+   "text": "ついかこうえんのはっぴょうがはやいか、きっぷはかんばいさ！"
+  },
+  {
+   "key": "p:x_pochi_q",
+   "text": "きみはどうおもう？ぼくのきじはこちょうだというひともいるが…"
+  },
+  {
+   "key": "p:x_me_not_exaggerate",
+   "text": "かんきゃくのはくしゅをきけば、こちょうではないとわかります。"
+  },
+  {
+   "key": "p:x_me_all_lies",
+   "text": "ぜんぶうそだとおもいます。"
+  },
+  {
+   "key": "p:x_me_review_news",
+   "text": "ポチさんのひひょうをよんだひとが、げきじょうにおしよせています。"
+  },
+  {
+   "key": "p:x_shiba_grumble",
+   "text": "ふん。あいつはおおげさにかくきらいがあるが…"
+  },
+  {
+   "key": "p:x_shiba_soft",
+   "text": "かんきゃくがもどってくるのは、わるくない。"
+  },
+  {
+   "key": "p:x_kuro_disaster",
+   "text": "たいへんです。こうえんちゅうにはいかんがはれつして、げきじょうはきゅうかんをよぎなくされました。"
+  },
+  {
+   "key": "p:x_kuro_sponsor",
+   "text": "スポンサーもてったいをかんがえているそうです。ぜつぼうてきです…"
+  },
+  {
+   "key": "p:x_me_appeal",
+   "text": "まちのひとにしえんをうったえましょう。このねっきはひとをうごかさずにはおかないはずです。"
+  },
+  {
+   "key": "p:x_me_give_up",
+   "text": "もうあきらめるしかありません。"
+  },
+  {
+   "key": "p:x_kuro_resolve",
+   "text": "…そうですね。さいかいをねがってやまないしみんがいるのですから。"
+  },
+  {
+   "key": "p:x_me_ask_article",
+   "text": "げきじょうのききについて、きじをかいていただけませんか。"
+  },
+  {
+   "key": "p:x_pochi_yes",
+   "text": "まかせろ！こんどはこちょうなしで、じじつだけをかく。それでじゅうぶんこころをうつはずだ！"
+  },
+  {
+   "key": "p:x_leo_hello",
+   "text": "…いらっしゃい。きみがうわさの。レオだ。"
+  },
+  {
+   "key": "p:x_leo_actors",
+   "text": "げきじょうがしまってから、やくしゃたちはまいばんここにあつまっている。"
+  },
+  {
+   "key": "p:x_leo_hard",
+   "text": "ぶっかのたかいとかいにあって、やくしゃのくらしはらくじゃない。わかてにいたっては、しょくじもまんぞくにとれない。"
+  },
+  {
+   "key": "p:x_me_leo_kind",
+   "text": "だからレオさんはやすいねだんでりょうりをだしているんですね。"
+  },
+  {
+   "key": "p:x_me_raise_price2",
+   "text": "ねだんをあげるべきです。"
+  },
+  {
+   "key": "p:x_leo_weekend",
+   "text": "しゅうまつともなると、まんせきでたいへんだがな。"
+  },
+  {
+   "key": "p:x_leo_benefit",
+   "text": "げきじょうのために、ひとばんだけのとくべつディナーをひらこうとおもう。うりあげはぜんぶきふだ。"
+  },
+  {
+   "key": "p:x_me_help_dinner",
+   "text": "わたしもてつだいます！"
+  },
+  {
+   "key": "p:x_leo_thanks",
+   "text": "ぎゃっきょうにあってこそ、ひとはだんけつするものだな。"
+  },
+  {
+   "key": "p:x_coco_hi",
+   "text": "きゃっ！び、びっくりした…"
+  },
+  {
+   "key": "p:x_coco_secret",
+   "text": "じつはね…まいばん、しまったげきじょうにこっそりはいって、ぶたいでけいこしているの。"
+  },
+  {
+   "key": "p:x_coco_sign",
+   "text": "とびらには「たちいるべからず」ってかいてあるのはしっているけど…"
+  },
+  {
+   "key": "p:x_me_not_proper",
+   "text": "ゆめはわかるけど、むだんではいるのはやくしゃとしてあるまじきことだよ。"
+  },
+  {
+   "key": "p:x_me_sneak_too",
+   "text": "わたしもいっしょにしのびこむよ。"
+  },
+  {
+   "key": "p:x_coco_sorry",
+   "text": "…そうだよね。ごめんなさい。でも、ゆめをかなえんがために、どうしてもぶたいにたちたかったの。"
+  },
+  {
+   "key": "p:x_me_tell_coco",
+   "text": "ココちゃんがよる、ぶたいでひとりでけいこしていました。"
+  },
+  {
+   "key": "p:x_shiba_young",
+   "text": "わかいな…むかしのおれとおなじだ。"
+  },
+  {
+   "key": "p:x_shiba_rule",
+   "text": "きそくをやぶったのはいかん。が、そのじょうねつはほんものだ。あってみよう。"
+  },
+  {
+   "key": "p:x_shiba_rewrite",
+   "text": "きめた。さいかいこうえんのため、おれのふるいきゃくほんをかきなおす。"
+  },
+  {
+   "key": "p:x_shiba_flaw",
+   "text": "むかしのおれは、せりふでぜんぶせつめいするきらいがあった。"
+  },
+  {
+   "key": "p:x_shiba_help_q",
+   "text": "きみのめでよんでくれ。どこをけずるべきだ？"
+  },
+  {
+   "key": "p:x_me_cut_lines",
+   "text": "せりふをへらして、ちんもくでかんじょうをひょうげんしてはどうですか。"
+  },
+  {
+   "key": "p:x_me_add_more",
+   "text": "もっとせつめいをふやすべきです。"
+  },
+  {
+   "key": "p:x_shiba_yes",
+   "text": "それだ。ことばはけずればけずるほどつよくなる。"
+  },
+  {
+   "key": "p:x_me_new_script",
+   "text": "シバせんせいがきゃくほんをかきなおしました。よんでみてください。"
+  },
+  {
+   "key": "p:x_pochi_wow",
+   "text": "…すごい。けってんがひとつもない。これはさいえんにたるけっさくだ！"
+  },
+  {
+   "key": "p:x_pochi_good_news",
+   "text": "スポンサーももどってきたし、はいかんもなおった。いいことずくめだな！"
+  },
+  {
+   "key": "p:x_me_coco_role",
+   "text": "シバせんせいからのでんごんだよ。あたらしいきゃくほんに、ココちゃんのやくがあるって！"
+  },
+  {
+   "key": "p:x_coco_role",
+   "text": "え…ほんとう？わ、わたしがほしあかりざのぶたいに？"
+  },
+  {
+   "key": "p:x_coco_tears",
+   "text": "きんちょうしながらも、せいいっぱいがんばります！"
+  },
+  {
+   "key": "p:x_kuro_reopen",
+   "text": "ほしあかりざ、さいかいがきまりました！しょにちのよる、みなさんをしょうたいしたいのです。"
+  },
+  {
+   "key": "p:x_me_invite_all2",
+   "text": "わたしがみなさんをおさそいします。"
+  },
+  {
+   "key": "p:x_me_invite_opening",
+   "text": "ほしあかりざのしょにちに、ぜひいらしてください。"
+  },
+  {
+   "key": "p:x_mike_come",
+   "text": "もちろん！ことしはいちばんおおきなはなたばをつくるわ！きょねんもっとはやくこえをあげていればよかったものを…"
+  },
+  {
+   "key": "p:x_pochi_come",
+   "text": "いくにきまっている！みだしはもうかんがえてある。「ほしあかり、ふたたび」！"
+  },
+  {
+   "key": "p:x_leo_come",
+   "text": "しゅうえんのあと、ぜんいんにりょうりをふるまおう。こんやはぼくのおごりだ。"
+  },
+  {
+   "key": "p:x_shiba_ready_q",
+   "text": "じゅんびはいいか。"
+  },
+  {
+   "key": "p:x_me_ready_all",
+   "text": "はい。みんなきてくれるそうです。"
+  },
+  {
+   "key": "p:x_shiba_exam",
+   "text": "ではさいごにほしあかりのしけんをうけろ。ごうかくすれば、かいえんのかねはきみがならせ。"
+  },
+  {
+   "key": "p:x_kuro_speak",
+   "text": "さあ、あなたのことばでまくをあけてください。"
+  },
+  {
+   "key": "p:x_me_curtain_up",
+   "text": "このげきじょうがふたたびかがやくのは、みなさんのおかげにほかなりません。"
+  },
+  {
+   "key": "p:x_kuro_rang",
+   "text": "かねがなりました！かいえんです！"
+  }
  ]
 }

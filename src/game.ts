@@ -34,10 +34,11 @@ import { button, centerCard, confetti, holdCards, fadeThrough, h, toast, ui } fr
 import { playerSpec } from './ui/onboarding';
 import { openMap } from './ui/map';
 import { openDojo } from './ui/dojoui';
-import { buildClover, CLOVER_SPOTS, type Town } from './world/towns/clover';
+import { buildTown, TOWN_SPOTS, type Town } from './world/towns/build';
 import { makeGraph } from './world/actors';
-import { CLOVER, registerClover } from './content/towns/clover';
-import { buildSession, grammarFor, townState, lessonsDone, type SessionKind } from './learning/dojo';
+import { isTown, registerTowns, townById, TOWNS } from './content/towns';
+import type { TownContent } from './content/towns/types';
+import { buildSession, setDojoTown, grammarFor, townState, lessonsDone, type SessionKind } from './learning/dojo';
 import { activeQuests, finishDojo, startTown } from './core/progress';
 import { openPass } from './ui/pass';
 import { showBedtime } from './ui/bedtime';
@@ -85,7 +86,9 @@ export class Game {
   private seat: { x: number; z: number; ry: number } | null = null;
   private bedtime: { close: () => void } | null = null;
   /** Which outdoor area the player is in: the starter village or a Village Pass town. */
-  place: 'home' | 'clover' = 'home';
+  place: string = 'home';
+  private townDef: TownContent = TOWNS[0];
+  private townCache = new Map<string, { town: Town; npcs: Npc[]; amb: Ambience }>();
   private town: Town | null = null;
   private townNpcs: Npc[] = [];
   private townAmb: Ambience | null = null;
@@ -174,38 +177,47 @@ export class Game {
       player: () => ({ x: this.player!.pos.x, z: this.player!.pos.z }),
       villagers: () => (this.place === 'home' ? this.npcs : []).map((n) => ({ icon: n.def.species, x: n.pos.x, z: n.pos.z })),
       place: this.place,
-      canTravel: (id) => id === 'clover' && this.hasPass(),
-      travel: (id) => { void this.travel(id as 'clover' | 'home'); },
+      canTravel: (id) => isTown(id) && this.hasPass(),
+      travel: (id) => { void this.travel(id); },
     }, () => this.setBusy(false));
   }
 
   // ------------------------------------------------------------ towns
   /** The outdoor area the player is standing in. */
-  area(): Village { return this.place === 'clover' && this.town ? this.town : this.village; }
-  activeNpcs(): Npc[] { return this.place === 'clover' ? this.townNpcs : this.npcs; }
+  area(): Village { return this.inTown() && this.town ? this.town : this.village; }
+  activeNpcs(): Npc[] { return this.inTown() ? this.townNpcs : this.npcs; }
+  inTown() { return this.place !== 'home'; }
 
-  private ensureClover() {
-    if (this.town) return this.town;
-    registerClover();
-    const kana = S().settings.jaScript === 'kana';
-    this.town = buildClover(this.season, kana
-      ? { hall: 'まちやくば', post: 'ゆうびんきょく', restaurant: 'レストラン', dojo: 'どうじょう', market: 'いちば' }
-      : { hall: '町役場', post: '郵便局', restaurant: 'レストラン', dojo: '道場', market: '市場' });
-    this.town.group.visible = false;
-    this.scene.add(this.town.group);
-    const graph = makeGraph(this.town.nodes, this.town.edges);
-    this.townNpcs = CLOVER.npcs.map((d) => { const n = new Npc(d, graph); n.snap(this.hour()); n.plush.root.visible = false; this.scene.add(n.plush.root); return n; });
-    this.townAmb = new Ambience(this.weather, this.season, this.town.fountainTop, this.town.chimneys);
-    this.townAmb.group.visible = false;
-    this.scene.add(this.townAmb.group);
-    for (const n of this.townNpcs) n.onGreet = (npc) => { if (S().settings.blips && !this.busy) audio.emote('hi', npc.def.voice.pitch, 0.7, (npc.pos.x - this.player!.pos.x) / 6); };
+  /** Builds a town the first time you visit it, then reuses it. */
+  private ensureTown(id: string) {
+    registerTowns();
+    const def = townById(id) ?? TOWNS[0];
+    let c = this.townCache.get(def.id);
+    if (!c) {
+      const kana = S().settings.jaScript === 'kana';
+      const sg = (m: string) => plainText(m, 'ja', renderOpts(), kana ? 'kana' : 'kanji');
+      const town = buildTown(def.theme, this.season, { hall: sg(def.signs.hall), post: sg(def.signs.post), restaurant: sg(def.signs.restaurant), dojo: sg(def.signs.dojo), market: sg(def.signs.market) });
+      town.group.visible = false;
+      this.scene.add(town.group);
+      const graph = makeGraph(town.nodes, town.edges);
+      const npcs = def.npcs.map((d) => { const n = new Npc(d, graph); n.snap(this.hour()); n.plush.root.visible = false; this.scene.add(n.plush.root); return n; });
+      const amb = new Ambience(this.weather, def.theme === 'snowcap' ? 'winter' : this.season, town.fountainTop, town.chimneys);
+      amb.group.visible = false;
+      this.scene.add(amb.group);
+      for (const n of npcs) n.onGreet = (npc) => { if (S().settings.blips && !this.busy) audio.emote('hi', npc.def.voice.pitch, 0.7, (npc.pos.x - this.player!.pos.x) / 6); };
+      c = { town, npcs, amb };
+      this.townCache.set(def.id, c);
+    }
+    this.townDef = def;
+    this.town = c.town; this.townNpcs = c.npcs; this.townAmb = c.amb;
+    setDojoTown(def.id);
     this.updateTownRoutines();
-    return this.town;
+    return c.town;
   }
 
   /** Mimi wanders off to the park during chapter 6, then goes home with you. */
   private updateTownRoutines(mimiFound = false) {
-    const mimi = CLOVER.npcs.find((n) => n.id === 'mimi');
+    const mimi = townById('clover')!.npcs.find((n) => n.id === 'mimi');
     if (!mimi) return;
     const st = qs('clover_6');
     const lost = !mimiFound && st?.state === 'active' && st.step >= 1 && st.step <= 3;
@@ -213,25 +225,33 @@ export class Game {
   }
 
   /** Bus travel between the starter village and the pass towns. */
-  async travel(to: 'home' | 'clover', instant = false) {
-    if (to === 'clover' && !this.hasPass()) { openPass(); return; }
+  async travel(to: string, instant = false) {
+    if (to !== 'home' && !isTown(to)) return;
+    if (to !== 'home' && !this.hasPass()) { openPass(); return; }
     this.standUp();
     this.setBusy(true);
     const swap = () => {
-      const goingToTown = to === 'clover';
-      if (goingToTown) this.ensureClover();
+      const goingToTown = to !== 'home';
+      // hide whatever town we were in
+      if (this.town) this.town.group.visible = false;
+      for (const n of this.townNpcs) n.plush.root.visible = false;
+      if (this.townAmb) this.townAmb.group.visible = false;
+      if (goingToTown) this.ensureTown(to);
       this.place = to;
       this.village.group.visible = !goingToTown;
       for (const n of this.npcs) n.plush.root.visible = !goingToTown;
       this.amb.group.visible = !goingToTown;
-      if (this.town) this.town.group.visible = goingToTown;
-      for (const n of this.townNpcs) n.plush.root.visible = goingToTown;
-      if (this.townAmb) this.townAmb.group.visible = goingToTown;
+      if (goingToTown) {
+        this.town!.group.visible = true;
+        for (const n of this.townNpcs) n.plush.root.visible = true;
+        this.townAmb!.group.visible = true;
+      }
       this.refreshPickups();
-      const [x, z] = goingToTown ? CLOVER_SPOTS.spawn : [1.2, 22.2];
+      const [x, z] = goingToTown ? TOWN_SPOTS.spawn : [1.2, 22.2];
       this.player!.pos.set(x, 0, z);
       this.player!.plush.targetYaw = Math.PI;
       S().player.place = to; S().player.x = x; S().player.z = z;
+      voicePack.setTown(to);
       store.touch('travel');
       if (this.hud) this.hud.place = to;
       this.hud?.refresh();
@@ -239,9 +259,9 @@ export class Game {
     };
     if (instant) swap(); else { audio.door(); await fadeThrough(swap); }
     this.setBusy(false);
-    if (to === 'clover' && startTown('clover')) {
+    if (to !== 'home' && startTown(to)) {
       this.updateTownRoutines();
-      setTimeout(() => this.narrate([t('arriveClover')], '🚌'), 400);
+      setTimeout(() => this.narrate([pick(this.townDef.arrive)], '🚌'), 400);
     }
   }
 
@@ -251,7 +271,7 @@ export class Game {
     openDojo({
       portrait: (id) => this.portrait(id),
       run: (kind, unit) => void this.runDojo(kind, unit),
-      examOpen: () => lessonsDone() >= CLOVER.units || qs('clover_9')?.state === 'active' || townState().examBest > 0,
+      examOpen: () => lessonsDone() >= this.townDef.units || qs(this.townDef.finaleQuest)?.state === 'active' || townState().examBest > 0,
     }, () => { if (!this.dojoRunning) this.setBusy(false); });
   }
   private dojoRunning = false;
@@ -261,7 +281,7 @@ export class Game {
     this.dojoRunning = true;
     this.setBusy(true);
     holdCards(true);
-    const kero = this.townNpcs.find((n) => n.def.id === 'kero');
+    const kero = this.townNpcs.find((n) => n.def.id === this.townDef.sensei);
     if (kero) { this.focusNpc = kero; kero.talking = true; }
     const dlg = new Dialogue(kero ? this.speakerFor(kero) : null, { effect: () => {} }, { closable: true });
     try {
@@ -274,7 +294,7 @@ export class Game {
       const qs2 = buildSession(kind, unit);
       const sections: Record<string, { c: number; n: number }> = {};
       let correct = 0, answered = 0;
-      const label = kind === 'exam' ? t('examTitle') : kind === 'lesson' ? `${t('lessonKicker')} ${unit}` : '';
+      const label = kind === 'exam' ? pick(this.townDef.examTitle) : kind === 'lesson' ? `${t('lessonKicker')} ${unit}` : '';
       for (let i = 0; i < qs2.length; i++) {
         const ok = await Promise.race([dlg.dojo(qs2[i], { i, n: qs2.length, label }), new Promise<null>((r) => { const iv = setInterval(() => { if (!dlg.root.isConnected) { clearInterval(iv); r(null); } }, 300); })]);
         if (ok === null) break;
@@ -296,7 +316,7 @@ export class Game {
       }
       if (kind === 'exam') {
         ts.examBest = Math.max(ts.examBest, pct);
-        if (pct >= 80) { ts.examPassed = true; title = t('examPassed'); sub += ' · ' + t('examPassedSub'); big = '🏅'; finishDojo('exam'); }
+        if (pct >= 80) { ts.examPassed = true; title = t('examPassed'); sub += ' · ' + pick(this.townDef.examPassedSub); big = '🏅'; finishDojo('exam'); }
         else {
           title = t('examFailed'); big = '🌱';
           const names: Record<string, string> = { vocab: t('dojoVocab'), kanji: t('dojoKanji'), grammar: t('dojoGrammar'), reading: t('dojoReading'), listening: t('dojoListening') };
@@ -328,7 +348,7 @@ export class Game {
     confetti(120);
     if (this.town) for (let i = 0; i < 4; i++) setTimeout(() => this.burst.emit('sparkle', new THREE.Vector3((Math.random() - 0.5) * 6, 9, (Math.random() - 0.5) * 4), 8), i * 400);
     for (const n of this.townNpcs) n.plush.hop(2.4);
-    toast('🔔', t('bellRang'), t('bellRangSub'), 6000);
+    toast('🔔', pick(this.townDef.finaleTitle), pick(this.townDef.finaleSub), 6000);
   }
 
   /** Copy the live player position into the save (called before the app is hidden or closed). */
@@ -379,7 +399,7 @@ export class Game {
     this.mode = 'village';
     this.snapCamera();
     if (playerLevel() >= 2) this.openForest(false);
-    if (S().player.place === 'clover' && this.hasPass()) void this.travel('clover', true);
+    if (isTown(S().player.place) && this.hasPass()) void this.travel(S().player.place!, true);
     this.refreshPickups();
     this.wireEvents();
     speech.onMissing = (lang) => voicePack.ready() ? undefined : toast('🔇', t('noVoice', { lang: langInfo(lang).autonym }), undefined, 4500);
@@ -516,18 +536,19 @@ export class Game {
     area.glowMat.emissiveIntensity = night * 1.4;
     for (const l of area.lamps) l.intensity = night * 14;
     for (const w of area.waters) { w.offset.x = t * 0.012; w.offset.y = t * 0.008; }
-    if (this.town && this.place === 'clover') {
-      this.town.windmill.rotation.z += dt * 0.6;
+    if (this.town && this.inTown()) {
+      const sp = this.town.spinner; sp.obj.rotation[sp.axis] += dt * sp.speed;
+      for (const o of this.town.group.children) if (o.userData.steam !== undefined) { const k = ((t * 0.25 + o.userData.steam) % 1); o.position.y = 0.4 + k * 2.6; o.scale.setScalar(0.4 + k * 0.9); ((o as THREE.Mesh).material as THREE.MeshBasicMaterial).opacity = 0.4 * (1 - k); }
       if (this.bellSwing > 0) { this.bellSwing -= dt; this.town.bell.rotation.z = Math.sin(t * 9) * 0.45 * Math.min(1, this.bellSwing); }
     }
     audio.setMood(night > 0.7 ? 'night' : hour >= 17 ? 'evening' : 'day');
     audio.setRain(this.weather === 'rainy' && this.mode === 'village');
-    (this.place === 'clover' && this.townAmb ? this.townAmb : this.amb).update(dt, t, focus, night);
+    (this.inTown() && this.townAmb ? this.townAmb : this.amb).update(dt, t, focus, night);
     this.burst.update(dt);
     for (const p of this.pickups) { p.sparkle.update(t); p.obj.position.y = 0.6 + Math.sin(t * 2.5) * 0.1; p.obj.rotation.y = t; }
 
     const walk: Walkable = {
-      colliders: area.colliders, isWater: area.isWater, bounds: this.place === 'clover' && this.town ? this.town.bounds : BOUNDS,
+      colliders: area.colliders, isWater: area.isWater, bounds: this.inTown() && this.town ? this.town.bounds : BOUNDS,
       ignoreTags: this.village.log.visible || this.place !== 'home' ? undefined : new Set(['log']),
       dynamic: this.activeNpcs().map((n) => ({ x: n.pos.x, z: n.pos.z, r: 0.45 })),
     };
@@ -603,14 +624,14 @@ export class Game {
     for (const b of this.area().benches) {
       list.push({ icon: '🪑', label: t('sit'), x: b.x + Math.sin(b.ry) * 0.9, z: b.z + Math.cos(b.ry) * 0.9, r: 1.4, pri: -0.3, use: () => this.sitDown(b) });
     }
-    if (this.place === 'clover') {
+    if (this.inTown()) {
       for (const n of this.townNpcs) {
         const q = !!questTalk(n.def.id);
         list.push({ icon: q ? '❗' : '💬', label: `${t('talk')} · ${this.npcName(n.def)}`, x: n.pos.x, z: n.pos.z, r: 2.6, pri: q ? 2 : 0.8, use: () => this.talkTo(n) });
       }
-      const [dx, dz] = CLOVER_SPOTS.dojoDoor;
+      const [dx, dz] = TOWN_SPOTS.dojoDoor;
       list.push({ icon: '🥋', label: t('enterDojo'), x: dx, z: dz + 0.6, r: 2.0, pri: 1.5, use: () => this.openDojoSheet() });
-      const [bx, bz] = CLOVER_SPOTS.bus;
+      const [bx, bz] = TOWN_SPOTS.bus;
       list.push({ icon: '🚌', label: t('goHome'), x: bx, z: bz, r: 1.8, use: () => void this.travel('home') });
       return list;
     }
@@ -658,7 +679,7 @@ export class Game {
     for (const q of activeQuests(this.place)) {
       const id = q.id, st = qs(id);
       const step = questDef(id).steps[st.step];
-      if (step.dojo && this.place === 'clover') return new THREE.Vector3(CLOVER_SPOTS.dojoDoor[0], 0, CLOVER_SPOTS.dojoDoor[1]);
+      if (step.dojo && this.inTown()) return new THREE.Vector3(TOWN_SPOTS.dojoDoor[0], 0, TOWN_SPOTS.dojoDoor[1]);
       if (step.talk) {
         const who = Object.keys(step.talk).find((n) => !st.talked.includes(n));
         const npc = this.activeNpcs().find((n) => n.def.id === who);

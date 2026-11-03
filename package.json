@@ -8,7 +8,9 @@
     "typecheck": "tsc --noEmit",
     "build": "tsc --noEmit && vite build",
     "build:single": "npm run build && node scripts/inline.mjs",
-    "preview": "vite preview --host"
+    "preview": "vite preview --host",
+    "validate:towns": "esbuild tools/validate/towns.ts --bundle --platform=node --format=esm --outfile=node_modules/.cache/validate-towns.mjs --log-level=error && node node_modules/.cache/validate-towns.mjs",
+    "voice:lines": "esbuild tools/voice/export-lines.ts --bundle --platform=node --format=esm --outfile=tools/voice/.export-lines.mjs --log-level=error && node tools/voice/.export-lines.mjs"
   },
   "dependencies": {
     "three": "0.170.0"

@@ -2,9 +2,8 @@ import { S, store } from '../core/save';
 import { pick } from '../core/i18n';
 import { lex } from '../content/lexicon';
 import { phrase } from '../content/phrases';
-import { CLOVER } from '../content/towns/clover';
-import { CLOVER_CONVOS } from '../content/towns/clover/story';
-import type { GrammarPoint } from '../content/towns/clover/grammar';
+import { TOWNS, townById } from '../content/towns';
+import type { GrammarPoint, Reading, TownContent } from '../content/towns/types';
 import { renderNative, renderTarget } from './text';
 import { card, dueWords, lexNative, lexTarget, masteryOf, native, phraseNative, phraseTarget, renderOpts, review, sayLex, sayPhrase, shuffle, target } from './engine';
 import { mastery } from './srs';
@@ -23,7 +22,10 @@ export interface DojoQ {
   grade: (correct: boolean) => void;
 }
 
-const T = CLOVER;
+let T: TownContent = TOWNS[0];
+/** Point the dojo at the town the player is in. */
+export function setDojoTown(id: string) { T = townById(id) ?? TOWNS[0]; }
+export const dojoTown = () => T;
 type TownState = { lessons: Record<string, number>; examBest: number; examPassed: boolean; grammar: Record<string, { right: number; wrong: number }>; sessions: number; arrived: boolean };
 
 export function townState(id = T.id): TownState {
@@ -130,21 +132,28 @@ export function grammarQ(g: GrammarPoint, item = g.items[Math.floor(Math.random(
     grade: (c) => { const st = townState().grammar[g.id] ?? { right: 0, wrong: 0 }; c ? st.right++ : st.wrong++; townState().grammar[g.id] = st; store.touch('grammar'); } };
 }
 
-export function readingQ(r: (typeof T.readings)[number]): DojoQ {
+export function readingQ(r: Reading): DojoQ {
   const { options, answer } = mcq({ html: nat(r.options[0]), ja: false }, r.options.slice(1).map((o) => ({ html: nat(o), ja: false })));
   return { section: 'reading', prompt: ja(r.text), promptJa: true, sub: nat(r.q), options, answer,
     explain: nat(r.options[0]), grade: () => {} };
 }
 
 /** Villager lines from the story, keyed by the chapter they appear in (used for listening drills). */
-const LINE_UNIT = new Map<string, number>();
-for (const [cid, steps] of Object.entries(CLOVER_CONVOS)) {
-  const m = cid.match(/^c(\d)_/);
-  if (!m) continue;
-  for (const st of steps) if (st.t === 'say' && !LINE_UNIT.has(st.p)) LINE_UNIT.set(st.p, Math.min(Number(m[1]), T.units));
+const LINE_UNITS = new Map<string, Map<string, number>>();
+function lineUnits() {
+  let m = LINE_UNITS.get(T.id);
+  if (m) return m;
+  m = new Map();
+  for (const [cid, steps] of Object.entries(T.convos)) {
+    const ch = cid.match(/^[a-z]+(\d)_/);
+    if (!ch) continue;
+    for (const st of steps) if (st.t === 'say' && !m.has(st.p)) m.set(st.p, Math.min(Number(ch[1]), T.units));
+  }
+  LINE_UNITS.set(T.id, m);
+  return m;
 }
 const storyLines = (units: number[]) =>
-  [...LINE_UNIT].filter(([p, u]) => units.includes(u) && !phrase(p).t.ja.includes('$')).map(([p]) => p);
+  [...lineUnits()].filter(([p, u]) => units.includes(u) && !phrase(p).t.ja.includes('$')).map(([p]) => p);
 
 // ------------------------------------------------------------------ sessions
 export type SessionKind = 'lesson' | 'daily' | 'vocab' | 'kanji' | 'grammar' | 'listening' | 'reading' | 'exam';
@@ -170,7 +179,7 @@ export function buildSession(kind: SessionKind, unit = 1): DojoQ[] {
       { const r = T.readings.find((x) => x.unit === unit); if (r) qs.push(readingQ(r)); }
       break;
     case 'daily': {
-      const due = dueWords(6, (l) => l.id.startsWith('n5_') && units.includes((l as unknown as { unit: number }).unit));
+      const due = dueWords(6, (l) => (l as unknown as { town?: string }).town === T.id && units.includes((l as unknown as { unit: number }).unit));
       const fresh = take(words.filter((w) => !due.includes(w)), 6 - due.length);
       for (const id of [...due, ...fresh]) qs.push(Math.random() < 0.3 ? listenWordQ(id, pool) : vocabQ(id, pool));
       for (const g of take(gram, 3)) qs.push(grammarQ(g));

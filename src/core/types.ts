@@ -9,6 +9,6 @@ export type LText = Record<LangCode, string>;
 export type Level = 'beginner' | 'intermediate' | 'advanced';
 export type JaScript = 'kana' | 'furigana' | 'kanji';
 export type Expr = 'neutral' | 'happy' | 'surprised' | 'sad' | 'thinking' | 'love' | 'sleepy';
-export type Species = 'bear' | 'bunny' | 'capybara' | 'cat' | 'fox' | 'dog' | 'duck' | 'frog';
+export type Species = 'bear' | 'bunny' | 'capybara' | 'cat' | 'fox' | 'dog' | 'duck' | 'frog' | 'penguin' | 'otter' | 'raccoon' | 'owl' | 'deer';
 
 export const LEVEL_NUM: Record<Level, number> = { beginner: 1, intermediate: 2, advanced: 3 };

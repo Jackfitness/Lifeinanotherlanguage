@@ -96,3 +96,8 @@ export const FLOORS = [
   { id: 'checker', color: '#F5E6CF', accent: '#E8B9A6', pattern: 'checker' },
   { id: 'moss', color: '#BBD5A0', accent: '#A8C78C', pattern: 'carpet' },
 ] as const;
+
+/** Adds town items (quest props, rewards). */
+export function registerItems(list: ItemDef[]) {
+  for (const i of list) if (!byId.has(i.id)) { ITEMS.push(i); byId.set(i.id, i); }
+}

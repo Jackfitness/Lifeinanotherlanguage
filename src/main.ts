@@ -11,9 +11,9 @@ import { logoBlock } from './ui/brand';
 import { installLexiconIcons } from './ui/icons';
 import { voicePack } from './audio/voicepack';
 import { LEXICON } from './content/lexicon';
-import { registerClover } from './content/towns/clover';
+import { registerTowns } from './content/towns';
 
-registerClover();
+registerTowns();
 installLexiconIcons(LEXICON);
 
 async function boot() {

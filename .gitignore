@@ -5,3 +5,4 @@ src/audio/assets/*.wav
 __pycache__
 
 # Source art kept for re-exports (tools/brand/cutout.py)
+tools/voice/.export-lines.mjs

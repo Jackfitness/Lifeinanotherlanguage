@@ -27,7 +27,7 @@ export interface SaveData {
     font: 'cozy' | 'pop' | 'hand' | 'classic';
     showMeanings: boolean;
   };
-  player: { coins: number; xp: number; x: number; z: number; place?: 'home' | 'clover'; outfit: { hat?: string; neck?: string; face?: string } };
+  player: { coins: number; xp: number; x: number; z: number; place?: string; outfit: { hat?: string; neck?: string; face?: string } };
   inventory: Record<string, number>;
   home: { size: number; wallpaper: string; floor: string; placed: { uid: number; item: string; x: number; z: number; rot: number }[]; nextUid: number };
   learning: Record<string, PairProgress>;

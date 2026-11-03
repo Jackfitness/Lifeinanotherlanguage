@@ -1,6 +1,5 @@
 import { pick, t } from '../core/i18n';
-import { CLOVER } from '../content/towns/clover';
-import { belt, lessonsDone, masteredIn, townMastery, townState, unitTitle, unlockedUnits, vocabCount, type SessionKind } from '../learning/dojo';
+import { belt, dojoTown, lessonsDone, masteredIn, townMastery, townState, unitTitle, unlockedUnits, vocabCount, type SessionKind } from '../learning/dojo';
 import { button, h, sheet } from './dom';
 import { icon } from './icons';
 
@@ -20,16 +19,16 @@ export function openDojo(host: DojoHost, onClose?: () => void) {
   const pct = Math.round(townMastery() * 100);
 
   body.append(h('div.dojo-head', null,
-    h('div.avatar', { style: { background: '#E4F2DD' } }, h('img', { src: host.portrait('kero'), alt: '', style: { width: '100%', height: '100%', objectFit: 'cover', borderRadius: '22px' } })),
+    h('div.avatar', { style: { background: '#E4F2DD' } }, h('img', { src: host.portrait(dojoTown().sensei), alt: '', style: { width: '100%', height: '100%', objectFit: 'cover', borderRadius: '22px' } })),
     h('div', { style: { flex: '1' } },
-      h('b', { style: { fontSize: '1.1em' } }, pick(CLOVER.npcs.find((n) => n.id === 'kero')!.name, 'ja').replace(/\{([^|}]+)\|[^}]+\}/g, '$1')),
+      h('b', { style: { fontSize: '1.1em' } }, pick(dojoTown().npcs.find((n) => n.id === dojoTown().sensei)!.name, 'ja').replace(/\{([^|}]+)\|[^}]+\}/g, '$1')),
       h('div.belt-row', null, h('span.belt', { style: { background: b.color } }), pick(b.name)),
       h('div.mastery', null, h('div.m-bar', null, h('i', { style: { width: pct + '%' } })), h('span', null, t('dojoMastery', { n: pct }))))));
 
   // Lessons
-  body.append(h('div.section-title', null, h('span', null, t('dojoLessons')), h('span', null, `${lessonsDone()}/${CLOVER.units}`)));
+  body.append(h('div.section-title', null, h('span', null, t('dojoLessons')), h('span', null, `${lessonsDone()}/${dojoTown().units}`)));
   const list = h('div.lesson-list');
-  for (let u = 1; u <= CLOVER.units; u++) {
+  for (let u = 1; u <= dojoTown().units; u++) {
     const best = ts.lessons['lesson_' + u];
     const locked = u > unlocked;
     const row = button('lesson-row' + (locked ? '.locked' : '') + (best !== undefined && best >= 60 ? '.done' : ''), [
@@ -54,8 +53,8 @@ export function openDojo(host: DojoHost, onClose?: () => void) {
   body.append(h('div.section-title', null, t('dojoExam')));
   body.append(h('div.exam-card' + (open ? '' : '.locked'), null,
     h('div.ec-icon', { html: icon(ts.examPassed ? 'medal' : 'bell') }),
-    h('div', { style: { flex: '1' } }, h('b', null, t('examTitle')),
-      h('span', null, open ? t('examDesc') : t('examLockedDesc')),
+    h('div', { style: { flex: '1' } }, h('b', null, pick(dojoTown().examTitle)),
+      h('span', null, open ? t('examDesc', { n: dojoTown().words.length }) : t('examLockedDesc')),
       ts.examBest ? h('span.ec-best', null, t('examBest', { n: ts.examBest })) : null),
     button('btn.primary.small', open ? t('examStart') : '🔒', () => { if (open) go('exam'); }, open ? {} : { disabled: true })));
   return s;
