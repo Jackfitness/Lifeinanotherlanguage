@@ -121,7 +121,7 @@ Each town has 9 story chapters, 6 villagers, about 110–180 words, 24–28 gram
 
 The game ships as native apps with [Capacitor](https://capacitorjs.com): the same web build runs inside `android/` and `ios/` projects that are already set up (portrait only, app icon and splash screen, Android back button, RevenueCat payments).
 
-**Builds without installing anything:** every push to `main` runs **Android build** in GitHub Actions. Open the run, download `cozy-language-village-debug-apk` from Artifacts, and install it on an Android phone for testing. **iOS build check** (run by hand from the Actions tab) confirms the iOS project compiles.
+**Builds without installing anything:** every push to `main` runs **Android build** in GitHub Actions. Open the run, download `cozy-language-village-debug-apk` from Artifacts, and install it on an Android phone for testing. **iOS build & TestFlight upload** (run by hand from the Actions tab) compiles the iPhone app, and uploads it to TestFlight once the App Store Connect secrets are set.
 
 **On your own computer:**
 
@@ -139,7 +139,7 @@ These build the game, copy it into the native projects and open Android Studio o
 1. Pick the final app id in `capacitor.config.ts` (now `com.lifeinanotherlanguage.app`). It can't change after release.
 2. Payments: create `village_pass_lifetime` (non-consumable) and `village_pass_monthly` (auto-renewing, 7-day free trial) in App Store Connect and Google Play Console. In RevenueCat, attach both to an entitlement called `village_pass` in the current offering, then add the public SDK keys as repository secrets `REVENUECAT_ANDROID_KEY` and `REVENUECAT_IOS_KEY` (or as `VITE_REVENUECAT_ANDROID_KEY` / `VITE_REVENUECAT_IOS_KEY` for local builds). Without a key the app runs purchases in test mode.
 3. Android release: create an upload keystore once, then add the `ANDROID_KEYSTORE_*` secrets listed at the top of `.github/workflows/android.yml`. The workflow then also produces a signed `.aab` for Google Play.
-4. iOS release: open `ios/App/App.xcodeproj` in Xcode, choose your team under Signing & Capabilities, then Product → Archive and upload.
+4. iOS release, no Mac needed: create an App Store Connect API key with **Admin** access (Users and Access → Integrations → App Store Connect API → Team Keys) and add `APPSTORE_KEY_ID`, `APPSTORE_ISSUER_ID` and `APPSTORE_KEY_P8` (the whole `.p8` file) as repository secrets. Then run **iOS build & TestFlight upload** from the Actions tab: GitHub's Macs sign the app with Apple's cloud-managed certificates and upload it to TestFlight. Each run gets a new build number automatically. With a Mac you can also use Xcode: Product → Archive.
 5. New icon or splash art: replace the PNGs in `assets/` and run `npm run app:assets`.
 
 ## Icons

@@ -6,7 +6,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
  */
 const config: CapacitorConfig = {
   appId: 'com.lifeinanotherlanguage.app',
-  appName: 'Cozy Language Village',
+  appName: 'Life in Another Language',
   webDir: 'dist',
   backgroundColor: '#FFF4E6',
   ios: { contentInset: 'never', backgroundColor: '#FFF4E6' },
