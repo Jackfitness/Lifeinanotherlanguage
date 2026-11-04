@@ -2141,6 +2141,996 @@
    "text": "ベルがなりました！おまつりをはじめましょう！"
   }
  ],
+ "ja-ink": [
+  {
+   "key": "w:kn_h_a",
+   "text": "あ"
+  },
+  {
+   "key": "w:kn_h_i",
+   "text": "い"
+  },
+  {
+   "key": "w:kn_h_u",
+   "text": "う"
+  },
+  {
+   "key": "w:kn_h_e",
+   "text": "え"
+  },
+  {
+   "key": "w:kn_h_o",
+   "text": "お"
+  },
+  {
+   "key": "w:kn_h_ka",
+   "text": "か"
+  },
+  {
+   "key": "w:kn_h_ki",
+   "text": "き"
+  },
+  {
+   "key": "w:kn_h_ku",
+   "text": "く"
+  },
+  {
+   "key": "w:kn_h_ke",
+   "text": "け"
+  },
+  {
+   "key": "w:kn_h_ko",
+   "text": "こ"
+  },
+  {
+   "key": "w:kn_h_sa",
+   "text": "さ"
+  },
+  {
+   "key": "w:kn_h_shi",
+   "text": "し"
+  },
+  {
+   "key": "w:kn_h_su",
+   "text": "す"
+  },
+  {
+   "key": "w:kn_h_se",
+   "text": "せ"
+  },
+  {
+   "key": "w:kn_h_so",
+   "text": "そ"
+  },
+  {
+   "key": "w:kn_ao",
+   "text": "あお"
+  },
+  {
+   "key": "w:kn_ie",
+   "text": "いえ"
+  },
+  {
+   "key": "w:kn_kasa",
+   "text": "かさ"
+  },
+  {
+   "key": "w:kn_sushi",
+   "text": "すし"
+  },
+  {
+   "key": "w:kn_asa",
+   "text": "あさ"
+  },
+  {
+   "key": "w:kn_h_ta",
+   "text": "た"
+  },
+  {
+   "key": "w:kn_h_chi",
+   "text": "ち"
+  },
+  {
+   "key": "w:kn_h_tsu",
+   "text": "つ"
+  },
+  {
+   "key": "w:kn_h_te",
+   "text": "て"
+  },
+  {
+   "key": "w:kn_h_to",
+   "text": "と"
+  },
+  {
+   "key": "w:kn_h_na",
+   "text": "な"
+  },
+  {
+   "key": "w:kn_h_ni",
+   "text": "に"
+  },
+  {
+   "key": "w:kn_h_nu",
+   "text": "ぬ"
+  },
+  {
+   "key": "w:kn_h_ne",
+   "text": "ね"
+  },
+  {
+   "key": "w:kn_h_no",
+   "text": "の"
+  },
+  {
+   "key": "w:kn_h_ha",
+   "text": "は"
+  },
+  {
+   "key": "w:kn_h_hi",
+   "text": "ひ"
+  },
+  {
+   "key": "w:kn_h_fu",
+   "text": "ふ"
+  },
+  {
+   "key": "w:kn_h_he",
+   "text": "へ"
+  },
+  {
+   "key": "w:kn_h_ho",
+   "text": "ほ"
+  },
+  {
+   "key": "w:kn_neko",
+   "text": "ねこ"
+  },
+  {
+   "key": "w:kn_inu",
+   "text": "いぬ"
+  },
+  {
+   "key": "w:kn_hana",
+   "text": "はな"
+  },
+  {
+   "key": "w:kn_sakana",
+   "text": "さかな"
+  },
+  {
+   "key": "w:kn_tokei",
+   "text": "とけい"
+  },
+  {
+   "key": "w:kn_h_ma",
+   "text": "ま"
+  },
+  {
+   "key": "w:kn_h_mi",
+   "text": "み"
+  },
+  {
+   "key": "w:kn_h_mu",
+   "text": "む"
+  },
+  {
+   "key": "w:kn_h_me",
+   "text": "め"
+  },
+  {
+   "key": "w:kn_h_mo",
+   "text": "も"
+  },
+  {
+   "key": "w:kn_h_ya",
+   "text": "や"
+  },
+  {
+   "key": "w:kn_h_yu",
+   "text": "ゆ"
+  },
+  {
+   "key": "w:kn_h_yo",
+   "text": "よ"
+  },
+  {
+   "key": "w:kn_h_ra",
+   "text": "ら"
+  },
+  {
+   "key": "w:kn_h_ri",
+   "text": "り"
+  },
+  {
+   "key": "w:kn_h_ru",
+   "text": "る"
+  },
+  {
+   "key": "w:kn_h_re",
+   "text": "れ"
+  },
+  {
+   "key": "w:kn_h_ro",
+   "text": "ろ"
+  },
+  {
+   "key": "w:kn_h_wa",
+   "text": "わ"
+  },
+  {
+   "key": "w:kn_h_wo",
+   "text": "を"
+  },
+  {
+   "key": "w:kn_h_n",
+   "text": "ん"
+  },
+  {
+   "key": "w:kn_yama",
+   "text": "やま"
+  },
+  {
+   "key": "w:kn_yuki",
+   "text": "ゆき"
+  },
+  {
+   "key": "w:kn_yoru",
+   "text": "よる"
+  },
+  {
+   "key": "w:kn_saru",
+   "text": "さる"
+  },
+  {
+   "key": "w:kn_watashi",
+   "text": "わたし"
+  },
+  {
+   "key": "w:kn_h_ga",
+   "text": "が"
+  },
+  {
+   "key": "w:kn_h_gi",
+   "text": "ぎ"
+  },
+  {
+   "key": "w:kn_h_gu",
+   "text": "ぐ"
+  },
+  {
+   "key": "w:kn_h_ge",
+   "text": "げ"
+  },
+  {
+   "key": "w:kn_h_go",
+   "text": "ご"
+  },
+  {
+   "key": "w:kn_h_za",
+   "text": "ざ"
+  },
+  {
+   "key": "w:kn_h_ji",
+   "text": "じ"
+  },
+  {
+   "key": "w:kn_h_zu",
+   "text": "ず"
+  },
+  {
+   "key": "w:kn_h_ze",
+   "text": "ぜ"
+  },
+  {
+   "key": "w:kn_h_zo",
+   "text": "ぞ"
+  },
+  {
+   "key": "w:kn_h_da",
+   "text": "だ"
+  },
+  {
+   "key": "w:kn_h_de",
+   "text": "で"
+  },
+  {
+   "key": "w:kn_h_do",
+   "text": "ど"
+  },
+  {
+   "key": "w:kn_h_ba",
+   "text": "ば"
+  },
+  {
+   "key": "w:kn_h_bi",
+   "text": "び"
+  },
+  {
+   "key": "w:kn_h_bu",
+   "text": "ぶ"
+  },
+  {
+   "key": "w:kn_h_be",
+   "text": "べ"
+  },
+  {
+   "key": "w:kn_h_bo",
+   "text": "ぼ"
+  },
+  {
+   "key": "w:kn_h_pa",
+   "text": "ぱ"
+  },
+  {
+   "key": "w:kn_h_pi",
+   "text": "ぴ"
+  },
+  {
+   "key": "w:kn_h_pu",
+   "text": "ぷ"
+  },
+  {
+   "key": "w:kn_h_pe",
+   "text": "ぺ"
+  },
+  {
+   "key": "w:kn_h_po",
+   "text": "ぽ"
+  },
+  {
+   "key": "w:kn_gohan",
+   "text": "ごはん"
+  },
+  {
+   "key": "w:kn_ringo",
+   "text": "りんご"
+  },
+  {
+   "key": "w:kn_kitte",
+   "text": "きって"
+  },
+  {
+   "key": "w:kn_ocha",
+   "text": "おちゃ"
+  },
+  {
+   "key": "w:kn_kyou",
+   "text": "きょう"
+  },
+  {
+   "key": "w:kn_okaasan",
+   "text": "おかあさん"
+  },
+  {
+   "key": "w:kn_k_a",
+   "text": "ア"
+  },
+  {
+   "key": "w:kn_k_i",
+   "text": "イ"
+  },
+  {
+   "key": "w:kn_k_u",
+   "text": "ウ"
+  },
+  {
+   "key": "w:kn_k_e",
+   "text": "エ"
+  },
+  {
+   "key": "w:kn_k_o",
+   "text": "オ"
+  },
+  {
+   "key": "w:kn_k_ka",
+   "text": "カ"
+  },
+  {
+   "key": "w:kn_k_ki",
+   "text": "キ"
+  },
+  {
+   "key": "w:kn_k_ku",
+   "text": "ク"
+  },
+  {
+   "key": "w:kn_k_ke",
+   "text": "ケ"
+  },
+  {
+   "key": "w:kn_k_ko",
+   "text": "コ"
+  },
+  {
+   "key": "w:kn_k_sa",
+   "text": "サ"
+  },
+  {
+   "key": "w:kn_k_shi",
+   "text": "シ"
+  },
+  {
+   "key": "w:kn_k_su",
+   "text": "ス"
+  },
+  {
+   "key": "w:kn_k_se",
+   "text": "セ"
+  },
+  {
+   "key": "w:kn_k_so",
+   "text": "ソ"
+  },
+  {
+   "key": "w:kn_k_ta",
+   "text": "タ"
+  },
+  {
+   "key": "w:kn_k_chi",
+   "text": "チ"
+  },
+  {
+   "key": "w:kn_k_tsu",
+   "text": "ツ"
+  },
+  {
+   "key": "w:kn_k_te",
+   "text": "テ"
+  },
+  {
+   "key": "w:kn_k_to",
+   "text": "ト"
+  },
+  {
+   "key": "w:kn_k_na",
+   "text": "ナ"
+  },
+  {
+   "key": "w:kn_k_ni",
+   "text": "ニ"
+  },
+  {
+   "key": "w:kn_k_nu",
+   "text": "ヌ"
+  },
+  {
+   "key": "w:kn_k_ne",
+   "text": "ネ"
+  },
+  {
+   "key": "w:kn_k_no",
+   "text": "ノ"
+  },
+  {
+   "key": "w:kn_k_ha",
+   "text": "ハ"
+  },
+  {
+   "key": "w:kn_k_hi",
+   "text": "ヒ"
+  },
+  {
+   "key": "w:kn_k_fu",
+   "text": "フ"
+  },
+  {
+   "key": "w:kn_k_he",
+   "text": "ヘ"
+  },
+  {
+   "key": "w:kn_k_ho",
+   "text": "ホ"
+  },
+  {
+   "key": "w:kn_aisu",
+   "text": "アイス"
+  },
+  {
+   "key": "w:kn_keeki",
+   "text": "ケーキ"
+  },
+  {
+   "key": "w:kn_tenisu",
+   "text": "テニス"
+  },
+  {
+   "key": "w:kn_nooto",
+   "text": "ノート"
+  },
+  {
+   "key": "w:kn_kokoa",
+   "text": "ココア"
+  },
+  {
+   "key": "w:kn_k_ma",
+   "text": "マ"
+  },
+  {
+   "key": "w:kn_k_mi",
+   "text": "ミ"
+  },
+  {
+   "key": "w:kn_k_mu",
+   "text": "ム"
+  },
+  {
+   "key": "w:kn_k_me",
+   "text": "メ"
+  },
+  {
+   "key": "w:kn_k_mo",
+   "text": "モ"
+  },
+  {
+   "key": "w:kn_k_ya",
+   "text": "ヤ"
+  },
+  {
+   "key": "w:kn_k_yu",
+   "text": "ユ"
+  },
+  {
+   "key": "w:kn_k_yo",
+   "text": "ヨ"
+  },
+  {
+   "key": "w:kn_k_ra",
+   "text": "ラ"
+  },
+  {
+   "key": "w:kn_k_ri",
+   "text": "リ"
+  },
+  {
+   "key": "w:kn_k_ru",
+   "text": "ル"
+  },
+  {
+   "key": "w:kn_k_re",
+   "text": "レ"
+  },
+  {
+   "key": "w:kn_k_ro",
+   "text": "ロ"
+  },
+  {
+   "key": "w:kn_k_wa",
+   "text": "ワ"
+  },
+  {
+   "key": "w:kn_k_n",
+   "text": "ン"
+  },
+  {
+   "key": "w:kn_koohii",
+   "text": "コーヒー"
+  },
+  {
+   "key": "w:kn_menyuu",
+   "text": "メニュー"
+  },
+  {
+   "key": "w:kn_pan",
+   "text": "パン"
+  },
+  {
+   "key": "w:kn_kamera",
+   "text": "カメラ"
+  },
+  {
+   "key": "w:kn_raamen",
+   "text": "ラーメン"
+  },
+  {
+   "key": "w:kn_hoteru",
+   "text": "ホテル"
+  },
+  {
+   "key": "w:kn_hi",
+   "text": "ひ"
+  },
+  {
+   "key": "w:kn_tsuki",
+   "text": "つき"
+  },
+  {
+   "key": "w:kn_ki",
+   "text": "き"
+  },
+  {
+   "key": "w:kn_yama7",
+   "text": "やま"
+  },
+  {
+   "key": "w:kn_kawa",
+   "text": "かわ"
+  },
+  {
+   "key": "w:kn_hi7",
+   "text": "ひ"
+  },
+  {
+   "key": "w:kn_mizu",
+   "text": "みず"
+  },
+  {
+   "key": "w:kn_hito",
+   "text": "ひと"
+  },
+  {
+   "key": "w:kn_kuchi",
+   "text": "くち"
+  },
+  {
+   "key": "w:kn_me",
+   "text": "め"
+  },
+  {
+   "key": "w:kn_ta",
+   "text": "た"
+  },
+  {
+   "key": "w:kn_ame",
+   "text": "あめ"
+  },
+  {
+   "key": "w:kn_hayashi",
+   "text": "はやし"
+  },
+  {
+   "key": "w:kn_mori",
+   "text": "もり"
+  },
+  {
+   "key": "w:kn_yasumu",
+   "text": "やすむ"
+  },
+  {
+   "key": "w:kn_akarui",
+   "text": "あかるい"
+  },
+  {
+   "key": "w:kn_ichi",
+   "text": "いち"
+  },
+  {
+   "key": "w:kn_ni",
+   "text": "に"
+  },
+  {
+   "key": "w:kn_san",
+   "text": "さん"
+  },
+  {
+   "key": "w:kn_ookii",
+   "text": "おおきい"
+  },
+  {
+   "key": "w:kn_chiisai",
+   "text": "ちいさい"
+  },
+  {
+   "key": "w:kn_ue",
+   "text": "うえ"
+  },
+  {
+   "key": "w:kn_shita",
+   "text": "した"
+  },
+  {
+   "key": "w:kn_naka",
+   "text": "なか"
+  },
+  {
+   "key": "w:kn_onna",
+   "text": "おんな"
+  },
+  {
+   "key": "w:kn_otoko",
+   "text": "おとこ"
+  },
+  {
+   "key": "p:i_mochi_s1",
+   "text": "すみはくろいいろです。"
+  },
+  {
+   "key": "p:i_mochi_s2",
+   "text": "わたしはひるねがすきです。"
+  },
+  {
+   "key": "p:i_hari_s1",
+   "text": "まいにちすこしずつ。"
+  },
+  {
+   "key": "p:i_hari_s2",
+   "text": "ふではこころをうつします。"
+  },
+  {
+   "key": "p:i_kuri_s1",
+   "text": "くりのおかしがいちばんです！"
+  },
+  {
+   "key": "p:i_kuri_s2",
+   "text": "あまいものはしあわせ。"
+  },
+  {
+   "key": "p:i_nori_s1",
+   "text": "てがみはたからものです。"
+  },
+  {
+   "key": "p:i_nori_s2",
+   "text": "あるくのがすきです。"
+  },
+  {
+   "key": "p:i_maron_s1",
+   "text": "ケーキはまいあさつくります。"
+  },
+  {
+   "key": "p:i_maron_s2",
+   "text": "コーヒーとケーキはともだちです。"
+  },
+  {
+   "key": "p:i_miru_s1",
+   "text": "みる、ぜんぶかけるよ！"
+  },
+  {
+   "key": "p:i_miru_s2",
+   "text": "いちばんすきなもじは「あ」！"
+  },
+  {
+   "key": "p:i_mochi_hello",
+   "text": "あっ！こんにちは！"
+  },
+  {
+   "key": "p:i_mochi_im",
+   "text": "わたしはモチ。すみむらのそんちょうです。"
+  },
+  {
+   "key": "p:i_mochi_rain",
+   "text": "あめ…かんばんがしろい。"
+  },
+  {
+   "key": "p:i_mochi_learn",
+   "text": "いっしょにもじをまなびましょう！"
+  },
+  {
+   "key": "p:i_me_hai",
+   "text": "はい！"
+  },
+  {
+   "key": "p:i_me_iie",
+   "text": "いいえ。"
+  },
+  {
+   "key": "p:i_hari_hello",
+   "text": "おや…こんにちは。"
+  },
+  {
+   "key": "p:i_hari_im",
+   "text": "わたしはハリ。しょどうのせんせいです。"
+  },
+  {
+   "key": "p:i_hari_aiueo",
+   "text": "あ、い、う、え、お。"
+  },
+  {
+   "key": "p:i_hari_ao",
+   "text": "あお。あおいそら。"
+  },
+  {
+   "key": "p:i_me_ao",
+   "text": "あお"
+  },
+  {
+   "key": "p:i_hari_dojo",
+   "text": "どうじょうでれんしゅうしましょう。"
+  },
+  {
+   "key": "p:i_nori_hello",
+   "text": "こんにちは。ノリです。"
+  },
+  {
+   "key": "p:i_nori_trouble",
+   "text": "てがみがたくさん。でもなまえが…ない。"
+  },
+  {
+   "key": "p:i_nori_door1",
+   "text": "このいえは…「くり」？"
+  },
+  {
+   "key": "p:i_nori_door2",
+   "text": "はい！くりさんのいえ。このてがみをおねがいします。"
+  },
+  {
+   "key": "p:i_kuri_hello",
+   "text": "わあ！こんにちは！クリです！"
+  },
+  {
+   "key": "p:i_me_tegami",
+   "text": "てがみです。"
+  },
+  {
+   "key": "p:i_kuri_thanks",
+   "text": "ありがとう！ははからのてがみ！"
+  },
+  {
+   "key": "p:i_kuri_neko",
+   "text": "ねこのえはがき！かわいい！"
+  },
+  {
+   "key": "p:i_miru_hi",
+   "text": "あっ！だれ？"
+  },
+  {
+   "key": "p:i_miru_name",
+   "text": "みるはみる！ごさい！"
+  },
+  {
+   "key": "p:i_miru_race",
+   "text": "きょうそう！どっちがはやくかける？"
+  },
+  {
+   "key": "p:i_me_ok",
+   "text": "いいよ！"
+  },
+  {
+   "key": "p:i_hari_n",
+   "text": "んはとくべつ。んだけはおとがひとつ。"
+  },
+  {
+   "key": "p:i_hari_yama",
+   "text": "やまにゆき。"
+  },
+  {
+   "key": "p:i_me_watashi",
+   "text": "わたし"
+  },
+  {
+   "key": "p:i_hari_good",
+   "text": "よくできました。"
+  },
+  {
+   "key": "p:i_kuri_sign",
+   "text": "みて！かんばんをかきました！"
+  },
+  {
+   "key": "p:i_kuri_oops",
+   "text": "あっ！てんてんをわすれた！"
+  },
+  {
+   "key": "p:i_kuri_gift",
+   "text": "ありがとう。だんごとおちゃをどうぞ。"
+  },
+  {
+   "key": "p:i_mochi_kyou",
+   "text": "きょうはごはんをいっしょにたべよう！"
+  },
+  {
+   "key": "p:i_me_itadakimasu",
+   "text": "いただきます！"
+  },
+  {
+   "key": "p:i_maron_hello",
+   "text": "いらっしゃいませ！マロンのカフェです！"
+  },
+  {
+   "key": "p:i_maron_menu",
+   "text": "アイス、ケーキ、ココア。どれにしますか？"
+  },
+  {
+   "key": "p:i_me_keeki",
+   "text": "ケーキをください。"
+  },
+  {
+   "key": "p:i_me_kokoa",
+   "text": "ココアをください。"
+  },
+  {
+   "key": "p:i_me_sushi",
+   "text": "すしをください。"
+  },
+  {
+   "key": "p:i_maron_enjoy",
+   "text": "どうぞ！おいしいよ。"
+  },
+  {
+   "key": "p:i_maron_board",
+   "text": "メニューのボードがしろい…てつだってくれる？"
+  },
+  {
+   "key": "p:i_maron_thanks",
+   "text": "ありがとう！きれいなボード！"
+  },
+  {
+   "key": "p:i_nori_parcel",
+   "text": "とおくからのこづつみです。"
+  },
+  {
+   "key": "p:i_nori_maron",
+   "text": "マロンさんにとどけてください。"
+  },
+  {
+   "key": "p:i_me_kozutsumi",
+   "text": "こづつみです。"
+  },
+  {
+   "key": "p:i_maron_coffee",
+   "text": "わあ、コーヒーのまめ！メニューにコーヒーとラーメンをかこう！"
+  },
+  {
+   "key": "p:i_maron_pan",
+   "text": "パンもどうぞ！"
+  },
+  {
+   "key": "p:i_hari_kanji",
+   "text": "さあ、かんじのじかんです。"
+  },
+  {
+   "key": "p:i_hari_furigana",
+   "text": "ちいさいかなはよみかたです。"
+  },
+  {
+   "key": "p:i_miru_draw",
+   "text": "みて！みるもかんじをかいた！"
+  },
+  {
+   "key": "p:i_miru_proud",
+   "text": "みる、てんさい？"
+  },
+  {
+   "key": "p:i_me_sugoi",
+   "text": "すごい！"
+  },
+  {
+   "key": "p:i_mochi_festival",
+   "text": "もうすぐかきぞめのおまつりです！"
+  },
+  {
+   "key": "p:i_me_will_invite",
+   "text": "はい、みんなをさそいます！"
+  },
+  {
+   "key": "p:i_me_invite",
+   "text": "おまつりにきてください！"
+  },
+  {
+   "key": "p:i_kuri_yes",
+   "text": "いくいく！だんごをもっていくね！"
+  },
+  {
+   "key": "p:i_nori_yes",
+   "text": "はい。たのしみです。"
+  },
+  {
+   "key": "p:i_maron_yes",
+   "text": "もちろん！ケーキとココアをつくるわ！"
+  },
+  {
+   "key": "p:i_hari_ready",
+   "text": "じゅんびはいいですか。"
+  },
+  {
+   "key": "p:i_me_ready",
+   "text": "はい、だいじょうぶです！"
+  },
+  {
+   "key": "p:i_hari_exam",
+   "text": "がんばって。"
+  },
+  {
+   "key": "p:i_mochi_write",
+   "text": "さあ、かいてください！"
+  },
+  {
+   "key": "p:i_me_banner",
+   "text": "あたらしいとし、あたらしいもじ。"
+  },
+  {
+   "key": "p:i_mochi_rang",
+   "text": "すばらしい！おめでとう！"
+  }
+ ],
  "ja-harbor": [
   {
    "key": "w:n4_minato",

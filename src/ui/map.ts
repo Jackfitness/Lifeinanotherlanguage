@@ -80,7 +80,8 @@ function worldMap(host: MapHost, close: () => void) {
         ? (host.place === r.id ? h('p.muted', null, '📍 ' + t('youAreHere'))
           : button('btn.primary.rd-cta', [h('span', { html: icon('map') }), t('travelTo', { town: pick(r.name) })], () => { close(); host.travel(r.id); }))
         : button('btn.primary.rd-cta', [h('span', { html: icon('pass') }), t('unlockWithPass')], () => openPass(undefined, 'town')),
-      ...(!hasPass() && townOpenFree(r.id) ? [h('p.muted', { style: { textAlign: 'center', marginTop: '6px' } }, '🎁 ' + t('freePreview'))] : []),
+      ...(r.id === 'ink' ? [h('p.muted', { style: { textAlign: 'center', marginTop: '6px' } }, '🎁 ' + t('freeTown'))]
+        : !hasPass() && townOpenFree(r.id) ? [h('p.muted', { style: { textAlign: 'center', marginTop: '6px' } }, '🎁 ' + t('freePreview'))] : []),
     );
   };
   // Sea, islands and dotted ferry routes

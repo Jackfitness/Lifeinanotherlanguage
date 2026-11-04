@@ -7,7 +7,7 @@ import type { NpcDef } from '../characters';
 import type { ItemDef } from '../items';
 
 /** A town word: tagged with the story chapter ("unit") that teaches it. */
-export interface TownWord extends Lexeme { unit: number; town: string }
+export interface TownWord extends Lexeme { unit: number; town: string; /** a single kana character (read / trace drills) */ kana?: boolean }
 
 /** Grammar drill: a Japanese sentence with a blank (＿＿), the right choice and distractors. */
 export interface DrillItem { q: string; a: string; wrong: string[]; m: LText }
@@ -41,6 +41,12 @@ export interface TownContent {
   arrive: LText;
   finaleTitle: LText;
   finaleSub: LText;
+  /** Writing-systems town: kana reading, listening and tracing drills. */
+  script?: boolean;
+  /** Exam pass mark in percent (default 80). */
+  passMark?: number;
+  /** Free for everyone (no Village Pass needed). */
+  free?: boolean;
   /** Building signs in ruby markup. */
   signs: { hall: string; post: string; restaurant: string; dojo: string; market: string };
 }

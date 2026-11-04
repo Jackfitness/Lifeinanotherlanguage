@@ -10,7 +10,7 @@ import { mastery } from './srs';
 
 /** One dojo question, ready for the dialogue UI. */
 export interface DojoQ {
-  section: 'vocab' | 'kanji' | 'grammar' | 'reading' | 'listening';
+  section: 'vocab' | 'kanji' | 'grammar' | 'reading' | 'listening' | 'writing';
   prompt: string;        // HTML
   promptJa: boolean;     // prompt is Japanese (bigger, speakable)
   sub: string;           // instruction / question in the player's language (HTML)
@@ -20,6 +20,8 @@ export interface DojoQ {
   speak?: () => void;    // audio for the prompt
   autoSpeak?: boolean;   // listening: play immediately, hide text
   grade: (correct: boolean) => void;
+  /** Writing drill: the character to trace instead of picking an option. */
+  trace?: string;
 }
 
 let T: TownContent = TOWNS[0];
@@ -70,6 +72,9 @@ const kanjiOnly = (markup: string) => renderTarget(markup, target(), { ...render
 const reading = (markup: string) => markup.replace(/\{([^|}]+)\|([^}]+)\}/g, '$2').replace(/\^/g, '').replace(/ /g, '');
 const nat = (txt: { [k: string]: string }) => renderNative(pick(txt, native()), native(), { name: S().profile.name });
 const hasKanji = (markup: string) => /\{[^|}]*[一-龯][^|}]*\|/.test(markup);
+/** In the writing-systems town kanji always show as kanji (with furigana), whatever the reading setting. */
+const wordHtml = (id: string) => (T.script && hasKanji(lex(id).t.ja) ? ja(lex(id).t.ja, { jaScript: 'furigana' }) : lexTarget(id));
+const isKana = (id: string) => !!(lex(id) as unknown as { kana?: boolean }).kana;
 
 function wordsIn(units: number[]) { return T.words.filter((w) => units.includes(w.unit)); }
 function grammarIn(units: number[]) { return T.grammar.filter((g) => units.includes(g.unit)); }
@@ -94,14 +99,14 @@ export function vocabQ(id: string, pool: string[], recall = Math.random() < 0.5)
   const w = lex(id);
   const others = pickOthers(pool, id, 3, (x) => lex(x).t.en);
   if (recall) {
-    const { options, answer } = mcq({ html: lexTarget(id), ja: true }, others.map((o) => ({ html: lexTarget(o), ja: true })));
-    return { section: 'vocab', prompt: lexNative(id), promptJa: false, sub: nat(L('Which word means this?', '¿Qué palabra significa esto?')), options, answer,
-      explain: `<b>${lexTarget(id)}</b> — ${lexNative(id)}`, speak: () => sayLex(id), grade: (c) => review('lex', id, c) };
+    const { options, answer } = mcq({ html: wordHtml(id), ja: true }, others.map((o) => ({ html: wordHtml(o), ja: true })));
+    return { section: 'vocab', prompt: lexNative(id), promptJa: false, sub: nat(isKana(id) ? L('Which character is this?', '¿Qué carácter es este?') : L('Which word means this?', '¿Qué palabra significa esto?')), options, answer,
+      explain: `<b>${wordHtml(id)}</b> — ${lexNative(id)}`, speak: () => sayLex(id), grade: (c) => review('lex', id, c) };
   }
   const { options, answer } = mcq({ html: lexNative(id), ja: false }, others.map((o) => ({ html: lexNative(o), ja: false })));
   void w;
-  return { section: 'vocab', prompt: lexTarget(id), promptJa: true, sub: nat(L('What does it mean?', '¿Qué significa?')), options, answer,
-    explain: `<b>${lexTarget(id)}</b> — ${lexNative(id)}`, speak: () => sayLex(id), grade: (c) => review('lex', id, c) };
+  return { section: 'vocab', prompt: wordHtml(id), promptJa: true, sub: nat(isKana(id) ? L('How do you read it?', '¿Cómo se lee?') : L('What does it mean?', '¿Qué significa?')), options, answer,
+    explain: `<b>${wordHtml(id)}</b> — ${lexNative(id)}`, speak: () => sayLex(id), grade: (c) => review('lex', id, c) };
 }
 
 export function kanjiQ(id: string, pool: string[]): DojoQ {
@@ -125,8 +130,10 @@ export function listenPhraseQ(pid: string, pool: string[]): DojoQ {
 }
 
 export function grammarQ(g: GrammarPoint, item = g.items[Math.floor(Math.random() * g.items.length)]): DojoQ {
-  const { options, answer } = mcq({ html: ja(item.a), ja: true }, item.wrong.map((w) => ({ html: ja(w), ja: true })));
-  return { section: 'grammar', prompt: ja(item.q).replace(/＿＿/g, '<span class="blank">＿＿</span>'), promptJa: true,
+  // the writing town drills kanji shapes, so show them as kanji without readings
+  const gj = (m: string) => (T.script ? ja(m, { jaScript: 'kanji', showRuby: false, romaji: false }) : ja(m));
+  const { options, answer } = mcq({ html: gj(item.a), ja: true }, item.wrong.map((w) => ({ html: gj(w), ja: true })));
+  return { section: 'grammar', prompt: gj(item.q).replace(/＿＿/g, '<span class="blank">＿＿</span>'), promptJa: true,
     sub: `${nat(L('Fill in the blank', 'Completa el espacio'))} · <i>${nat(item.m)}</i>`, options, answer,
     explain: `<b>${nat(g.title)}</b> — ${nat(g.note)}`,
     grade: (c) => { const st = townState().grammar[g.id] ?? { right: 0, wrong: 0 }; c ? st.right++ : st.wrong++; townState().grammar[g.id] = st; store.touch('grammar'); } };
@@ -134,8 +141,23 @@ export function grammarQ(g: GrammarPoint, item = g.items[Math.floor(Math.random(
 
 export function readingQ(r: Reading): DojoQ {
   const { options, answer } = mcq({ html: nat(r.options[0]), ja: false }, r.options.slice(1).map((o) => ({ html: nat(o), ja: false })));
-  return { section: 'reading', prompt: ja(r.text), promptJa: true, sub: nat(r.q), options, answer,
+  return { section: 'reading', prompt: T.script ? ja(r.text, { jaScript: 'furigana' }) : ja(r.text), promptJa: true, sub: nat(r.q), options, answer,
     explain: nat(r.options[0]), grade: () => {} };
+}
+
+/** Hear a character, pick it. */
+export function listenKanaQ(id: string, pool: string[]): DojoQ {
+  const q = vocabQ(id, pool, true);
+  return { ...q, section: 'listening', prompt: '', promptJa: false, autoSpeak: true, sub: nat(L('Listen. Which character did you hear?', 'Escucha. ¿Qué carácter has oído?')) };
+}
+
+/** Trace a character (kana, or the kanji of a starter-kanji word). */
+export function traceQ(id: string): DojoQ {
+  const src = lex(id).t.ja;
+  const glyph = hasKanji(src) ? (src.match(/\{([^|}]+)\|/)?.[1] ?? src)[0] : src.replace(/\{|\}|\|.*?\}/g, '')[0];
+  return { section: 'writing', prompt: `<span class="trace-target">${lexNative(id)}</span>`, promptJa: false,
+    sub: nat(L('Trace the character', 'Repasa el carácter')), options: [], answer: -1, trace: glyph,
+    explain: `<b>${glyph}</b> — ${lexNative(id)}`, speak: () => sayLex(id), grade: (c) => review('lex', id, c) };
 }
 
 /** Villager lines from the story, keyed by the chapter they appear in (used for listening drills). */
@@ -156,7 +178,7 @@ const storyLines = (units: number[]) =>
   [...lineUnits()].filter(([p, u]) => units.includes(u) && !phrase(p).t.ja.includes('$')).map(([p]) => p);
 
 // ------------------------------------------------------------------ sessions
-export type SessionKind = 'lesson' | 'daily' | 'vocab' | 'kanji' | 'grammar' | 'listening' | 'reading' | 'exam';
+export type SessionKind = 'lesson' | 'daily' | 'vocab' | 'kanji' | 'grammar' | 'listening' | 'reading' | 'exam' | 'writing';
 
 export function buildSession(kind: SessionKind, unit = 1): DojoQ[] {
   const units = kind === 'lesson' ? [unit] : Array.from({ length: unlockedUnits() }, (_, i) => i + 1);
@@ -168,6 +190,7 @@ export function buildSession(kind: SessionKind, unit = 1): DojoQ[] {
   const lines = storyLines(units);
   const qs: DojoQ[] = [];
   const take = <X>(arr: X[], n: number) => shuffle([...arr]).slice(0, n);
+  if (T.script) return scriptSession(kind, unit, units, allUnits);
   switch (kind) {
     case 'lesson':
       for (const g of take(gram, 4)) qs.push(grammarQ(g));
@@ -208,6 +231,60 @@ export function buildSession(kind: SessionKind, unit = 1): DojoQ[] {
     }
   }
   return shuffle(qs);
+}
+
+/** Sessions for the writing-systems town: read, hear and trace characters. */
+function scriptSession(kind: SessionKind, unit: number, units: number[], allUnits: number[]): DojoQ[] {
+  const take = <X>(arr: X[], n: number) => shuffle([...arr]).slice(0, n);
+  const fill = <X>(arr: X[], n: number) => { const out: X[] = []; while (arr.length && out.length < n) out.push(...take(arr, n - out.length)); return out; };
+  const kanaIn = (us: number[]) => wordsIn(us).filter((w) => w.kana).map((w) => w.id);
+  const wordsOnly = (us: number[]) => wordsIn(us).filter((w) => !w.kana).map((w) => w.id);
+  const kanjiIn = (us: number[]) => wordsIn(us).filter((w) => hasKanji(w.t.ja)).map((w) => w.id);
+  const qs: DojoQ[] = [];
+  const kana = kanaIn(units), plain = wordsOnly(units), kanji = kanjiIn(units), gram = grammarIn(units);
+  const kanaPool = kana.length >= 4 ? kana : kanaIn(allUnits);
+  switch (kind) {
+    case 'lesson': {
+      for (const g of fill(gram, 2)) qs.push(grammarQ(g));
+      if (kana.length) {
+        for (const id of take(kana, 3)) qs.push(vocabQ(id, kanaPool, false));
+        for (const id of take(kana, 2)) qs.push(listenKanaQ(id, kanaPool));
+        for (const id of take(kana, 2)) qs.push(traceQ(id));
+      } else {
+        for (const id of take(kanji, 3)) qs.push(kanjiQ(id, kanji));
+        for (const id of take(kanji, 2)) qs.push(listenWordQ(id, kanji));
+        for (const id of take(kanji, 2)) qs.push(traceQ(id));
+      }
+      if (plain.length) qs.push(vocabQ(take(plain, 1)[0], plain));
+      { const r = T.readings.find((x) => x.unit === unit); if (r) qs.push(readingQ(r)); }
+      return shuffle(qs);
+    }
+    case 'writing': for (const id of take([...kana, ...kanji], 8)) qs.push(traceQ(id)); return qs;
+    case 'kanji': {
+      const ks = kanji.length >= 4 ? kanji : kanjiIn(allUnits);
+      for (const id of take(ks, 10)) qs.push(kanjiQ(id, ks));
+      return qs;
+    }
+    case 'listening': for (const id of take(kanaPool, 10)) qs.push(listenKanaQ(id, kanaPool)); return qs;
+    case 'vocab': case 'daily': {
+      for (const id of take(kanaPool, 6)) qs.push(vocabQ(id, kanaPool));
+      for (const id of take(plain, 4)) qs.push(vocabQ(id, plain));
+      return shuffle(qs);
+    }
+    case 'grammar': for (const g of fill(gram, 10)) qs.push(grammarQ(g)); return qs;
+    case 'reading': for (const r of take(T.readings.filter((x) => units.includes(x.unit)), 5)) qs.push(readingQ(r)); return qs;
+    case 'exam': {
+      const allKana = kanaIn(allUnits), allKanji = kanjiIn(allUnits);
+      for (const id of take(allKana, 8)) qs.push(vocabQ(id, allKana, false));
+      for (const id of take(allKana, 5)) qs.push(listenKanaQ(id, allKana));
+      for (const id of take(allKanji, 5)) qs.push(kanjiQ(id, allKanji));
+      for (const g of take(T.grammar, 4)) qs.push(grammarQ(g));
+      for (const r of take(T.readings, 4)) qs.push(readingQ(r));
+      for (const id of take([...take(allKana, 3), ...take(allKanji, 1)], 4)) qs.push(traceQ(id));
+      return qs;
+    }
+  }
+  return qs;
 }
 
 export function grammarFor(unit: number) { return grammarIn([unit]); }

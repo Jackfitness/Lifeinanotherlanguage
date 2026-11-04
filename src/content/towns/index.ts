@@ -5,14 +5,15 @@ import { CONVOS } from '../dialogues';
 import { registerNpcs } from '../characters';
 import { registerItems } from '../items';
 import type { TownContent } from './types';
+import { INK } from './ink';
 import { CLOVER } from './clover';
 import { HARBOR } from './harbor';
 import { LANTERN } from './lantern';
 import { SNOWCAP } from './snowcap';
 import { STARLIGHT } from './starlight';
 
-/** Every Village Pass town, from N5 to N1. */
-export const TOWNS: TownContent[] = [CLOVER, HARBOR, LANTERN, SNOWCAP, STARLIGHT];
+/** Every town: the free writing-systems town, then N5 to N1. */
+export const TOWNS: TownContent[] = [INK, CLOVER, HARBOR, LANTERN, SNOWCAP, STARLIGHT];
 export const TOWN_IDS = TOWNS.map((t) => t.id);
 export const townById = (id: string) => TOWNS.find((t) => t.id === id);
 export const isTown = (id: string | undefined) => !!id && TOWN_IDS.includes(id);

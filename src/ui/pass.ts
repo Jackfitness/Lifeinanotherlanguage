@@ -15,7 +15,7 @@ export type PassReason = 'default' | 'preview' | 'bedtime' | 'town';
  */
 export function openPass(onClose?: () => void, reason: PassReason = 'default') {
   const target = S().profile.target;
-  const first = regionLevel(REGIONS[0], target), last = regionLevel(REGIONS[REGIONS.length - 1], target);
+  const first = regionLevel(REGIONS[1], target), last = regionLevel(REGIONS[REGIONS.length - 1], target);
   const benefit = (ic: string, title: string, sub: string) =>
     h('div.pass-benefit', null, h('div.pb-icon', { html: icon(ic) }), h('div', null, h('b', null, title), h('span', null, sub)));
 
@@ -80,7 +80,7 @@ export function openPass(onClose?: () => void, reason: PassReason = 'default') {
       h('p', null, sub)),
     h('div.pass-towns', null,
       h('div.section-title', null, t('passTowns')),
-      h('div.pass-town-row', null, ...REGIONS.map((r) =>
+      h('div.pass-town-row', null, ...REGIONS.filter((r) => r.id !== 'ink').map((r) =>
         h('div.pass-town', { style: { background: r.color } },
           h('span.lvl-badge', null, regionLevel(r, target)),
           h('div.pt-animals', { html: r.animals.map((a) => icon(a.icon)).join('') }),

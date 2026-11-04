@@ -32,6 +32,8 @@ export const PRICING = {
 };
 /** The free taste of the Pass: the first chapter(s) of the first town. */
 export const FREE_PREVIEW = { town: 'clover', chapters: 1 };
+/** Towns that are completely free (the writing-systems town). */
+export const FREE_TOWNS = ['ink'];
 const ENTITLEMENT = 'village_pass';
 
 // ------------------------------------------------------------------ entitlement
@@ -60,10 +62,10 @@ function grant(plan: PlanId | null, expires = 0) {
 
 /** Is this town quest beyond the free preview for a player without the Pass? */
 export function questLocked(q: { town?: string; chapter?: number }): boolean {
-  if (!q.town || hasPass()) return false;
+  if (!q.town || hasPass() || FREE_TOWNS.includes(q.town)) return false;
   return !(q.town === FREE_PREVIEW.town && (q.chapter ?? 1) <= FREE_PREVIEW.chapters);
 }
-export const townOpenFree = (town: string) => town === FREE_PREVIEW.town;
+export const townOpenFree = (town: string) => town === FREE_PREVIEW.town || FREE_TOWNS.includes(town);
 
 // ------------------------------------------------------------------ RevenueCat (native)
 type RCPackage = { identifier: string; product: { identifier: string; priceString: string; introPrice?: { periodNumberOfUnits?: number } | null } };

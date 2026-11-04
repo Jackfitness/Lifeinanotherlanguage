@@ -43,7 +43,8 @@ import { activeQuests, finishDojo, startTown } from './core/progress';
 import { openPass } from './ui/pass';
 import { showBedtime } from './ui/bedtime';
 import { voicePack } from './audio/voicepack';
-import { billing, FREE_PREVIEW, hasPass, questLocked, townOpenFree } from './core/billing';
+import { ensureFont } from './ui/trace';
+import { billing, FREE_PREVIEW, FREE_TOWNS, hasPass, questLocked, townOpenFree } from './core/billing';
 import { progress } from './learning/engine';
 import { applyFont, displayFamily, FONTS } from './ui/fonts';
 import type { Season } from './world/textures';
@@ -210,6 +211,7 @@ export class Game {
       this.townCache.set(def.id, c);
     }
     this.townDef = def;
+    if (def.script) void ensureFont(); // tracing guides use a handwriting font
     this.town = c.town; this.townNpcs = c.npcs; this.townAmb = c.amb;
     setDojoTown(def.id);
     this.updateTownRoutines();
@@ -272,14 +274,14 @@ export class Game {
     openDojo({
       portrait: (id) => this.portrait(id),
       run: (kind, unit) => void this.runDojo(kind, unit),
-      examOpen: () => lessonsDone() >= this.townDef.units || qs(this.townDef.finaleQuest)?.state === 'active' || townState().examBest > 0,
+      examOpen: () => !!this.townDef.script || lessonsDone() >= this.townDef.units || qs(this.townDef.finaleQuest)?.state === 'active' || townState().examBest > 0,
     }, () => { if (!this.dojoRunning) this.setBusy(false); });
   }
   private dojoRunning = false;
 
   /** Run a dojo lesson, practice set or the exam, then show results. */
   private async runDojo(kind: SessionKind, unit = 1) {
-    if (!this.hasPass() && (kind === 'exam' || (kind === 'lesson' && unit > FREE_PREVIEW.chapters))) { openPass(undefined, 'preview'); return; }
+    if (!this.hasPass() && !FREE_TOWNS.includes(this.townDef.id) && (kind === 'exam' || (kind === 'lesson' && unit > FREE_PREVIEW.chapters))) { openPass(undefined, 'preview'); return; }
     this.dojoRunning = true;
     this.setBusy(true);
     holdCards(true);
@@ -318,19 +320,19 @@ export class Game {
       }
       if (kind === 'exam') {
         ts.examBest = Math.max(ts.examBest, pct);
-        if (pct >= 80) { ts.examPassed = true; title = t('examPassed'); sub += ' · ' + pick(this.townDef.examPassedSub); big = '🏅'; finishDojo('exam'); }
+        if (pct >= (this.townDef.passMark ?? 80)) { ts.examPassed = true; title = t('examPassed'); sub += ' · ' + pick(this.townDef.examPassedSub); big = '🏅'; finishDojo('exam'); }
         else {
-          title = t('examFailed'); big = '🌱';
-          const names: Record<string, string> = { vocab: t('dojoVocab'), kanji: t('dojoKanji'), grammar: t('dojoGrammar'), reading: t('dojoReading'), listening: t('dojoListening') };
+          title = t('examFailed', { p: this.townDef.passMark ?? 80 }); big = '🌱';
+          const names: Record<string, string> = { vocab: t('dojoVocab'), kanji: t('dojoKanji'), grammar: t('dojoGrammar'), reading: t('dojoReading'), listening: t('dojoListening'), writing: t('dojoWriting') };
           const weakest = Object.entries(sections).sort((a, b) => a[1].c / a[1].n - b[1].c / b[1].n)[0];
           if (weakest) sub += ' · ' + t('practiceTip', { s: names[weakest[0]] });
         }
       }
       store.touch('dojo');
       const bars = h('div.result-bars', null, ...Object.entries(sections).map(([k, v]) =>
-        h('div.rb', null, h('span', null, ({ vocab: t('dojoVocab'), kanji: t('dojoKanji'), grammar: t('dojoGrammar'), reading: t('dojoReading'), listening: t('dojoListening') } as Record<string, string>)[k]),
+        h('div.rb', null, h('span', null, ({ vocab: t('dojoVocab'), kanji: t('dojoKanji'), grammar: t('dojoGrammar'), reading: t('dojoReading'), listening: t('dojoListening'), writing: t('dojoWriting') } as Record<string, string>)[k]),
           h('div.rb-bar', null, h('i', { style: { width: `${(v.c / v.n) * 100}%` } })), h('b', null, `${v.c}/${v.n}`))));
-      if (pct >= 80 || (kind === 'lesson' && pct >= 60)) { audio.questDone(); confetti(50); }
+      if (pct >= (this.townDef.passMark ?? 80) || (kind === 'lesson' && pct >= 60)) { audio.questDone(); confetti(50); }
       holdCards(false, false);
       centerCard(big, title, [h('div.result-score', null, `${pct}%`), sub, bars], t('gotIt'));
     } finally {

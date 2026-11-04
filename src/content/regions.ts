@@ -22,6 +22,19 @@ export const HOME_REGION = {
 
 export const REGIONS: Region[] = [
   {
+    id: 'ink', jlpt: 'かな', color: '#E8E2D6', at: [76, 84],
+    name: { en: 'Inkbrush Village', es: 'Aldea del Pincel', ja: 'すみ村' },
+    blurb: {
+      en: 'A quiet village of white walls and bamboo. Learn hiragana, katakana and your first kanji, then pass the Script Exam. Free for everyone.',
+      es: 'Un pueblo tranquilo de paredes blancas y bambú. Aprende hiragana, katakana y tus primeros kanji, y aprueba el Examen de Escritura. Gratis para todos.',
+      ja: '白いかべと竹の静かな村。ひらがな、カタカナ、最初の漢字を覚えて、文字の試験に合格しよう。だれでも無料。',
+    },
+    animals: [
+      { icon: 'panda', name: { en: 'Pandas', es: 'Pandas', ja: 'パンダ' } },
+      { icon: 'hedgehog', name: { en: 'Hedgehogs', es: 'Erizos', ja: 'ハリネズミ' } },
+    ],
+  },
+  {
     id: 'clover', jlpt: 'N5', color: '#A8DABB', at: [22, 74],
     name: { en: 'Clover Meadow', es: 'Prado del Trébol', ja: 'クローバー草原' },
     blurb: {

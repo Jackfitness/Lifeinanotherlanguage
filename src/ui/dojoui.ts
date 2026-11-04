@@ -44,7 +44,7 @@ export function openDojo(host: DojoHost, onClose?: () => void) {
   body.append(h('div.section-title', null, t('dojoPractice')));
   const modes: [SessionKind, string, string][] = [
     ['daily', 'sparkle', t('dojoDaily')], ['vocab', 'book', t('dojoVocab')], ['kanji', 'kana', t('dojoKanji')],
-    ['grammar', 'pencil', t('dojoGrammar')], ['listening', 'speaker', t('dojoListening')], ['reading', 'scroll', t('dojoReading')],
+    ['grammar', 'pencil', t('dojoGrammar')], ['listening', 'speaker', t('dojoListening')], dojoTown().script ? ['writing', 'brush', t('dojoWriting')] : ['reading', 'scroll', t('dojoReading')],
   ];
   body.append(h('div.practice-grid', null, ...modes.map(([k, ic, label]) => button('practice-tile', [h('span', { html: icon(ic) }), label], () => go(k)))));
 
@@ -54,7 +54,8 @@ export function openDojo(host: DojoHost, onClose?: () => void) {
   body.append(h('div.exam-card' + (open ? '' : '.locked'), null,
     h('div.ec-icon', { html: icon(ts.examPassed ? 'medal' : 'bell') }),
     h('div', { style: { flex: '1' } }, h('b', null, pick(dojoTown().examTitle)),
-      h('span', null, open ? t('examDesc', { n: dojoTown().words.length }) : t('examLockedDesc')),
+      h('span', null, open ? t('examDesc', { n: dojoTown().words.length, p: dojoTown().passMark ?? 80 }) : t('examLockedDesc')),
+      dojoTown().script && !ts.examPassed ? h('span.ec-best', null, t('examSkip')) : null,
       ts.examBest ? h('span.ec-best', null, t('examBest', { n: ts.examBest })) : null),
     button('btn.primary.small', open ? t('examStart') : '🔒', () => { if (open) go('exam'); }, open ? {} : { disabled: true })));
   return s;

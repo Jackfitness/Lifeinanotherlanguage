@@ -87,12 +87,18 @@ class Decal {
 
 const THREAD = '#2E211B';
 
-function drawEyes(ctx: CanvasRenderingContext2D, s: number, expr: Expr, blink: boolean, gap: number, mask?: { color: string; kind: 'band' | 'discs' }) {
+function drawEyes(ctx: CanvasRenderingContext2D, s: number, expr: Expr, blink: boolean, gap: number, mask?: { color: string; kind: 'band' | 'discs' | 'panda' }) {
   const ey = s * 0.5, lx = s * (0.5 - gap), rx = s * (0.5 + gap);
   if (mask) {
     // Felt face patches stitched under the eyes (raccoon mask, owl eye discs)
     ctx.fillStyle = mask.color;
-    if (mask.kind === 'band') {
+    if (mask.kind === 'panda') {
+      // tilted black patches, with a pale ring so the button eyes still read
+      for (const x of [lx, rx]) {
+        ctx.fillStyle = mask.color; ctx.beginPath(); ctx.ellipse(x, ey + s * 0.02, s * 0.11, s * 0.14, x < s / 2 ? 0.5 : -0.5, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#FFFFFF'; ctx.beginPath(); ctx.arc(x, ey, s * 0.085, 0, Math.PI * 2); ctx.fill();
+      }
+    } else if (mask.kind === 'band') {
       for (const x of [lx, rx]) { ctx.beginPath(); ctx.ellipse(x, ey + s * 0.01, s * 0.15, s * 0.12, x < s / 2 ? 0.35 : -0.35, 0, Math.PI * 2); ctx.fill(); }
       ctx.fillRect(lx, ey - s * 0.05, rx - lx, s * 0.1);
     } else {
@@ -256,7 +262,7 @@ export class Plush {
   private phase = 0; private seed = Math.random() * 10;
   private blinkIn = 2; private blinkT = 0; private mouthT = 0; private mouthOpen = false;
   private hopY = 0; private hopV = 0; private waveT = 0; private gap = 0.16;
-  private eyeMask?: { color: string; kind: 'band' | 'discs' };
+  private eyeMask?: { color: string; kind: 'band' | 'discs' | 'panda' };
   private mouthOpts: { nose?: string; whiskers?: boolean; y?: number } = {};
 
   constructor(spec: PlushSpec) {
@@ -540,6 +546,52 @@ export class Plush {
         nose3d(0, -0.06, 0.44, 0.042);
         this.mouthOpts.y = 0.55;
         const tail = sph(plushMat('#FFFFFF'), 0.07, 0.09, 0.05); tail.position.set(0, 0.4, -0.33); this.bob.add(tail); this.tail = tail;
+        break;
+      }
+      case 'panda': {
+        this.eyeMask = { color: spec.accent, kind: 'panda' };
+        const dark = plushMat(spec.accent);
+        for (const sx of [-1, 1]) {
+          const ear = sph(dark, 0.12, 0.12, 0.07);
+          ear.position.set(sx * 0.27, 0.27, -0.03);
+          add(ear); this.ears.push(ear);
+        }
+        muzzle(0.15, 0.11, 0.12, -0.12, 0.3, belly);
+        nose3d(0, -0.06, 0.42, 0.042);
+        this.mouthOpts.y = 0.52;
+        // black arms and legs, the panda's signature
+        for (const g of [this.armL, this.armR, this.legL, this.legR]) g.children.forEach((c, i) => { if (i === 0) (c as THREE.Mesh).material = dark; });
+        const tail = sph(main, 0.07); tail.position.set(0, 0.3, -0.33); this.bob.add(tail); this.tail = tail;
+        break;
+      }
+      case 'hedgehog': {
+        // soft felt spikes over the back of the head and body, a pointy snout
+        const spikeMat = plushMat(spec.accent);
+        const spike = new THREE.ConeGeometry(0.075, 0.24, 8);
+        for (let i = 0; i < 46; i++) {
+          const a = (i / 46) * Math.PI * 2 * 5.3, t = i / 46;
+          const th = 0.25 + t * 1.25, ph = (a % (Math.PI * 2)) - Math.PI;
+          if (Math.abs(ph) < 0.9) continue; // keep the face clear
+          const dir = new THREE.Vector3(Math.sin(ph) * Math.sin(th), Math.cos(th), Math.cos(ph) * Math.sin(th));
+          const m = new THREE.Mesh(spike, spikeMat);
+          m.position.copy(dir.clone().multiplyScalar(R * 0.98));
+          m.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir);
+          this.head.add(m);
+        }
+        for (let i = 0; i < 27; i++) {
+          const ph = Math.PI + (i % 9 - 4) * 0.27, y = 0.3 + Math.floor(i / 9) * 0.15;
+          const dir = new THREE.Vector3(Math.sin(ph), 0.25, Math.cos(ph)).normalize();
+          const m = new THREE.Mesh(spike, spikeMat);
+          m.position.set(dir.x * 0.34, y, dir.z * 0.31);
+          m.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir);
+          this.bob.add(m);
+        }
+        for (const sx of [-1, 1]) { const ear = sph(belly, 0.06, 0.06, 0.035); ear.position.set(sx * 0.25, 0.25, 0.08); add(ear); this.ears.push(ear); }
+        const snout = new THREE.Mesh(new THREE.ConeGeometry(0.11, 0.24, 14), belly);
+        snout.rotation.x = Math.PI / 2; snout.position.set(0, -0.08, 0.42); this.head.add(snout);
+        this.mouth = new Decal(1.03, 1.2, Math.PI / 2 - 0.3, 0.9);
+        nose3d(0, -0.08, 0.54, 0.04);
+        hm.add(this.mouth.mesh); this.mouthOpts.y = 0.5;
         break;
       }
       case 'capybara': {

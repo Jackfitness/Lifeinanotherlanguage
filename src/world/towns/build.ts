@@ -50,18 +50,27 @@ interface Theme {
   plaza: [string, string];
   court: string;
   water: 'pond' | 'sea' | 'onsen' | 'pool';
-  landmark: 'clock' | 'lighthouse' | 'pagoda' | 'belfry' | 'tower';
+  landmark: 'clock' | 'lighthouse' | 'pagoda' | 'belfry' | 'tower' | 'scroll';
   hall: Colors; post: Colors; resto: Colors;
   stalls: [string, string][];
   dojoRoof: string;
   gate: string;
-  west: 'fields' | 'docks' | 'nightmarket' | 'library' | 'theater';
+  west: 'fields' | 'docks' | 'nightmarket' | 'library' | 'theater' | 'bamboo';
   edge: 'trees' | 'maples' | 'snowpines' | 'city';
   strings: number;
   signInk: [string, string, string, string, string];
 }
 
 export const THEMES: Record<string, Theme> = {
+  ink: {
+    seed: 2468, season: 'spring', grass: ['#B8D69A', '#AACB8C', '#C6DFAA'], patch: 'clover', path: ['#A9A39A', '#CFC9BE'], plaza: ['#A39C92', '#E4DED3'], court: '#E9E4DA',
+    water: 'pond', landmark: 'scroll', west: 'bamboo', edge: 'trees', strings: 2, dojoRoof: '#3A3A3E', gate: '#2E2A2A',
+    hall: { wall: '#FBF8F2', roof: '#3A3A3E', trim: '#E9E2D6', door: '#C2453B' },
+    post: { wall: '#FBF8F2', roof: '#4A4A50', trim: '#E9E2D6', door: '#2E2A2A' },
+    resto: { wall: '#FBF4EA', roof: '#6E4A34', trim: '#E9E2D6', door: '#8A5A3B' },
+    stalls: [['#2E2A2A', '#FBF8F2'], ['#C2453B', '#FBF8F2'], ['#6E4A34', '#FBF8F2']],
+    signInk: ['#2E2A2A', '#2E2A2A', '#6E4A34', '#2E2A2A', '#C2453B'],
+  },
   clover: {
     seed: 4321, patch: 'clover', path: ['#D9BE8C', '#ECD7AE'], plaza: ['#D9BE8C', '#F4E6C9'], court: '#E9E2D2',
     water: 'pond', landmark: 'clock', west: 'fields', edge: 'trees', strings: 2, dojoRoof: '#3F4A5E', gate: '#C2453B',
@@ -248,6 +257,16 @@ function landmark(kind: Theme['landmark'], root: THREE.Group): { bellY: number; 
       g.add(mesh(rbox(5.2, 0.35, 0.4, 0.12), '#3A3E4E', 0, 7.95, 0));
       return { bellY: 6.0, r: 2.6 };
     }
+    case 'scroll': {
+      // a giant hanging scroll between two posts, with あ painted on it
+      g.add(mesh(rbox(5.6, 0.5, 2.2, 0.15), '#A39C92', 0, 0.25, 0));
+      for (const x of [-2.2, 2.2]) g.add(mesh(rbox(0.4, 7.2, 0.4, 0.08), '#2E2A2A', x, 3.8, 0));
+      g.add(mesh(rbox(5.4, 0.4, 0.5, 0.1), '#2E2A2A', 0, 7.5, 0));
+      g.add(mesh(new THREE.ConeGeometry(3.6, 1.0, 4), '#3A3A3E', 0, 8.2, 0, { ry: Math.PI / 4, s: [1, 1, 0.45] }));
+      g.add(mesh(CYL(0.12, 0.12, 3.6, 10), '#8A5A3B', 0, 6.8, 0.05, { rz: Math.PI / 2 }));
+      g.add(mesh(CYL(0.12, 0.12, 3.6, 10), '#8A5A3B', 0, 1.7, 0.05, { rz: Math.PI / 2 }));
+      return { bellY: 7.3, r: 2.6 };
+    }
     case 'tower': {
       g.add(mesh(CYL(2.3, 2.5, 0.6, 24), '#A8A2B6', 0, 0.3, 0));
       // red-and-white lattice tower
@@ -422,6 +441,7 @@ export function buildTown(themeId: string, worldSeason: Season, signs: { hall: s
 
   // ---- Market stalls
   const goods: Record<string, string[][]> = {
+    ink: [['#F4EFE6', '#C9A27A', '#7DB46C'], ['#F2A7B0', '#FFFFFF', '#E9C79E'], ['#8A5A3B', '#F6C343', '#FFFFFF']],
     clover: [['#E8566C', '#F2913D', '#7DB46C'], ['#FBE08A', '#E8566C', '#B6A3D9'], ['#F6C343', '#7DB46C', '#F2913D']],
     harbor: [['#9FB8C8', '#E5735F', '#C8D3DA'], ['#F2A07B', '#9FB8C8', '#E5735F'], ['#7DB46C', '#C8D3DA', '#F2A07B']],
     lantern: [['#FFD27A', '#C2453B', '#FFD27A'], ['#F2A7B0', '#FFFFFF', '#7DB46C'], ['#E9A92A', '#8A5A3B', '#F6C343']],
@@ -446,6 +466,12 @@ export function buildTown(themeId: string, worldSeason: Season, signs: { hall: s
     if (!spinner) { spinner = wm; spinAxis = 'z'; }
     for (let i = 0; i < 4; i++) for (let j = 0; j < 9; j++) root.add(flower(r, -21.5 + j, -17 + i * 4.2, ['#F6C343', '#F28FA6', '#FFFFFF', '#B6A3D9'][i]));
     root.add(fence(-23, -19, -13, -19)); root.add(fence(-13, -19, -13, -1.5)); box(-18, -19, 10, 0.3); box(-13, -10.25, 0.3, 17.5);
+  } else if (th.west === 'bamboo') {
+    // a calm bamboo grove with a stone path and a stone lantern
+    for (const [x, z] of [[-21, -17], [-17.5, -18.5], [-14.5, -16], [-21.5, -12.5], [-15, -11], [-20, -7.5], [-16.5, -5.5]] as V2[]) { bamboo(r, x, z, root); circ(x, z, 0.9); }
+    for (let i = 0; i < 6; i++) root.add(mesh(CYL(0.5, 0.55, 0.12, 10), '#C9C2B6', -18 + Math.sin(i) * 0.6, 0.06, -16 + i * 1.8));
+    root.add(mesh(rbox(0.7, 1.3, 0.7, 0.1), '#A39C92', -12.6, 0.65, -14)); root.add(mesh(rbox(0.8, 0.5, 0.8, 0.1), '#FFE3A3', -12.6, 1.5, -14, { glow: true }));
+    root.add(mesh(new THREE.ConeGeometry(0.75, 0.5, 4), '#A39C92', -12.6, 2.0, -14, { ry: Math.PI / 4 })); circ(-12.6, -14, 0.5);
   } else if (th.west === 'docks') {
     // net-mending yard: crates, barrels, drying nets and a beached boat
     for (const [x, z] of [[-20, -16], [-18.6, -16], [-20, -14.6], [-15, -8], [-16.4, -8]] as V2[]) { root.add(mesh(rbox(1.2, 1.0, 1.2, 0.08), '#C98F5E', x, 0.5, z)); circ(x, z, 0.8); }
@@ -483,7 +509,7 @@ export function buildTown(themeId: string, worldSeason: Season, signs: { hall: s
   for (const [x, z, ry] of [[-6, 2.2, 1.9], [6, 2.2, -1.9], [7, -11, -0.6], [11, -9, -2.4]] as [number, number, number][]) { root.add(bench(x, z, ry)); circ(x, z, 0.9); benches.push({ x, z, ry }); }
   const [L0, L1, L2, L3] = LAMPS;
   const strings: [V2, V2][] = [[L0, L3], [L1, L2], [L2, L3], [L0, L2], [L1, L3], [L0, L1]];
-  const lanternCols: Record<string, [string, string]> = { clover: ['#E8566C', '#FFF6EE'], harbor: ['#5E95C4', '#FFFFFF'], lantern: ['#E5533F', '#FFB35C'], snowcap: ['#C2453B', '#FFF1C2'], starlight: ['#FFF1C2', '#B6A3D9'] };
+  const lanternCols: Record<string, [string, string]> = { ink: ['#C2453B', '#FBF8F2'], clover: ['#E8566C', '#FFF6EE'], harbor: ['#5E95C4', '#FFFFFF'], lantern: ['#E5533F', '#FFB35C'], snowcap: ['#C2453B', '#FFF1C2'], starlight: ['#FFF1C2', '#B6A3D9'] };
   const [lc1, lc2] = lanternCols[themeId] ?? lanternCols.clover;
   for (const [a, b] of strings.slice(0, th.strings)) {
     for (let i = 1; i < 10; i++) {
@@ -548,6 +574,20 @@ export function buildTown(themeId: string, worldSeason: Season, signs: { hall: s
     const m = new THREE.Mesh(new THREE.PlaneGeometry(w, 0.75), new THREE.MeshStandardMaterial({ map: signTexture(text, bg, fg, '"Kiwi Maru", "M PLUS Rounded 1c", sans-serif', 500), transparent: true, roughness: 0.8 }));
     m.position.set(x, y, z); group.add(m);
   };
+  if (th.landmark === 'scroll') {
+    // the scroll's paper, painted with the first three hiragana
+    const [c, x] = canvas(256, 512);
+    x.fillStyle = '#FBF6EA'; x.fillRect(0, 0, 256, 512);
+    x.strokeStyle = 'rgba(194,69,59,.5)'; x.lineWidth = 6; x.strokeRect(14, 14, 228, 484);
+    x.fillStyle = '#2E2A2A'; x.textAlign = 'center'; x.textBaseline = 'middle';
+    x.font = '500 150px "Klee One", "Kiwi Maru", serif';
+    ['あ', 'い', 'う'].forEach((ch, i) => x.fillText(ch, 128, 100 + i * 155));
+    const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace;
+    for (const side of [1, -1]) {
+      const paper = new THREE.Mesh(new THREE.PlaneGeometry(3.2, 5.0), new THREE.MeshStandardMaterial({ map: tex, roughness: 0.9 }));
+      paper.position.set(0, 4.25, side * 0.08); if (side < 0) paper.rotation.y = Math.PI; group.add(paper);
+    }
+  }
   const ink = th.signInk;
   sign(signs.hall, -11, 3.75, 1.36, '#FFF6EE', ink[0]);
   sign(signs.post, 11, 3.55, 1.26, '#FFF6EE', ink[1]);

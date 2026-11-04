@@ -11,6 +11,7 @@ import {
   card, distractors, stopSpeaking, renderOpts, expose, exposePhrase, glossVisible, levelNum, lexNative, lexPlain, lexTarget, markNote, noteFor,
   phraseNative, phraseSyllables, phraseTarget, phraseTiles, review, say, sayLex, sayPhrase, shuffle, target,
 } from '../learning/engine';
+import { tracePad } from './trace';
 import { button, floatText, h, toast, ui } from './dom';
 import type { DojoQ } from '../learning/dojo';
 import { renderTarget } from '../learning/text';
@@ -532,6 +533,20 @@ export class Dialogue {
     }
     if (q.sub) card.append(h('div.dojo-sub', { html: q.sub }));
     parts.push(card);
+    if (q.trace) {
+      // Writing drill: trace the character, then score the ink.
+      const res = await new Promise<{ ok: boolean; el: HTMLElement }>((done) => {
+        const pad = tracePad(q.trace!, (r) => done({ ok: r.ok, el: pad.el }));
+        parts.push(pad.el);
+        this.root.replaceChildren(...parts);
+        (window as unknown as { __trace?: unknown }).__trace = { canvas: pad.canvas, score: pad.score, get face() { return pad.face; }, glyph: q.trace }; // test hook
+      });
+      res.el.classList.add(res.ok ? 'right' : 'wrong');
+      res.el.querySelectorAll('button').forEach((b) => ((b as HTMLButtonElement).disabled = true));
+      if (q.speak) q.speak();
+      await this.afterAnswer(res.ok, [q.explain], res.el, () => { q.grade(res.ok); if (res.ok) addXP(2); });
+      return res.ok;
+    }
     const list = h('div.options');
     const answered = new Promise<{ idx: number; el: HTMLElement }>((res) => {
       q.options.forEach((o, idx) => {
