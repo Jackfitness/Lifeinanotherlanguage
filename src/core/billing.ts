@@ -4,10 +4,11 @@ import { bus } from './events';
 /**
  * Village Pass pricing and purchases.
  *
- * Plans (set the same product ids in App Store Connect / Google Play and attach both to a
- * RevenueCat entitlement called `village_pass`):
+ * RevenueCat setup: one entitlement (any name) and a default offering with a Monthly package
+ * (auto-renewing, 7-day free trial) and a Lifetime package (one-time). Suggested product ids:
  *   - village_pass_lifetime  one-time, unlocks everything forever
  *   - village_pass_monthly   auto-renewing, with a 7-day free trial
+ * Other packages in the offering (e.g. Yearly) are ignored.
  *
  * Backends:
  *   - RevenueCat (native app wrapped with Capacitor + @revenuecat/purchases-capacitor): real payments.
@@ -34,7 +35,8 @@ export const PRICING = {
 export const FREE_PREVIEW = { town: 'clover', chapters: 1 };
 /** Towns that are completely free (the writing-systems town). */
 export const FREE_TOWNS = ['ink'];
-const ENTITLEMENT = 'village_pass';
+/** Any active RevenueCat entitlement unlocks the Pass, whatever it's called in the dashboard. */
+const ENTITLEMENT_HINT = 'village_pass';
 
 // ------------------------------------------------------------------ entitlement
 const params = new URLSearchParams(location.search);
@@ -68,7 +70,7 @@ export function questLocked(q: { town?: string; chapter?: number }): boolean {
 export const townOpenFree = (town: string) => town === FREE_PREVIEW.town || FREE_TOWNS.includes(town);
 
 // ------------------------------------------------------------------ RevenueCat (native)
-type RCPackage = { identifier: string; product: { identifier: string; priceString: string; introPrice?: { periodNumberOfUnits?: number } | null } };
+type RCPackage = { identifier: string; packageType?: string; product: { identifier: string; priceString: string; introPrice?: { periodNumberOfUnits?: number } | null } };
 type RCInfo = { entitlements: { active: Record<string, { productIdentifier: string; expirationDate?: string | null }> } };
 interface RCPlugin {
   configure(o: { apiKey: string }): Promise<void>;
@@ -83,16 +85,20 @@ class RevenueCatBilling implements Billing {
   private ready: Promise<void>;
   constructor(private rc: RCPlugin, apiKey: string) { this.ready = rc.configure({ apiKey }); }
   private apply(info: RCInfo) {
-    const e = info.entitlements.active[ENTITLEMENT];
+    const active = info.entitlements.active;
+    const e = active[ENTITLEMENT_HINT] ?? Object.values(active)[0];
     if (!e) { grant(null); return; }
-    const plan: PlanId = e.productIdentifier.includes('monthly') ? 'village_pass_monthly' : 'village_pass_lifetime';
+    // a subscription has an expiry date; a lifetime purchase doesn't
+    const plan: PlanId = e.expirationDate ? 'village_pass_monthly' : 'village_pass_lifetime';
     grant(plan, e.expirationDate ? Date.parse(e.expirationDate) : 0);
   }
   async plans() {
     await this.ready;
     const off = await this.rc.getOfferings();
-    return (off.current?.availablePackages ?? []).map((p): Plan => {
-      const monthly = p.product.identifier.includes('monthly');
+    // Use the packages' types from the offering (Monthly / Lifetime), not product names.
+    const pkgs = (off.current?.availablePackages ?? []).filter((p) => p.packageType === 'MONTHLY' || p.packageType === 'LIFETIME' || /monthly|lifetime/i.test(p.product.identifier));
+    return pkgs.map((p): Plan => {
+      const monthly = p.packageType ? p.packageType === 'MONTHLY' : /monthly/i.test(p.product.identifier);
       return { id: monthly ? 'village_pass_monthly' : 'village_pass_lifetime', price: p.product.priceString, period: monthly ? 'month' : undefined, trialDays: p.product.introPrice?.periodNumberOfUnits ?? undefined, pkg: p };
     });
   }
