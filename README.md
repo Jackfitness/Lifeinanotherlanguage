@@ -97,11 +97,7 @@ Change prices in the stores (and `PRICING` in `billing.ts` for the web test mode
 
 **Payments:**
 - **Web build / artifact:** test mode. Purchases are simulated and the sheet says "Test mode: no real money is charged". `?pass=1` still forces the Pass on.
-- **iOS / Android:** wrap the build with Capacitor and add RevenueCat, which handles both stores, receipts, trials, renewals and refunds:
-  1. `npm i @capacitor/core @capacitor/cli @capacitor/ios @capacitor/android @revenuecat/purchases-capacitor`, then `npx cap init`, `npx cap add ios`, `npx cap add android`.
-  2. Create the two products above in App Store Connect and Google Play Console, attach both to a RevenueCat entitlement named `village_pass`, and put them in the current offering.
-  3. Build with `VITE_REVENUECAT_KEY=<public SDK key>` (separate keys per platform, or set `window.__RC_KEY__` at startup). When the plugin and key are present, `billing.ts` switches to real purchases automatically: localized prices, purchase, restore, and an entitlement re-check on launch and resume.
-  4. Before review: the pass sheet already shows "Restore purchases" and the auto-renewal terms; add links to your privacy policy and terms of use.
+- **iOS / Android:** real payments through RevenueCat, which handles both stores, receipts, trials, renewals and refunds. See **Phone apps** below.
 
 ## The towns (N5 → N1)
 
@@ -120,6 +116,31 @@ Each town has 9 story chapters, 6 villagers, about 110–180 words, 24–28 gram
 - **Layout:** every town shares one street plan (`world/towns/build.ts`) with its own theme: ground, landmark, buildings, water, edges and props.
 - **Adding a town:** create `src/content/towns/<id>/` (vocab, grammar, reading, story, index), add it to `TOWNS` in `src/content/towns/index.ts`, add a theme in `world/towns/build.ts`, then run `npm run validate:towns` (checks kanji readings and every word, phrase, item, villager and quest reference).
 - **Voices:** `npm run voice:lines` exports one pack per town; `tools/voice/render_tts.py` renders them with Kokoro. The base pack is always loaded, and town packs load only while you're there.
+
+## Phone apps (iOS and Android)
+
+The game ships as native apps with [Capacitor](https://capacitorjs.com): the same web build runs inside `android/` and `ios/` projects that are already set up (portrait only, app icon and splash screen, Android back button, RevenueCat payments).
+
+**Builds without installing anything:** every push to `main` runs **Android build** in GitHub Actions. Open the run, download `cozy-language-village-debug-apk` from Artifacts, and install it on an Android phone for testing. **iOS build check** (run by hand from the Actions tab) confirms the iOS project compiles.
+
+**On your own computer:**
+
+```bash
+npm run app:android
+```
+
+```bash
+npm run app:ios
+```
+
+These build the game, copy it into the native projects and open Android Studio or Xcode (Mac only).
+
+**Before the first store upload:**
+1. Pick the final app id in `capacitor.config.ts` (now `com.lifeinanotherlanguage.app`). It can't change after release.
+2. Payments: create `village_pass_lifetime` (non-consumable) and `village_pass_monthly` (auto-renewing, 7-day free trial) in App Store Connect and Google Play Console. In RevenueCat, attach both to an entitlement called `village_pass` in the current offering, then add the public SDK keys as repository secrets `REVENUECAT_ANDROID_KEY` and `REVENUECAT_IOS_KEY` (or as `VITE_REVENUECAT_ANDROID_KEY` / `VITE_REVENUECAT_IOS_KEY` for local builds). Without a key the app runs purchases in test mode.
+3. Android release: create an upload keystore once, then add the `ANDROID_KEYSTORE_*` secrets listed at the top of `.github/workflows/android.yml`. The workflow then also produces a signed `.aab` for Google Play.
+4. iOS release: open `ios/App/App.xcodeproj` in Xcode, choose your team under Signing & Capabilities, then Product → Archive and upload.
+5. New icon or splash art: replace the PNGs in `assets/` and run `npm run app:assets`.
 
 ## Icons
 

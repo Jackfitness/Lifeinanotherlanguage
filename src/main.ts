@@ -49,3 +49,17 @@ window.addEventListener('pagehide', persist);
 document.addEventListener('visibilitychange', () => { if (document.hidden) persist(); else void billing.refresh(); });
 void billing.refresh(); // pick up purchases, renewals or refunds made outside the game
 void boot();
+
+// ---- Native app (iOS / Android) niceties
+void (async () => {
+  const { Capacitor } = await import('@capacitor/core');
+  if (!Capacitor.isNativePlatform()) return;
+  const { App } = await import('@capacitor/app');
+  // Android back button: close whatever panel is open, otherwise send the app to the background.
+  void App.addListener('backButton', () => {
+    const closer = document.querySelector<HTMLElement>('.sheet .icon-btn, .dlg .close, .center-card .btn, .confirm-card .btn.soft');
+    if (closer) closer.click(); else void App.minimizeApp();
+  });
+  // Save when the app is backgrounded; re-check purchases when it returns.
+  void App.addListener('appStateChange', ({ isActive }) => { if (!isActive) persist(); else void billing.refresh(); });
+})();

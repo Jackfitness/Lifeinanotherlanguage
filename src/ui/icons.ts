@@ -207,7 +207,7 @@ const ICONS: Record<string, string> = {
   ticket: '',
 
   // ---- Animals (villagers & new towns)
-  bear: C(18, 18, 8, 'brown') + C(46, 18, 8, 'brown') + C(32, 34, 20, 'brown') + E(32, 42, 9, 7, 'tan') + dot(25, 32) + dot(39, 32) + dot(32, 40, 2.4) + D(C(18, 18, 3.5, 'tan') + C(46, 18, 3.5), 'tan', 1),
+  bear: C(18, 18, 8, 'brown') + C(46, 18, 8, 'brown') + C(32, 34, 20, 'brown') + E(32, 42, 9, 7, 'tan') + dot(25, 32) + dot(39, 32) + dot(32, 40, 2.4) + D(C(18, 18, 3.5, 'tan') + C(46, 18, 3.5, 'tan'), 'tan', 1),
   bunny: E(24, 14, 5, 13, 'white', -8) + E(40, 14, 5, 13, 'white', 10) + D(E(24, 14, 2, 8, 'pink', -8) + E(40, 14, 2, 8, 'pink', 10), 'pink', 1) + C(32, 38, 18, 'white') + dot(25, 36) + dot(39, 36) + P('M30 42h4l-2 2z', 'pink') + D(E(20, 42, 3, 2, 'pink') + E(44, 42, 3, 2, 'pink'), 'pink', 0.9),
   capybara: C(20, 20, 4, 'dbrown') + C(44, 20, 4, 'dbrown') + R(10, 20, 44, 34, 16, 'brown') + R(18, 38, 28, 14, 7, 'dbrown') + dot(23, 32) + dot(41, 32) + dot(29, 44, 1.6) + dot(35, 44, 1.6) + C(36, 12, 5, 'yellow'),
   cat: P('M12 26L14 8l12 10M52 26L50 8 38 18', 'orange') + C(32, 34, 20, 'orange') + dot(25, 32) + dot(39, 32) + P('M30 38h4l-2 2z', 'pink') + `<path d="M14 38h-8M14 42l-7 3M50 38h8M50 42l7 3" fill="none"/>`,

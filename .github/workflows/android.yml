@@ -1,0 +1,76 @@
+name: Android build
+
+# Builds the Android app on every push to main (and on demand).
+#   - Always: a debug APK you can install on a phone for testing (Actions run → Artifacts).
+#   - When signing secrets are set: a signed release bundle (.aab) ready for Google Play.
+# Secrets (Settings → Secrets and variables → Actions):
+#   REVENUECAT_ANDROID_KEY      RevenueCat public SDK key for Android (optional; without it purchases run in test mode)
+#   ANDROID_KEYSTORE_BASE64     base64 of your upload keystore (.jks)
+#   ANDROID_KEYSTORE_PASSWORD   keystore password
+#   ANDROID_KEY_ALIAS           key alias
+#   ANDROID_KEY_PASSWORD        key password
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Install
+        run: npm ci
+
+      - name: Build the game
+        env:
+          VITE_REVENUECAT_ANDROID_KEY: ${{ secrets.REVENUECAT_ANDROID_KEY }}
+        run: npm run build
+
+      - name: Copy into the Android project
+        run: npx cap sync android
+
+      - name: Debug APK
+        working-directory: android
+        run: ./gradlew assembleDebug --no-daemon
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cozy-language-village-debug-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Signed release bundle (only when signing secrets exist)
+        if: ${{ env.KEYSTORE != '' }}
+        env:
+          KEYSTORE: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        working-directory: android
+        run: |
+          echo "$KEYSTORE" | base64 -d > upload.jks
+          ./gradlew bundleRelease --no-daemon \
+            -Pandroid.injected.signing.store.file="$PWD/upload.jks" \
+            -Pandroid.injected.signing.store.password="$KEYSTORE_PASSWORD" \
+            -Pandroid.injected.signing.key.alias="$KEY_ALIAS" \
+            -Pandroid.injected.signing.key.password="$KEY_PASSWORD"
+          rm upload.jks
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ hashFiles('android/app/build/outputs/bundle/release/*.aab') != '' }}
+        with:
+          name: cozy-language-village-release-aab
+          path: android/app/build/outputs/bundle/release/*.aab

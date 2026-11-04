@@ -152,6 +152,7 @@ const STR: Record<string, Record<LangCode, string>> = {
   passNotified: { en: "You're on the list. Thank you!", es: '¡Estás en la lista. Gracias!', ja: 'リストに登録しました。ありがとう！' },
   passTowns: { en: 'Towns waiting for you', es: 'Pueblos que te esperan', ja: 'あなたを待つ町' },
   bedTitle: { en: 'The village is winding down', es: 'El pueblo se va a dormir', ja: '村はおやすみの時間' },
+  bedInk: { en: 'Keep learning to read (free)', es: 'Sigue aprendiendo a leer (gratis)', ja: '文字の練習をつづける（無料）' },
   bedBody1: { en: 'You spent a cozy minute here today. Your neighbors will be waiting for you tomorrow!', es: 'Hoy pasaste un minuto acogedor aquí. ¡Tus vecinos te esperarán mañana!', ja: '今日は1分のんびり過ごしたね。みんな明日も待っているよ！' },
   bedBody: { en: 'You spent {m} cozy minutes here today. Your neighbors will be waiting for you tomorrow!', es: 'Hoy pasaste {m} minutos acogedores aquí. ¡Tus vecinos te esperarán mañana!', ja: '今日は{m}分のんびり過ごしたね。なかまたちは明日も待ってるよ！' },
   bedRecap: { en: '{n} words practiced today', es: '{n} palabras practicadas hoy', ja: '今日練習したことば：{n}' },

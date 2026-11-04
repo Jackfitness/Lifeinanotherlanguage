@@ -1,0 +1,38 @@
+name: iOS build check
+
+# Confirms the iOS project compiles (simulator build, no signing). Run it by hand from the
+# Actions tab: macOS runner minutes cost more. Store builds are signed and uploaded from Xcode
+# on a Mac (Product → Archive), or later from a signing-enabled workflow.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build the game
+        env:
+          VITE_REVENUECAT_IOS_KEY: ${{ secrets.REVENUECAT_IOS_KEY }}
+        run: npm run build
+
+      - name: Copy into the iOS project
+        run: npx cap sync ios
+
+      - name: Compile for the simulator
+        working-directory: ios/App
+        run: |
+          xcodebuild -project App.xcodeproj -scheme App -configuration Debug \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO build | tail -40

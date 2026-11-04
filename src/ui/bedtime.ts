@@ -4,7 +4,7 @@ import { button, h, ui } from './dom';
 import { icon } from './icons';
 
 /** Gentle end-of-day screen shown when the daily free play time is used up. */
-export function showBedtime(opts: { minutes: number; words: number; msToNextDay: () => number; onReview: () => void; onPass: () => void }) {
+export function showBedtime(opts: { minutes: number; words: number; msToNextDay: () => number; onReview: () => void; onPass: () => void; onFreeTown?: () => void }) {
   const fmt = (ms: number) => {
     const m = Math.max(1, Math.ceil(ms / 60000));
     const hh = Math.floor(m / 60), mm = m % 60;
@@ -28,6 +28,7 @@ export function showBedtime(opts: { minutes: number; words: number; msToNextDay:
       countdown,
       button('btn.primary.bed-pass', [h('span', { html: icon('pass') }), t('bedPass')], () => opts.onPass()),
       button('btn.soft', [h('span', { html: icon('book') }), t('bedReview')], () => opts.onReview()),
+      opts.onFreeTown ? button('btn.soft', [h('span', { html: icon('brush') }), t('bedInk')], () => opts.onFreeTown!()) : null,
     ),
   );
   ui().append(root);

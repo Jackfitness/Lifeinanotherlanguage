@@ -71,8 +71,10 @@ export function openPass(onClose?: () => void, reason: PassReason = 'default') {
     if (ok) { s.close(); toast('🎟️', t('passRestored')); } else toast('🔎', t('passNothing'));
   });
 
+  const testNote = h('div.pass-test.hidden', null, t('passTestMode'));
+  void billing.ready().then((real) => { if (!real) testNote.classList.remove('hidden'); });
   const body = h('div.pass', null,
-    billing.real ? null : h('div.pass-test', null, t('passTestMode')),
+    testNote,
     h('div.pass-hero', null,
       h('div.pass-badge', { html: icon('pass') }),
       h('div.pass-kicker', null, t('pass')),

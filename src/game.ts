@@ -143,6 +143,7 @@ export class Game {
 
   private trackPlayTime(realDt: number) {
     if (this.hasPass() || this.bedtime || document.hidden || this.mode === 'title') return;
+    if (FREE_TOWNS.includes(this.place)) return; // learning to read is free and unlimited
     const d = S().daily;
     d.playSeconds = (d.playSeconds ?? 0) + Math.min(realDt, 1);
     this.playTick += realDt;
@@ -168,6 +169,7 @@ export class Game {
       msToNextDay: () => next.getTime() - Date.now(),
       onReview: () => this.openMenu('words', true),
       onPass: () => openPass(() => { if (this.hasPass() && this.bedtime) { this.bedtime.close(); this.bedtime = null; this.setBusy(false); } }, 'bedtime'),
+      onFreeTown: () => { this.bedtime?.close(); this.bedtime = null; this.setBusy(false); void this.travel('ink'); },
     });
     this.setBusy(true);
   }
@@ -416,7 +418,7 @@ export class Game {
     checkAchievements();
     window.setInterval(() => dailyRollover(), 60_000);
     bus.on('newday', () => { if (this.bedtime) { this.bedtime.close(); this.bedtime = null; this.setBusy(false); } });
-    if (this.playLimitReached()) setTimeout(() => this.enterBedtime(), 800);
+    if (this.playLimitReached() && !FREE_TOWNS.includes(this.place)) setTimeout(() => this.enterBedtime(), 800);
   }
 
   /** Which footstep sound fits the ground under the player. */

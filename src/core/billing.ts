@@ -103,7 +103,8 @@ class RevenueCatBilling implements Billing {
       this.apply(r.customerInfo);
       return hasPass() ? 'ok' : 'error';
     } catch (e) {
-      return (e as { userCancelled?: boolean; code?: string })?.userCancelled || String((e as { code?: string })?.code) === '1' ? 'cancelled' : 'error';
+      const err = e as { userCancelled?: boolean | null; code?: string | number };
+      return err?.userCancelled || String(err?.code) === '1' || String(err?.code) === 'PURCHASE_CANCELLED' ? 'cancelled' : 'error';
     }
   }
   async restore() { await this.ready; const r = await this.rc.restorePurchases(); this.apply(r.customerInfo); return hasPass(); }
@@ -128,11 +129,33 @@ class TestBilling implements Billing {
 }
 
 // ------------------------------------------------------------------ pick a backend
-function create(): Billing {
-  const w = window as unknown as { Capacitor?: { Plugins?: { Purchases?: RCPlugin } }; __RC_KEY__?: string };
-  const rc = w.Capacitor?.Plugins?.Purchases;
-  const key = w.__RC_KEY__ || (import.meta as unknown as { env?: Record<string, string> }).env?.VITE_REVENUECAT_KEY;
-  if (rc && key) return new RevenueCatBilling(rc, key);
-  return new TestBilling();
+const env = (import.meta as unknown as { env?: Record<string, string> }).env ?? {};
+
+/** Real payments inside the iOS / Android app; test mode on the web. */
+class LazyBilling implements Billing {
+  private inner: Promise<Billing>;
+  real = false;
+  constructor() {
+    this.inner = (async (): Promise<Billing> => {
+      try {
+        const { Capacitor } = await import('@capacitor/core');
+        if (!Capacitor.isNativePlatform()) return new TestBilling();
+        const platform = Capacitor.getPlatform();
+        const key = (window as unknown as { __RC_KEY__?: string }).__RC_KEY__
+          || (platform === 'ios' ? env.VITE_REVENUECAT_IOS_KEY : env.VITE_REVENUECAT_ANDROID_KEY) || env.VITE_REVENUECAT_KEY;
+        if (!key) { console.warn('RevenueCat key missing: purchases run in test mode'); return new TestBilling(); }
+        const { Purchases } = await import('@revenuecat/purchases-capacitor');
+        const b = new RevenueCatBilling(Purchases as unknown as RCPlugin, key);
+        this.real = true;
+        return b;
+      } catch (e) { console.warn('billing fallback', e); return new TestBilling(); }
+    })();
+  }
+  async plans() { return (await this.inner).plans(); }
+  async purchase(p: Plan) { return (await this.inner).purchase(p); }
+  async restore() { return (await this.inner).restore(); }
+  async refresh() { return (await this.inner).refresh(); }
+  /** Resolves once the backend is chosen (the pass sheet waits for it). */
+  ready() { return this.inner.then(() => this.real); }
 }
-export const billing: Billing = create();
+export const billing = new LazyBilling();
