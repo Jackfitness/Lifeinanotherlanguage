@@ -73,7 +73,9 @@ export function openPass(onClose?: () => void, reason: PassReason = 'default') {
 
   const testNote = h('div.pass-test.hidden', null, t('passTestMode'));
   void billing.ready().then((real) => { if (!real) testNote.classList.remove('hidden'); });
+  const right = h('div.pass-right', null, planBox, h('div.pass-actions', null, cta), fine, h('div.pass-links', null, restore));
   const body = h('div.pass', null,
+    h('div.pass-left', null,
     testNote,
     h('div.pass-hero', null,
       h('div.pass-badge', { html: icon('pass') }),
@@ -91,16 +93,13 @@ export function openPass(onClose?: () => void, reason: PassReason = 'default') {
       benefit('hourglass', t('passB1'), t('passB1d')),
       benefit('map', t('passB2'), t('passB2d', { a: first, b: last })),
       benefit('heart', t('passB3'), t('passB3d')),
-      benefit('sprout', t('passB4'), t('passB4d'))),
-    planBox,
-    h('div.pass-actions', null, cta),
-    fine,
-    h('div.pass-links', null, restore),
+      benefit('sprout', t('passB4'), t('passB4d')))),
+    right,
   );
   const s = sheet(t('pass'), body, { onClose });
   s.el.classList.add('pass-sheet');
   const later = button('btn.soft.small', t('passLater'), () => s.close());
-  body.append(h('div', { style: { textAlign: 'center', marginTop: '6px' } }, later));
+  right.append(h('div', { style: { textAlign: 'center', marginTop: '6px' } }, later));
   void billing.plans().then((p) => {
     // lifetime first: it's the plan we feature
     plans = p.sort((a, b) => (a.id === 'village_pass_lifetime' ? -1 : 1) - (b.id === 'village_pass_lifetime' ? -1 : 1));

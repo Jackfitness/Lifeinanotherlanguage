@@ -93,18 +93,21 @@ export function runOnboarding(): Promise<OnboardResult> {
         card.append(nav(() => true));
       } else {
         card.append(h('h2', null, t('makePlush')));
+        card.classList.add('onb-plush');
         const pv = h('div.preview');
-        card.append(pv);
+        const right = h('div.plush-r');
+        card.append(h('div.plush-cols', null, h('div.plush-l', null, pv), right));
+        const add = (...els: (Node | string)[]) => right.append(...els);
         const input = h('input.name-input', { placeholder: t('yourName'), maxlength: 12, value: res.name, 'aria-label': t('yourName') }) as HTMLInputElement;
         input.addEventListener('input', () => (res.name = input.value.replace(/[{}|^$<>]/g, '')));
-        card.append(input);
+        add(input);
         const swatches = h('div.swatches');
         const drawSw = () => swatches.replaceChildren(...PLAYER_COLORS.map((c) => button('swatch' + (c === res.color ? '.on' : ''), '', () => { res.color = c; drawSw(); startPreview(); }, { style: { background: c }, 'aria-label': c })));
         drawSw();
-        card.append(h('div', { style: { marginTop: '12px' } }, seg<Species>([
+        add(h('div', { style: { marginTop: '12px' } }, seg<Species>([
           { v: 'cat', label: '🐱 ' + t('species_cat') }, { v: 'fox', label: '🦊 ' + t('species_fox') }, { v: 'dog', label: '🐶 ' + t('species_dog') },
         ], res.species, (v) => { res.species = v; startPreview(); }, 'wide')), swatches);
-        card.append(nav(() => true, true));
+        add(nav(() => true, true));
         const startPreview = () => {
           previewStop?.();
           const { renderer, scene, camera } = mini();

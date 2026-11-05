@@ -1,4 +1,4 @@
-// Captures raw gameplay scenes for the App Store screenshots (iPhone 6.9": 1290×2796).
+// Captures raw gameplay scenes for the App Store screenshots (iPhone 6.9" landscape: 2796×1290).
 // Needs the dev server: npm run dev -- --port 5173. Usage: node tools/store/capture.cjs <outDir>
 const { chromium } = require('playwright');
 const path = require('path');
@@ -10,13 +10,13 @@ fs.mkdirSync(out, { recursive: true });
 const PROFILE = { name: 'Momo', species: 'cat', color: '#F2C49B', native: 'en', target: 'ja', level: 'intermediate' };
 
 async function page(b, query) {
-  const p = await b.newPage({ viewport: { width: 430, height: 932 }, deviceScaleFactor: 3, hasTouch: true, isMobile: true });
+  const p = await b.newPage({ viewport: { width: 932, height: 430 }, deviceScaleFactor: 3, hasTouch: true, isMobile: true });
   await p.addInitScript((profile) => {
     if (!localStorage.getItem('cozy-language-village/save')) localStorage.setItem('cozy-language-village/save', JSON.stringify({ profile }));
   }, PROFILE);
   await p.goto(BASE + query);
   await p.waitForTimeout(2500);
-  await p.mouse.click(215, 640);
+  await p.mouse.click(466, 370);
   await p.waitForTimeout(3500);
   await p.evaluate(() => { const d = window.__store.data; d.settings.jaScript = 'furigana'; d.settings.romaji = false; d.player.coins = 1240; window.__store.touch('shots'); });
   await skipDialogs(p);
@@ -125,6 +125,12 @@ const want = (n) => !ONLY.length || ONLY.includes(String(n));
   await p.evaluate(() => window.__game.travel('snowcap', true)); await p.waitForTimeout(2500); await skipDialogs(p);
   await near(p, 'townNpcs', 'yuki', 2.4, 1.0);
   await shot(p, '7-snow'); await p.close(); }
+
+  // 8 · The Village Pass sheet, for App Review's in-app purchase screenshot
+  if (want(8)) {
+  p = await page(b, '?hour=11&weather=sunny');
+  await p.evaluate(() => window.__game.travel('harbor')); await p.waitForTimeout(1500);
+  await shot(p, 'iap-review'); await p.close(); }
 
   await b.close();
   console.log('captured to', out);

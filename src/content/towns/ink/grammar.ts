@@ -13,7 +13,7 @@ export const INK_GRAMMAR: GrammarPoint[] = [
     items: [
       D('あ ＿＿ う え お', 'い', ['え', 'こ'], 'a, i, u, e, o', 'a, i, u, e, o'),
       D('あ い う ＿＿ お', 'え', ['い', 'さ'], 'a, i, u, e, o', 'a, i, u, e, o'),
-      D('＿＿お (ao: blue)', 'あ', ['お', 'う'], 'ao means blue', 'ao significa azul'),
+      D('＿＿お', 'あ', ['お', 'う'], 'ao means blue', 'ao significa azul'),
     ],
   },
   {
@@ -22,9 +22,9 @@ export const INK_GRAMMAR: GrammarPoint[] = [
     note: { en: 'Add a k sound to each vowel: ka, ki, ku, ke, ko. Kana come in rows like this, so learning the five vowels is half the work.', es: 'Añade el sonido k a cada vocal: ka, ki, ku, ke, ko. Los kana van por filas, así que con las cinco vocales ya llevas medio camino.' },
     example: 'かさ', exampleM: { en: 'kasa (umbrella)', es: 'kasa (paraguas)' },
     items: [
-      D('＿＿さ (kasa: umbrella)', 'か', ['さ', 'け'], 'kasa: umbrella', 'kasa: paraguas'),
+      D('＿＿さ', 'か', ['さ', 'け'], 'kasa: umbrella', 'kasa: paraguas'),
       D('か き ＿＿ け こ', 'く', ['し', 'う'], 'ka, ki, ku, ke, ko', 'ka, ki, ku, ke, ko'),
-      D('い＿＿ (ike: pond)', 'け', ['こ', 'き'], 'ike: pond', 'ike: estanque'),
+      D('い＿＿', 'け', ['こ', 'き'], 'ike: pond', 'ike: estanque'),
     ],
   },
   {
@@ -33,8 +33,8 @@ export const INK_GRAMMAR: GrammarPoint[] = [
     note: { en: 'sa, shi, su, se, so. Careful: し is "shi", not "si".', es: 'sa, shi, su, se, so. Ojo: し se lee "shi", no "si".' },
     example: 'すし', exampleM: { en: 'sushi', es: 'sushi' },
     items: [
-      D('す＿＿ (sushi)', 'し', ['す', 'せ'], 'sushi', 'sushi'),
-      D('あ＿＿ (asa: morning)', 'さ', ['そ', 'し'], 'asa: morning', 'asa: mañana'),
+      D('す＿＿', 'し', ['す', 'せ'], 'sushi', 'sushi'),
+      D('あ＿＿', 'さ', ['そ', 'し'], 'asa: morning', 'asa: mañana'),
       D('さ し ＿＿ せ そ', 'す', ['く', 'こ'], 'sa, shi, su, se, so', 'sa, shi, su, se, so'),
     ],
   },
@@ -45,9 +45,9 @@ export const INK_GRAMMAR: GrammarPoint[] = [
     note: { en: 'ta, chi, tsu, te, to. Two surprises: ち is "chi" and つ is "tsu".', es: 'ta, chi, tsu, te, to. Dos sorpresas: ち es "chi" y つ es "tsu".' },
     example: 'とけい', exampleM: { en: 'tokei (clock)', es: 'tokei (reloj)' },
     items: [
-      D('＿＿けい (tokei: clock)', 'と', ['て', 'た'], 'tokei: clock', 'tokei: reloj'),
+      D('＿＿けい', 'と', ['て', 'た'], 'tokei: clock', 'tokei: reloj'),
       D('た ＿＿ つ て と', 'ち', ['さ', 'き'], 'ta, chi, tsu, te, to', 'ta, chi, tsu, te, to'),
-      D('く＿＿ (kutsu: shoes)', 'つ', ['ち', 'す'], 'kutsu: shoes', 'kutsu: zapatos'),
+      D('く＿＿', 'つ', ['ち', 'す'], 'kutsu: shoes', 'kutsu: zapatos'),
     ],
   },
   {
@@ -56,8 +56,8 @@ export const INK_GRAMMAR: GrammarPoint[] = [
     note: { en: 'na, ni, nu, ne, no. ぬ (nu) and め (me) look alike: ぬ has a little loop at the end.', es: 'na, ni, nu, ne, no. ぬ (nu) y め (me) se parecen: ぬ tiene un bucle al final.' },
     example: 'ねこ', exampleM: { en: 'neko (cat)', es: 'neko (gato)' },
     items: [
-      D('＿＿こ (neko: cat)', 'ね', ['れ', 'わ'], 'neko: cat', 'neko: gato'),
-      D('い＿＿ (inu: dog)', 'ぬ', ['め', 'の'], 'inu: dog', 'inu: perro'),
+      D('＿＿こ', 'ね', ['れ', 'わ'], 'neko: cat', 'neko: gato'),
+      D('い＿＿', 'ぬ', ['め', 'の'], 'inu: dog', 'inu: perro'),
       D('な ＿＿ ぬ ね の', 'に', ['た', 'こ'], 'na, ni, nu, ne, no', 'na, ni, nu, ne, no'),
     ],
   },
@@ -67,9 +67,9 @@ export const INK_GRAMMAR: GrammarPoint[] = [
     note: { en: 'ha, hi, fu, he, ho. ふ is softer than English f, like blowing out a candle.', es: 'ha, hi, fu, he, ho. ふ es más suave que la f española, como soplar una vela.' },
     example: 'はな', exampleM: { en: 'hana (flower)', es: 'hana (flor)' },
     items: [
-      D('＿＿な (hana: flower)', 'は', ['ほ', 'け'], 'hana: flower', 'hana: flor'),
+      D('＿＿な', 'は', ['ほ', 'け'], 'hana: flower', 'hana: flor'),
       D('は ひ ＿＿ へ ほ', 'ふ', ['う', 'す'], 'ha, hi, fu, he, ho', 'ha, hi, fu, he, ho'),
-      D('さか＿＿ (sakana: fish)', 'な', ['た', 'は'], 'sakana: fish', 'sakana: pescado'),
+      D('さか＿＿', 'な', ['た', 'は'], 'sakana: fish', 'sakana: pescado'),
     ],
   },
   // ---- 3 · ま や ら わ ん
@@ -79,8 +79,8 @@ export const INK_GRAMMAR: GrammarPoint[] = [
     note: { en: 'ma, mi, mu, me, mo, then just three in the Y row: ya, yu, yo.', es: 'ma, mi, mu, me, mo, y la fila Y solo tiene tres: ya, yu, yo.' },
     example: 'やま', exampleM: { en: 'yama (mountain)', es: 'yama (montaña)' },
     items: [
-      D('や＿＿ (yama: mountain)', 'ま', ['も', 'は'], 'yama: mountain', 'yama: montaña'),
-      D('＿＿き (yuki: snow)', 'ゆ', ['よ', 'や'], 'yuki: snow', 'yuki: nieve'),
+      D('や＿＿', 'ま', ['も', 'は'], 'yama: mountain', 'yama: montaña'),
+      D('＿＿き', 'ゆ', ['よ', 'や'], 'yuki: snow', 'yuki: nieve'),
       D('ま み む ＿＿ も', 'め', ['ぬ', 'ね'], 'ma, mi, mu, me, mo', 'ma, mi, mu, me, mo'),
     ],
   },
@@ -90,8 +90,8 @@ export const INK_GRAMMAR: GrammarPoint[] = [
     note: { en: 'ra, ri, ru, re, ro. The Japanese r is a quick tap of the tongue, between r, l and d, like the Spanish "pero".', es: 'ra, ri, ru, re, ro. La r japonesa es un toque rápido de la lengua, como en "pero".' },
     example: 'よる', exampleM: { en: 'yoru (night)', es: 'yoru (noche)' },
     items: [
-      D('よ＿＿ (yoru: night)', 'る', ['ろ', 'れ'], 'yoru: night', 'yoru: noche'),
-      D('さ＿＿ (saru: monkey)', 'る', ['ら', 'り'], 'saru: monkey', 'saru: mono'),
+      D('よ＿＿', 'る', ['ろ', 'れ'], 'yoru: night', 'yoru: noche'),
+      D('さ＿＿', 'る', ['ら', 'り'], 'saru: monkey', 'saru: mono'),
       D('ら り る ＿＿ ろ', 'れ', ['わ', 'ね'], 'ra, ri, ru, re, ro', 'ra, ri, ru, re, ro'),
     ],
   },
@@ -101,9 +101,9 @@ export const INK_GRAMMAR: GrammarPoint[] = [
     note: { en: 'わ is wa. を (wo) is only used as a particle and is said "o". ん is the only kana with no vowel: just "n".', es: 'わ es wa. を (wo) solo se usa como partícula y se pronuncia "o". ん es el único kana sin vocal: solo "n".' },
     example: 'わたし', exampleM: { en: 'watashi (I)', es: 'watashi (yo)' },
     items: [
-      D('＿＿たし (watashi: I)', 'わ', ['は', 'ね'], 'watashi: I', 'watashi: yo'),
-      D('ご は ＿＿ (gohan: rice)', 'ん', ['を', 'の'], 'gohan: rice', 'gohan: arroz'),
-      D('こ＿＿にちは (konnichiwa)', 'ん', ['を', 'わ'], 'hello', 'hola'),
+      D('＿＿たし', 'わ', ['は', 'ね'], 'watashi: I', 'watashi: yo'),
+      D('ご は ＿＿', 'ん', ['を', 'の'], 'gohan: rice', 'gohan: arroz'),
+      D('こ＿＿にちは', 'ん', ['を', 'わ'], 'hello', 'hola'),
     ],
   },
   // ---- 4 · Marks
@@ -113,8 +113,8 @@ export const INK_GRAMMAR: GrammarPoint[] = [
     note: { en: 'Two dashes make a sound "voiced": か ka → が ga, さ sa → ざ za, た ta → だ da, は ha → ば ba. A small circle ゜ turns は into ぱ pa.', es: 'Dos rayitas hacen el sonido "sonoro": か ka → が ga, さ sa → ざ za, た ta → だ da, は ha → ば ba. Un circulito ゜ convierte は en ぱ pa.' },
     example: 'ごはん', exampleM: { en: 'gohan (rice, meal)', es: 'gohan (arroz, comida)' },
     items: [
-      D('＿＿はん (gohan: rice)', 'ご', ['こ', 'ぽ'], 'gohan: rice', 'gohan: arroz'),
-      D('りん＿＿ (ringo: apple)', 'ご', ['こ', 'ぐ'], 'ringo: apple', 'ringo: manzana'),
+      D('＿＿はん', 'ご', ['こ', 'ぽ'], 'gohan: rice', 'gohan: arroz'),
+      D('りん＿＿', 'ご', ['こ', 'ぐ'], 'ringo: apple', 'ringo: manzana'),
       D('は → ば → ＿＿', 'ぱ', ['ぽ', 'ほ'], 'ha → ba → pa', 'ha → ba → pa'),
     ],
   },
@@ -124,9 +124,9 @@ export const INK_GRAMMAR: GrammarPoint[] = [
     note: { en: 'A small っ doubles the next consonant with a short stop: きって kitte (stamp), not kite.', es: 'Una っ pequeña dobla la consonante siguiente con una breve pausa: きって kitte (sello), no kite.' },
     example: 'きって', exampleM: { en: 'kitte (stamp)', es: 'kitte (sello)' },
     items: [
-      D('き＿＿て (kitte: stamp)', 'っ', ['つ', 'て'], 'kitte: stamp', 'kitte: sello'),
-      D('が＿＿こう (gakkou: school)', 'っ', ['つ', 'こ'], 'gakkou: school', 'gakkou: escuela'),
-      D('ね＿＿ (netsu: fever)', 'つ', ['っ', 'ち'], 'netsu: fever (full-size つ)', 'netsu: fiebre (つ normal)'),
+      D('き＿＿て', 'っ', ['つ', 'て'], 'kitte: stamp', 'kitte: sello'),
+      D('が＿＿こう', 'っ', ['つ', 'こ'], 'gakkou: school', 'gakkou: escuela'),
+      D('ね＿＿', 'つ', ['っ', 'ち'], 'netsu: fever (full-size つ)', 'netsu: fiebre (つ normal)'),
     ],
   },
   {
@@ -135,9 +135,9 @@ export const INK_GRAMMAR: GrammarPoint[] = [
     note: { en: 'A small ゃ, ゅ or ょ blends with the kana before it: き + ょ = きょ kyo, ち + ゃ = ちゃ cha. Long vowels are written out: おかあさん okaasan.', es: 'Una ゃ, ゅ o ょ pequeña se funde con el kana anterior: き + ょ = きょ kyo, ち + ゃ = ちゃ cha. Las vocales largas se escriben: おかあさん okaasan.' },
     example: 'きょう', exampleM: { en: 'kyou (today)', es: 'kyou (hoy)' },
     items: [
-      D('き＿＿う (kyou: today)', 'ょ', ['よ', 'ゅ'], 'kyou: today', 'kyou: hoy'),
-      D('お＿＿ゃ (ocha: tea)', 'ち', ['し', 'き'], 'ocha: green tea', 'ocha: té verde'),
-      D('おか＿＿さん (okaasan: mother)', 'あ', ['お', 'ー'], 'okaasan: mother', 'okaasan: madre'),
+      D('き＿＿う', 'ょ', ['よ', 'ゅ'], 'kyou: today', 'kyou: hoy'),
+      D('お＿＿ゃ', 'ち', ['し', 'き'], 'ocha: green tea', 'ocha: té verde'),
+      D('おか＿＿さん', 'あ', ['お', 'ー'], 'okaasan: mother', 'okaasan: madre'),
     ],
   },
   // ---- 5 · Katakana I
@@ -148,8 +148,8 @@ export const INK_GRAMMAR: GrammarPoint[] = [
     example: 'アイス', exampleM: { en: 'aisu (ice cream)', es: 'aisu (helado)' },
     items: [
       D('か = ＿＿', 'カ', ['サ', 'ケ'], 'both are "ka"', 'las dos son "ka"'),
-      D('＿＿イス (aisu: ice cream)', 'ア', ['マ', 'ヌ'], 'aisu: ice cream', 'aisu: helado'),
-      D('テ＿＿ス (tenisu: tennis)', 'ニ', ['ハ', 'ト'], 'tenisu: tennis', 'tenisu: tenis'),
+      D('＿＿イス', 'ア', ['マ', 'ヌ'], 'aisu: ice cream', 'aisu: helado'),
+      D('テ＿＿ス', 'ニ', ['ハ', 'ト'], 'tenisu: tennis', 'tenisu: tenis'),
     ],
   },
   {
@@ -158,9 +158,9 @@ export const INK_GRAMMAR: GrammarPoint[] = [
     note: { en: 'In katakana, a long vowel is a bar: ケーキ keeki (cake), ノート nooto (notebook).', es: 'En katakana, una vocal larga se escribe con una barra: ケーキ keeki (pastel), ノート nooto (cuaderno).' },
     example: 'ケーキ', exampleM: { en: 'keeki (cake)', es: 'keeki (pastel)' },
     items: [
-      D('ケ＿＿キ (keeki: cake)', 'ー', ['イ', 'ニ'], 'keeki: cake', 'keeki: pastel'),
-      D('ノ＿＿ト (nooto: notebook)', 'ー', ['オ', 'ウ'], 'nooto: notebook', 'nooto: cuaderno'),
-      D('ココ＿＿ (kokoa: cocoa)', 'ア', ['ー', 'イ'], 'kokoa: hot chocolate', 'kokoa: chocolate caliente'),
+      D('ケ＿＿キ', 'ー', ['イ', 'ニ'], 'keeki: cake', 'keeki: pastel'),
+      D('ノ＿＿ト', 'ー', ['オ', 'ウ'], 'nooto: notebook', 'nooto: cuaderno'),
+      D('ココ＿＿', 'ア', ['ー', 'イ'], 'kokoa: hot chocolate', 'kokoa: chocolate caliente'),
     ],
   },
   {
@@ -181,9 +181,9 @@ export const INK_GRAMMAR: GrammarPoint[] = [
     note: { en: 'Words borrowed from other languages are written in katakana and reshaped to Japanese sounds: coffee → コーヒー koohii, camera → カメラ kamera.', es: 'Las palabras tomadas de otros idiomas se escriben en katakana y se adaptan a los sonidos japoneses: coffee → コーヒー koohii, camera → カメラ kamera.' },
     example: 'コーヒー', exampleM: { en: 'koohii (coffee)', es: 'koohii (café)' },
     items: [
-      D('カ＿＿ラ (kamera: camera)', 'メ', ['ヌ', 'ナ'], 'kamera: camera', 'kamera: cámara'),
-      D('ホテ＿＿ (hoteru: hotel)', 'ル', ['レ', 'ロ'], 'hoteru: hotel', 'hoteru: hotel'),
-      D('ラー＿＿ン (raamen: ramen)', 'メ', ['マ', 'モ'], 'raamen: ramen', 'raamen: ramen'),
+      D('カ＿＿ラ', 'メ', ['ヌ', 'ナ'], 'kamera: camera', 'kamera: cámara'),
+      D('ホテ＿＿', 'ル', ['レ', 'ロ'], 'hoteru: hotel', 'hoteru: hotel'),
+      D('ラー＿＿ン', 'メ', ['マ', 'モ'], 'raamen: ramen', 'raamen: ramen'),
     ],
   },
   {
@@ -192,9 +192,9 @@ export const INK_GRAMMAR: GrammarPoint[] = [
     note: { en: 'The dashes and circle work the same in katakana: ハ ha → バ ba → パ pa. Small ャ ュ ョ blend too: メニュー menyuu.', es: 'Las rayitas y el circulito funcionan igual en katakana: ハ ha → バ ba → パ pa. ャ ュ ョ pequeñas también se funden: メニュー menyuu.' },
     example: 'パン', exampleM: { en: 'pan (bread)', es: 'pan (pan)' },
     items: [
-      D('＿＿ン (pan: bread)', 'パ', ['ハ', 'バ'], 'pan: bread', 'pan: pan'),
-      D('メニ＿＿ー (menyuu: menu)', 'ュ', ['ユ', 'ョ'], 'menyuu: menu', 'menyuu: menú'),
-      D('コー＿＿ー (koohii: coffee)', 'ヒ', ['ビ', 'ピ'], 'koohii: coffee', 'koohii: café'),
+      D('＿＿ン', 'パ', ['ハ', 'バ'], 'pan: bread', 'pan: pan'),
+      D('メニ＿＿ー', 'ュ', ['ユ', 'ョ'], 'menyuu: menu', 'menyuu: menú'),
+      D('コー＿＿ー', 'ヒ', ['ビ', 'ピ'], 'koohii: coffee', 'koohii: café'),
     ],
   },
   {
@@ -271,9 +271,9 @@ export const INK_GRAMMAR: GrammarPoint[] = [
     note: { en: 'As particles, は is read "wa", へ is read "e" and を is read "o". こんにちは ends in は, so it\'s konnichiwa.', es: 'Como partículas, は se lee "wa", へ se lee "e" y を se lee "o". こんにちは termina en は, por eso es konnichiwa.' },
     example: '{私|わたし} ^は ねこ ^が {好|す}き です。', exampleM: { en: 'watashi WA neko ga suki desu: I like cats.', es: 'watashi WA neko ga suki desu: me gustan los gatos.' },
     items: [
-      D('こんにち＿＿ (konnichiwa)', 'は', ['わ', 'ば'], 'hello', 'hola'),
-      D('みず ＿＿ のむ (mizu o nomu: drink water)', 'を', ['お', 'わ'], 'drink water', 'beber agua'),
-      D('やま ＿＿ いく (yama e iku: go to the mountain)', 'へ', ['え', 'へい'], 'go to the mountain', 'ir a la montaña'),
+      D('こんにち＿＿', 'は', ['わ', 'ば'], 'hello', 'hola'),
+      D('みず ＿＿ のむ', 'を', ['お', 'わ'], 'drink water', 'beber agua'),
+      D('やま ＿＿ いく', 'へ', ['え', 'へい'], 'go to the mountain', 'ir a la montaña'),
     ],
   },
 ];

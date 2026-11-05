@@ -532,12 +532,14 @@ export class Dialogue {
       if (q.speak) card.append(button('icon-btn.dojo-spk', '🔊', () => q.speak?.(), { 'aria-label': t('listen') }));
     }
     if (q.sub) card.append(h('div.dojo-sub', { html: q.sub }));
-    parts.push(card);
+    // Question and answers sit in a split: stacked on a tall screen, side by side when sideways.
+    const answers = h('div.dojo-a');
+    parts.push(h('div.dojo-split', null, h('div.dojo-q', null, card), answers));
     if (q.trace) {
       // Writing drill: trace the character, then score the ink.
       const res = await new Promise<{ ok: boolean; el: HTMLElement }>((done) => {
         const pad = tracePad(q.trace!, (r) => done({ ok: r.ok, el: pad.el }));
-        parts.push(pad.el);
+        answers.append(pad.el);
         this.root.replaceChildren(...parts);
         (window as unknown as { __trace?: unknown }).__trace = { canvas: pad.canvas, score: pad.score, get face() { return pad.face; }, glyph: q.trace }; // test hook
       });
@@ -555,7 +557,7 @@ export class Dialogue {
         list.append(el);
       });
     });
-    parts.push(list);
+    answers.append(list);
     this.root.replaceChildren(...parts);
     (window as unknown as { __dojoAnswer?: number }).__dojoAnswer = q.answer; // test hook
     if (q.autoSpeak) setTimeout(() => q.speak?.(), 300);

@@ -231,7 +231,7 @@ export class Game {
 
   /** Bus travel between the starter village and the pass towns. */
   async travel(to: string, instant = false) {
-    if (to !== 'home' && !isTown(to)) return;
+    if (!this.player || (to !== 'home' && !isTown(to))) return;
     if (to !== 'home' && !this.hasPass() && !townOpenFree(to)) { openPass(undefined, 'town'); return; }
     this.standUp();
     this.setBusy(true);

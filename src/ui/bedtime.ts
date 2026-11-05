@@ -21,14 +21,16 @@ export function showBedtime(opts: { minutes: number; words: number; msToNextDay:
   const root = h('div.bedtime', { role: 'dialog', 'aria-label': t('bedTitle') },
     stars,
     h('div.bed-card', null,
+      h('div.bed-info', null,
       h('div.bed-moon', { html: icon('moon') + `<span class="bed-z">${icon('zzz')}</span>` }),
       h('h2', null, t('bedTitle')),
       h('p', null, (opts.minutes === 1 ? t('bedBody1') : t('bedBody', { m: opts.minutes }))),
       h('div.bed-recap', null, h('span', { html: icon('book') }), t('bedRecap', { n: opts.words })),
-      countdown,
+      countdown),
+      h('div.bed-actions', null,
       button('btn.primary.bed-pass', [h('span', { html: icon('pass') }), t('bedPass')], () => opts.onPass()),
       button('btn.soft', [h('span', { html: icon('book') }), t('bedReview')], () => opts.onReview()),
-      opts.onFreeTown ? button('btn.soft', [h('span', { html: icon('brush') }), t('bedInk')], () => opts.onFreeTown!()) : null,
+      opts.onFreeTown ? button('btn.soft', [h('span', { html: icon('brush') }), t('bedInk')], () => opts.onFreeTown!()) : null),
     ),
   );
   ui().append(root);

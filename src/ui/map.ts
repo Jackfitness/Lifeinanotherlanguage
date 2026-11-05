@@ -111,7 +111,7 @@ function worldMap(host: MapHost, close: () => void) {
     ], () => { audio.select(); showRegion(r); }, { style: { left: `${r.at[0]}%`, top: `${r.at[1]}%` } }));
   }
   showRegion(host.place === 'home' ? REGIONS[0] : REGIONS.find((r) => r.id === host.place) ?? null);
-  return h('div', null, wrap, detail);
+  return h('div.wmap-layout', null, wrap, detail);
 }
 
 export function openMap(host: MapHost, onClose?: () => void) {

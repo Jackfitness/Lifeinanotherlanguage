@@ -44,6 +44,14 @@ async function boot() {
   await fadeThrough(() => game.startPlay(true));
 }
 
+// The game is played sideways: phones held upright see a gentle "turn your phone" card.
+{
+  const hint = document.createElement('div');
+  hint.className = 'rotate-hint';
+  hint.innerHTML = `<div class="rh-phone"></div><div>${t('rotateHint')}</div>`;
+  document.body.append(hint);
+}
+
 const persist = () => { (window as unknown as { __game?: Game }).__game?.persistPosition(); store.flush(); };
 window.addEventListener('pagehide', persist);
 document.addEventListener('visibilitychange', () => { if (document.hidden) persist(); else void billing.refresh(); });
