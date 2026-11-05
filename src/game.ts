@@ -10,7 +10,7 @@ import {
 import { NPCS, heartsFor, npcDef, type NpcDef } from './content/characters';
 import { CONVOS, type Step } from './content/dialogues';
 import { ITEMS, item, type ItemDef } from './content/items';
-import { lex } from './content/lexicon';
+import { hasLex, lex } from './content/lexicon';
 import { NOTICES } from './content/notes';
 import { questDef } from './content/quests';
 import { SPOTS } from './content/places';
@@ -18,7 +18,7 @@ import { langInfo } from './content/languages';
 import { audio } from './audio/audio';
 import { speech } from './learning/tts';
 import { plainText, renderTarget } from './learning/text';
-import { exposePhrase, expose, lexNative, lexTarget, loadVoicePack, renderOpts, sayLex, target, wordsForChat, levelNum } from './learning/engine';
+import { card, exposePhrase, expose, lexNative, lexTarget, loadVoicePack, renderOpts, sayLex, target, wordsForChat, levelNum } from './learning/engine';
 import { buildVillage, BOUNDS, setSigns, type Village } from './world/village';
 import { Ambience, Burst, Sky, Sparkle, markerSprite, seasonOf, weatherOf, type Weather } from './world/env';
 import { Npc, Player, blendYaw, moveCircle, type Walkable } from './world/actors';
@@ -605,7 +605,7 @@ export class Game {
       return;
     }
     const target = this.player.pos.clone();
-    let dist = (portrait ? 15.5 : 12.5) * this.zoom;
+    let dist = (portrait ? 15.5 : 14.5) * this.zoom;
     if (this.focusNpc) { target.lerp(this.focusNpc.pos, 0.5); dist *= 0.58; target.z += portrait ? 1.2 : 0.4; }
     if (this.fishing) { target.set(SPOTS.fishSpot[0], 0, SPOTS.fishSpot[1] - 1.5); dist *= 0.75; }
     const want = new THREE.Vector3(target.x, target.y + dist * 0.92, target.z + dist * 0.98);
@@ -641,6 +641,7 @@ export class Game {
       list.push({ icon: '🥋', label: t('enterDojo'), x: dx, z: dz + 0.6, r: 2.0, pri: 1.5, use: () => this.openDojoSheet() });
       const [bx, bz] = TOWN_SPOTS.bus;
       list.push({ icon: '🚌', label: t('goHome'), x: bx, z: bz, r: 1.8, use: () => void this.travel('home') });
+      this.addLooks(list);
       return list;
     }
     list.push({ icon: '🚌', label: t('travel'), x: 3.2, z: 22.6, r: 1.8, use: () => this.openMapSheet() });
@@ -658,7 +659,62 @@ export class Game {
     SPOTS.flowers.forEach(([x, z], i) => { if (!S().daily.flowers.includes(i)) list.push({ icon: '🌷', label: t('pickup'), x, z, r: 1.6, use: () => this.pickNature('flower', i) }); });
     if (!this.village.log.visible) SPOTS.mushrooms.forEach(([x, z], i) => { if (!S().daily.mushrooms.includes(i)) list.push({ icon: '🍄', label: t('pickup'), x, z, r: 1.6, use: () => this.pickNature('mushroom', i) }); });
     else { const [lx, lz] = SPOTS.forestLog; list.push({ icon: '🪵', label: t('look'), x: lx, z: lz + 1, r: 2.0, use: () => toast('🪵', t('forestBlocked')) }); }
+    this.addLooks(list);
     return list;
+  }
+
+  /** Things you can stop and look at: each shows its Japanese name, reads it aloud and adds it to your words. */
+  private lookSpots(): [x: number, z: number, word: string, icon: string, r?: number][] {
+    if (this.inTown()) {
+      const water: Record<string, [string, string]> = { harbor: ['n4_umi', '🌊'], snowcap: ['n2_onsen', '♨️'], starlight: ['pool', '🏊'] };
+      const [w, wi] = water[this.townDef.id] ?? ['pond', '🪷'];
+      const p = TOWN_SPOTS.pond;
+      return [
+        ...(this.townDef.id === 'harbor'
+          ? [[18, -4, w, wi, 2.4], [p.x - 2, p.z + p.rz + 1.2, 'pond', '🪷', 2.2]] as [number, number, string, string, number][]
+          : [[p.x - 2, p.z + p.rz + 1.2, w, wi, 2.2]] as [number, number, string, string, number][]),
+        [11.6, 4.8, 'n5_yuubinkyoku', '🏤'],
+        [12, 14.2, 'n5_ichiba', '🧺'],
+        [8.4, -6.2, 'n5_kouen', '🌳'],
+        [-3.2, 3.2, 'plaza', '🏘️', 1.4],
+      ];
+    }
+    const lamps: [number, number][] = [[-5.2, -5.2], [5.2, -5.2], [-5.2, 5.2], [5.2, 5.2], [-2, 11.5], [2.6, -12], [-9, -2], [9, -2]];
+    const p = SPOTS.pond;
+    return [
+      [0, 3.4, 'fountain', '⛲', 1.6],
+      [0, -3.4, 'fountain', '⛲', 1.6],
+      ...lamps.map(([x, z]): [number, number, string, string, number] => [x, z + 0.7, 'streetlight', '🏮', 1.1]),
+      ...([[3.6, -6.2], [-3.6, -6.2], [6.6, 0.9], [-6.6, 0.9]] as [number, number][]).map(([x, z]): [number, number, string, string, number] => [x, z + 0.9, 'flower', '🌸', 1.1]),
+      [SPOTS.bigTree[0], SPOTS.bigTree[1] + 1.8, 'tree', '🌳', 1.8],
+      [p.x, p.z + p.rz + 1.0, 'pond', '🪷', 2.2],
+      [0, SPOTS.bridge.maxZ + 0.6, 'bridge', '🌉', 1.8],
+      [4.5, SPOTS.stream.z + 2.0, 'river', '🏞️', 1.8],
+      [-12, SPOTS.cafeBuilding[1] + 3.6, 'cafe', '🧁', 1.4],
+      [12, SPOTS.storeBuilding[1] + 3.6, 'store', '🏪', 1.4],
+      [0, -28.5, 'forest', '🌲', 2.4],
+    ];
+  }
+
+  private addLooks(list: Interactable[]) {
+    for (const [x, z, word, icon, r] of this.lookSpots()) {
+      if (!hasLex(word)) continue;
+      list.push({ icon: '👀', label: t('look'), x, z, r: r ?? 1.6, pri: -0.6, use: () => this.lookAt(word, icon) });
+    }
+  }
+
+  private lookAt(id: string, icon: string) {
+    const isNew = !card('lex', id);
+    sayLex(id);
+    audio.pickup();
+    this.player!.plush.hop(0.8);
+    const sentence = renderTarget(`これは ${lex(id).t.ja} です。`, 'ja', renderOpts());
+    centerCard(icon, isNew ? t('newWord') : '', [
+      h('div.look-word', { html: lexTarget(id) }),
+      h('div.look-mean', { html: lexNative(id) }),
+      h('div.look-sent', { html: sentence }),
+      button('btn.soft.small.look-say', '🔊 ' + t('listen'), () => sayLex(id)),
+    ], t('gotIt'), () => { expose('lex', id); this.hud?.refresh(); });
   }
 
   private nearestAction() {

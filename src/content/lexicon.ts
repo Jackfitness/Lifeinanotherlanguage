@@ -81,6 +81,9 @@ export const LEXICON: Lexeme[] = [
   L('forest', 'place', '🌲', 'forest', 'el bosque', '{森|もり}'),
   L('bridge', 'place', '🌉', 'bridge', 'el puente', '{橋|はし}'),
   L('pond', 'place', '🪷', 'pond', 'el estanque', '{池|いけ}'),
+  L('river', 'place', '🏞️', 'river', 'el río', '{川|かわ}'),
+  L('streetlight', 'place', '🏮', 'streetlight', 'la farola', '{街灯|がいとう}', 2),
+  L('pool', 'place', '🏊', 'pool', 'la piscina', 'プール'),
 
   // Colors
   L('red', 'color', '🔴', 'red', 'rojo', '{赤|あか}い'),

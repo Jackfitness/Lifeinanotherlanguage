@@ -38,6 +38,9 @@ const WEATHER_TINT: Record<Weather, [string, number, number]> = {
 const c1 = new THREE.Color(), c2 = new THREE.Color();
 const lerpHex = (a: string, b: string, t: number, out: THREE.Color) => out.set(a).lerp(c2.set(b), t);
 
+/** Offset that wraps a particle back into the 44-unit box around the player (0 when it's inside). */
+const wrap = (d: number) => (d > 22 ? -44 : d < -22 ? 44 : 0);
+
 export class Sky {
   hemi = new THREE.HemisphereLight('#ffffff', '#888888', 1);
   sun = new THREE.DirectionalLight('#ffffff', 2);
@@ -163,17 +166,18 @@ export class Ambience {
 
   update(dt: number, t: number, focus: THREE.Vector3, night: number) {
     if (this.rain) {
-      this.rain.position.set(focus.x, 0, focus.z);
+      // drops stay put in the world; ones that drift too far from the player wrap to the other side
       const p = this.rain.geometry.attributes.position as THREE.BufferAttribute;
       const a = p.array as Float32Array;
       for (let i = 0; i < a.length; i += 6) {
         a[i + 1] -= dt * 18; a[i + 4] -= dt * 18;
         if (a[i + 4] < 0) { a[i + 1] += 16; a[i + 4] += 16; }
+        const wx = wrap(a[i] - focus.x), wz = wrap(a[i + 2] - focus.z);
+        if (wx || wz) { a[i] += wx; a[i + 3] += wx; a[i + 2] += wz; a[i + 5] += wz; }
       }
       p.needsUpdate = true;
     }
     if (this.fall) {
-      this.fall.position.set(focus.x, 0, focus.z);
       const p = this.fall.geometry.attributes.position as THREE.BufferAttribute;
       const a = p.array as Float32Array;
       const snow = this.fall.userData.kind === 'snow';
@@ -182,7 +186,8 @@ export class Ambience {
         a[i] += Math.sin(t * 0.8 + ph) * dt * (snow ? 0.3 : 0.9) + dt * 0.25;
         a[i + 1] -= dt * sp * (snow ? 1.2 : 0.8);
         a[i + 2] += Math.cos(t * 0.6 + ph) * dt * 0.3;
-        if (a[i + 1] < 0) { a[i + 1] = 14; a[i] = (Math.random() - 0.5) * 44; a[i + 2] = (Math.random() - 0.5) * 44; }
+        if (a[i + 1] < 0) { a[i + 1] = 14; a[i] = focus.x + (Math.random() - 0.5) * 44; a[i + 2] = focus.z + (Math.random() - 0.5) * 44; }
+        a[i] += wrap(a[i] - focus.x); a[i + 2] += wrap(a[i + 2] - focus.z);
       }
       p.needsUpdate = true;
     }

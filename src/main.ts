@@ -15,6 +15,9 @@ import { LEXICON } from './content/lexicon';
 import { registerTowns } from './content/towns';
 
 registerTowns();
+// ?safe=59,21 simulates an iPhone's landscape safe area (sides, bottom) when testing in a browser
+{ const sa = new URLSearchParams(location.search).get('safe')?.split(',').map(Number);
+  if (sa?.length) { const r = document.documentElement.style; r.setProperty('--safe-l', sa[0] + 'px'); r.setProperty('--safe-r', sa[0] + 'px'); r.setProperty('--safe-b', (sa[1] ?? 0) + 'px'); } }
 installLexiconIcons(LEXICON);
 
 async function boot() {
