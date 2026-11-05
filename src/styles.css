@@ -37,7 +37,8 @@ body { font-family: var(--font); color: var(--cocoa); font-size: var(--fs); -web
 #ui > :not(.toasts):not(.hud-top):not(.float-num):not(.confetti):not(.fade):not(.fish-hud) { pointer-events: auto; }
 button { font-family: inherit; color: inherit; font-size: inherit; border: 0; background: none; cursor: pointer; }
 button:focus-visible, input:focus-visible { outline: 3px solid var(--sky); outline-offset: 2px; }
-ruby rt { font-size: 0.5em; font-weight: 500; color: var(--cocoa-soft); }
+ruby { ruby-align: center; }
+ruby rt { font-size: 0.5em; font-weight: 500; color: var(--cocoa-soft); letter-spacing: -0.04em; }
 .jc { display: inline; }
 .romaji { display: block; font-size: 0.68em; font-weight: 500; color: var(--cocoa-soft); letter-spacing: 0.02em; margin-top: 2px; }
 

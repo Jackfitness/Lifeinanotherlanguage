@@ -21,6 +21,6 @@ html = html.replace(/<script type="module" crossorigin src="[^"]+"><\/script>/, 
   .replace('</body>', () => `${script}\n</body>`);
 writeFileSync(join(dist, 'cozy-language-village.html'), html);
 
-const artifact = `<title>Cozy Language Village</title>\n<meta name="theme-color" content="#FFF4E6">\n${fonts}\n<style>${css}</style>\n<canvas id="scene"></canvas>\n<div id="ui"></div>\n${script}\n`;
+const artifact = `<title>Life in Another Language</title>\n<meta name="theme-color" content="#FFF4E6">\n${fonts}\n<style>${css}</style>\n<canvas id="scene"></canvas>\n<div id="ui"></div>\n${script}\n`;
 writeFileSync(join(dist, 'artifact.html'), artifact);
 console.log('wrote dist/cozy-language-village.html', (html.length / 1024).toFixed(0) + ' KB', '+ dist/artifact.html');

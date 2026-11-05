@@ -245,7 +245,7 @@ const PAGES: Record<Tab, (host: NotebookHost, rerender: () => void) => HTMLEleme
     );
     wrap.append(lc);
     wrap.append(h('div', { style: { textAlign: 'center', margin: '18px 0 8px' } }, button('btn.soft.small', '🌱 ' + t('resetSave'), async () => { if (await confirmCard(t('confirmReset'), t('resetSave'), t('back'))) host.resetSave(); })));
-    wrap.append(h('p.muted', { style: { textAlign: 'center', fontSize: '0.72em' } }, 'Cozy Language Village · v0.1'));
+    wrap.append(h('p.muted', { style: { textAlign: 'center', fontSize: '0.72em' } }, 'Life in Another Language · v1.0'));
     void count;
     return wrap;
   },

@@ -2,7 +2,7 @@ import type { LangCode } from './types';
 
 /** Interface strings shown in the player's native language. Add a key per language to localize. */
 const STR: Record<string, Record<LangCode, string>> = {
-  title: { en: 'Cozy Language Village', es: 'Pueblito de Idiomas', ja: 'ほっこり ことば村' },
+  title: { en: 'Life in Another Language', es: 'Una vida en otro idioma', ja: 'もうひとつの言葉で暮らす' },
   subtitle: { en: 'learn Japanese, one cozy day at a time', es: 'aprende japonés, un día acogedor a la vez', ja: '日本語で、ちいさな暮らし' },
   tapStart: { en: 'Tap to begin', es: 'Toca para empezar', ja: 'タップしてはじめる' },
   pickNative: { en: 'Which language do you speak?', es: '¿Qué idioma hablas?', ja: 'ふだん話す言語は？' },
