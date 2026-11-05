@@ -499,9 +499,16 @@ input[type=range] { accent-color: var(--leaf-deep); width: 130px; }
 /* ---------- phones held sideways: short and wide */
 @media (orientation: landscape) and (max-height: 560px) {
   .dlg { width: min(calc(100% - 140px), 820px); bottom: calc(8px + var(--safe-b));
-    max-height: calc(100vh - 16px); overflow-y: auto; scrollbar-width: none; gap: 8px; }
+    max-height: calc(100vh - 16px); overflow-y: auto; scrollbar-width: none; gap: 8px; padding-top: 18px; }
   .bubble { min-height: 0; padding: 20px 20px 12px; }
   .dojo-split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
+  /* conversations: what they said on the left, your reply on the right */
+  .dlg:has(> .bubble + *) { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 12px; row-gap: 8px; align-content: end; }
+  .dlg:has(> .bubble + *) > .bubble { grid-column: 1; grid-row: 1 / span 6; align-self: end; }
+  .dlg:has(> .bubble + *) > :not(.bubble) { grid-column: 2; }
+  .dlg .options { gap: 6px; }
+  .dlg .opt { min-height: 44px; padding: 7px 8px 7px 14px; border-radius: 18px; }
+  .dlg .opt .spk { width: 32px; height: 32px; }
   .dojo-card { padding: 14px 14px 12px; }
   .dojo-progress { margin-bottom: 0; }
   .opt { padding-top: 10px; padding-bottom: 10px; }
