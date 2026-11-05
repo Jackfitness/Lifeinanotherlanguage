@@ -140,6 +140,8 @@ const STR: Record<string, Record<LangCode, string>> = {
   passWelcomeSub: { en: 'Every town is open and there is no daily limit. Take the bus whenever you like.', es: 'Todos los pueblos están abiertos y no hay límite diario. Toma el autobús cuando quieras.', ja: 'すべての町が開放され、一日の制限もなくなりました。いつでもバスでどうぞ。' },
   passError: { en: "The store couldn't be reached. Please try again in a moment.", es: 'No se pudo conectar con la tienda. Inténtalo de nuevo en un momento.', ja: 'ストアにつながりませんでした。少ししてからもう一度お試しください。' },
   passRestore: { en: 'Restore purchases', es: 'Restaurar compras', ja: '購入を復元' },
+  passTerms: { en: 'Terms of Use', es: 'Términos de uso', ja: '利用規約' },
+  passPrivacy: { en: 'Privacy Policy', es: 'Política de privacidad', ja: 'プライバシーポリシー' },
   passRestored: { en: 'Your Village Pass is back!', es: '¡Tu Pase del Pueblo ha vuelto!', ja: 'ビレッジパスを復元しました！' },
   passNothing: { en: 'No previous purchase found.', es: 'No se encontró ninguna compra anterior.', ja: '以前の購入は見つかりませんでした。' },
   passTestMode: { en: 'Test mode: this web preview simulates purchases. No real money is charged.', es: 'Modo de prueba: esta versión web simula las compras. No se cobra dinero real.', ja: 'テストモード：このWeb版では購入をシミュレーションします。実際の請求はありません。' },

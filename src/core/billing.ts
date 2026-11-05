@@ -138,6 +138,17 @@ class TestBilling implements Billing {
 const env = (import.meta as unknown as { env?: Record<string, string> }).env ?? {};
 
 /** Real payments inside the iOS / Android app; test mode on the web. */
+/** A native build with no store key: never fake a purchase, just report the store as unavailable. */
+class NoBilling implements Billing {
+  readonly real = true;
+  async plans(): Promise<Plan[]> { throw new Error('store unavailable'); }
+  async purchase() { return 'error' as const; }
+  async restore() { return hasPass(); }
+  async refresh() {}
+}
+
+async function isNative() { try { return (await import('@capacitor/core')).Capacitor.isNativePlatform(); } catch { return false; } }
+
 class LazyBilling implements Billing {
   private inner: Promise<Billing>;
   real = false;
@@ -149,12 +160,12 @@ class LazyBilling implements Billing {
         const platform = Capacitor.getPlatform();
         const key = (window as unknown as { __RC_KEY__?: string }).__RC_KEY__
           || (platform === 'ios' ? env.VITE_REVENUECAT_IOS_KEY : env.VITE_REVENUECAT_ANDROID_KEY) || env.VITE_REVENUECAT_KEY;
-        if (!key) { console.warn('RevenueCat key missing: purchases run in test mode'); return new TestBilling(); }
+        if (!key) { console.warn('RevenueCat key missing: the store is unavailable'); this.real = true; return new NoBilling(); }
         const { Purchases } = await import('@revenuecat/purchases-capacitor');
         const b = new RevenueCatBilling(Purchases as unknown as RCPlugin, key);
         this.real = true;
         return b;
-      } catch (e) { console.warn('billing fallback', e); return new TestBilling(); }
+      } catch (e) { console.warn('billing fallback', e); return (await isNative()) ? (this.real = true, new NoBilling()) : new TestBilling(); }
     })();
   }
   async plans() { return (await this.inner).plans(); }

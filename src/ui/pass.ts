@@ -6,6 +6,11 @@ import { audio } from '../audio/audio';
 import { button, centerCard, confetti, h, sheet, toast } from './dom';
 import { icon } from './icons';
 
+/** Store-required links on any screen that sells a subscription (Apple's standard EULA and our privacy policy). */
+export const TERMS_URL = 'https://www.apple.com/legal/internet-services/itunes/dev/stdeula/';
+export const PRIVACY_URL = 'https://jackfitness.github.io/Lifeinanotherlanguage/privacy.html';
+const legal = (href: string, label: string) => h('a.linkish', { href, target: '_blank', rel: 'noopener' }, label);
+
 /** Why the sheet opened: changes the headline so the offer fits the moment. */
 export type PassReason = 'default' | 'preview' | 'bedtime' | 'town';
 
@@ -73,7 +78,7 @@ export function openPass(onClose?: () => void, reason: PassReason = 'default') {
 
   const testNote = h('div.pass-test.hidden', null, t('passTestMode'));
   void billing.ready().then((real) => { if (!real) testNote.classList.remove('hidden'); });
-  const right = h('div.pass-right', null, planBox, h('div.pass-actions', null, cta), fine, h('div.pass-links', null, restore));
+  const right = h('div.pass-right', null, planBox, h('div.pass-actions', null, cta), fine, h('div.pass-links', null, restore, legal(TERMS_URL, t('passTerms')), legal(PRIVACY_URL, t('passPrivacy'))));
   const body = h('div.pass', null,
     h('div.pass-left', null,
     testNote,
