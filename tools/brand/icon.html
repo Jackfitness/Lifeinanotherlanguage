@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<!-- App icon concepts in the logo's felt style. Render: node tools/brand/render-icon.cjs -->
+<link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@500&display=swap" rel="stylesheet" />
+<style>html,body{margin:0;background:transparent}svg{display:block}</style>
+</head>
+<body>
+<svg id="icon" width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="38%" r="75%">
+      <stop offset="0" stop-color="#FFF8EE" /><stop offset="1" stop-color="#F3D7B4" />
+    </radialGradient>
+    <radialGradient id="bgMint" cx="50%" cy="38%" r="75%">
+      <stop offset="0" stop-color="#F4FAEE" /><stop offset="1" stop-color="#C9E4B6" />
+    </radialGradient>
+    <filter id="felt" x="-15%" y="-15%" width="130%" height="140%" color-interpolation-filters="sRGB">
+      <feMorphology in="SourceAlpha" operator="dilate" radius="2" result="fat" />
+      <feGaussianBlur in="fat" stdDeviation="12" result="blur" />
+      <feSpecularLighting in="blur" surfaceScale="8" specularConstant="0.32" specularExponent="20" lighting-color="#FFEAD0" result="spec">
+        <feDistantLight azimuth="240" elevation="55" />
+      </feSpecularLighting>
+      <feComposite in="spec" in2="SourceAlpha" operator="in" result="specIn" />
+      <feGaussianBlur in="SourceAlpha" stdDeviation="7" result="edge" />
+      <feComposite in="SourceAlpha" in2="edge" operator="out" result="rim" />
+      <feFlood flood-color="#24150C" flood-opacity="0.38" />
+      <feComposite in2="rim" operator="in" result="rimDark" />
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" seed="5" result="noise" />
+      <feColorMatrix in="noise" type="matrix" values="0 0 0 0 1  0 0 0 0 0.94  0 0 0 0 0.88  0 0 0 0.4 -0.15" result="grain" />
+      <feComposite in="grain" in2="SourceAlpha" operator="in" result="grainIn" />
+      <feDropShadow in="SourceAlpha" dx="0" dy="14" stdDeviation="14" flood-color="#3A2618" flood-opacity="0.3" result="shadow" />
+      <feMerge><feMergeNode in="shadow" /><feMergeNode in="SourceGraphic" /><feMergeNode in="rimDark" /><feMergeNode in="grainIn" /><feMergeNode in="specIn" /></feMerge>
+    </filter>
+    <!-- dashed stitch line used around felt pieces -->
+    <g id="leaf">
+      <ellipse cx="0" cy="0" rx="62" ry="30" fill="#7DB46C" />
+      <path d="M-50 0 H50" stroke="#5E9A4E" stroke-width="6" stroke-linecap="round" />
+    </g>
+  </defs>
+
+  <!-- ===== Concept A: felt bear with a red あ stamp ===== -->
+  <g id="A">
+    <rect width="1024" height="1024" fill="url(#bg)" />
+    <g filter="url(#felt)">
+      <circle cx="300" cy="300" r="118" fill="#B9825A" />
+      <circle cx="724" cy="300" r="118" fill="#B9825A" />
+      <circle cx="300" cy="300" r="62" fill="#E8C49A" />
+      <circle cx="724" cy="300" r="62" fill="#E8C49A" />
+      <ellipse cx="512" cy="540" rx="310" ry="290" fill="#B9825A" />
+      <ellipse cx="512" cy="650" rx="150" ry="118" fill="#EED2AE" />
+      <ellipse cx="512" cy="598" rx="44" ry="32" fill="#4A3020" />
+      <circle cx="404" cy="510" r="30" fill="#3A2618" />
+      <circle cx="620" cy="510" r="30" fill="#3A2618" />
+      <ellipse cx="370" cy="596" rx="40" ry="24" fill="#F2A08E" opacity="0.85" />
+      <ellipse cx="654" cy="596" rx="40" ry="24" fill="#F2A08E" opacity="0.85" />
+    </g>
+    <circle cx="396" cy="500" r="9" fill="#FFF8EE" />
+    <circle cx="612" cy="500" r="9" fill="#FFF8EE" />
+    <path d="M488 668 q24 22 48 0" fill="none" stroke="#4A3020" stroke-width="10" stroke-linecap="round" />
+    <g filter="url(#felt)" transform="translate(770 790) rotate(10)">
+      <circle r="150" fill="#C8473C" />
+    </g>
+    <g transform="translate(770 790) rotate(10)">
+      <circle r="124" fill="none" stroke="#FFE9DD" stroke-width="9" stroke-dasharray="20 15" />
+      <text y="62" font-size="180" text-anchor="middle" fill="#FFF4EA" style="font-family: 'Kiwi Maru', serif">あ</text>
+    </g>
+  </g>
+
+  <!-- ===== Concept B: one big felt あ stamp with leaves ===== -->
+  <g id="B" style="display:none">
+    <rect width="1024" height="1024" fill="url(#bg)" />
+    <g filter="url(#felt)">
+      <use href="#leaf" transform="translate(250 760) rotate(-35)" />
+      <use href="#leaf" transform="translate(330 840) rotate(10)" />
+      <use href="#leaf" transform="translate(780 260) rotate(-35)" />
+      <use href="#leaf" transform="translate(700 180) rotate(10)" />
+      <circle cx="512" cy="512" r="330" fill="#C8473C" />
+    </g>
+    <circle cx="512" cy="512" r="288" fill="none" stroke="#FFE9DD" stroke-width="12" stroke-dasharray="26 20" />
+    <text x="512" y="640" font-size="400" text-anchor="middle" fill="#FFF4EA" style="font-family: 'Kiwi Maru', serif">あ</text>
+  </g>
+
+  <!-- ===== Concept C: felt cat (the default player) peeking over an あ stamp ===== -->
+  <g id="C" style="display:none">
+    <rect width="1024" height="1024" fill="url(#bgMint)" />
+    <g filter="url(#felt)">
+      <path d="M250 330 L300 120 L430 260 Z" fill="#E7B98A" />
+      <path d="M774 330 L724 120 L594 260 Z" fill="#E7B98A" />
+      <path d="M285 290 L310 190 L380 262 Z" fill="#F2A6A0" />
+      <path d="M739 290 L714 190 L644 262 Z" fill="#F2A6A0" />
+      <ellipse cx="512" cy="500" rx="300" ry="270" fill="#E7B98A" />
+      <circle cx="410" cy="470" r="30" fill="#3A2618" />
+      <circle cx="614" cy="470" r="30" fill="#3A2618" />
+      <ellipse cx="365" cy="560" rx="40" ry="24" fill="#F2A08E" opacity="0.85" />
+      <ellipse cx="659" cy="560" rx="40" ry="24" fill="#F2A08E" opacity="0.85" />
+      <rect x="252" y="680" width="520" height="250" rx="70" fill="#C8473C" />
+    </g>
+    <circle cx="402" cy="460" r="9" fill="#FFF8EE" />
+    <circle cx="606" cy="460" r="9" fill="#FFF8EE" />
+    <path d="M490 540 l22 16 l22 -16" fill="none" stroke="#4A3020" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M512 556 v20" stroke="#4A3020" stroke-width="10" stroke-linecap="round" />
+    <rect x="276" y="704" width="472" height="202" rx="52" fill="none" stroke="#FFE9DD" stroke-width="10" stroke-dasharray="22 16" />
+    <text x="512" y="858" font-size="148" text-anchor="middle" fill="#FFF4EA" letter-spacing="6" style="font-family: 'Kiwi Maru', serif">あいう</text>
+  </g>
+</svg>
+</body>
+</html>
