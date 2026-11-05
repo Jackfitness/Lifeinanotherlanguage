@@ -57,7 +57,7 @@ const ONLY = (process.env.SCENES || '').split(',').filter(Boolean);
 const want = (n) => !ONLY.length || ONLY.includes(String(n));
 (async () => {
   const b = await chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
-  const shot = (p, name) => p.screenshot({ path: path.join(out, name + '.png') });
+  const shot = (p, name) => p.screenshot({ path: path.join(out, name + '.png'), timeout: 120000 });
 
   // 1 · The starter village with plush neighbors
   if (want(1)) {
@@ -82,7 +82,7 @@ const want = (n) => !ONLY.length || ONLY.includes(String(n));
   await near(p, 'townNpcs', 'hari', 1.5, 0);
   await p.evaluate(() => { void window.__game.runDojo('writing'); });
   for (let i = 0; i < 20 && !(await p.$('.trace-pad')); i++) await p.waitForTimeout(300);
-  await traceCurrent(p); await p.waitForTimeout(500);
+  await p.waitForTimeout(1200); // the clean guide reads better than a filled-in trace at this size
   await shot(p, '3-trace'); await p.close(); }
 
   // 4 · A dojo lesson question
@@ -130,6 +130,7 @@ const want = (n) => !ONLY.length || ONLY.includes(String(n));
   if (want(8)) {
   p = await page(b, '?hour=11&weather=sunny');
   await p.evaluate(() => window.__game.travel('harbor')); await p.waitForTimeout(1500);
+  await p.evaluate(() => document.querySelector('.pass-test')?.remove());
   await shot(p, 'iap-review'); await p.close(); }
 
   await b.close();
